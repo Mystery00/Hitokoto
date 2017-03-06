@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="ets">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="teetet">
-
+    <PreferenceCategory>
+        <!--数据源设置-->
         <CheckBoxPreference
             android:defaultValue="false"
             android:title="test"/>
@@ -19,12 +17,18 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="dasasasdas">
+    <PreferenceCategory>
+        <!--小部件设置-->
 
         <Preference
             android:title="dasddd"/>
 
+    </PreferenceCategory>
+    <PreferenceCategory>
+        <!--特殊设置-->
+    </PreferenceCategory>
+    <PreferenceCategory>
+        <!--关于-->
     </PreferenceCategory>
 
 </PreferenceScreen>
