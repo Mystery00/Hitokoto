@@ -2,14 +2,24 @@
     <string name="app_name">Hitokoto</string>
     <string name="title_activity_settings">Settings</string>
 
+    <string name="title_data_source">Data Source</string>
     <string name="text_refresh_now">Refresh Now</string>
     <string name="text_show_current">Show Current</string>
     <string name="text_test_source">Test Source</string>
     <string name="text_choose_source">Choose Source</string>
 
+    <string name="title_widget_settings">Widget Settings</string>
     <string name="text_click_to_refresh">Click To Refresh</string>
     <string name="text_refresh_time">Set Refresh Time</string>
     <string name="text_text_color">Set Text Color</string>
     <string name="text_text_bold">Text Bold</string>
     <string name="text_text_aligned">Text Aligned</string>
+    <string name="text_text_size">Text Size</string>
+
+    <string name="title_advance">Advance Setting</string>
+    <string name="text_not_show_source">Don\'t Show Source</string>
+
+    <string name="title_info">Info</string>
+    <string name="text_open_resource">Resource Address</string>
+    <string name="text_about">About</string>
 </resources>

@@ -2,33 +2,55 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/title_data_source">
         <!--数据源设置-->
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:title="test"/>
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:title="sss"/>
-
         <Preference
-            android:title="asdasd"/>
+            android:title="@string/text_refresh_now"/>
+        <Preference
+            android:title="@string/text_show_current"/>
+        <Preference
+            android:title="@string/text_test_source"/>
+        <Preference
+            android:title="@string/text_choose_source"/>
 
     </PreferenceCategory>
 
-    <PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/title_widget_settings">
         <!--小部件设置-->
-
+        <CheckBoxPreference
+            android:title="@string/text_click_to_refresh"/>
         <Preference
-            android:title="dasddd"/>
+            android:title="@string/text_refresh_time"/>
+        <Preference
+            android:title="@string/text_text_color"/>
+        <CheckBoxPreference
+            android:title="@string/text_text_bold"/>
+        <Preference
+            android:title="@string/text_text_aligned"/>
+        <ListPreference
+            android:entries="@array/list_test"
+            android:entryValues="@array/list_test"
+            android:title="@string/text_text_size"/>
 
     </PreferenceCategory>
-    <PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/title_advance">
         <!--特殊设置-->
+        <CheckBoxPreference
+            android:title="@string/text_not_show_source"/>
+
     </PreferenceCategory>
-    <PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/title_info">
         <!--关于-->
+        <Preference
+            android:title="@string/text_open_resource"/>
+        <Preference
+            android:title="@string/text_about"/>
     </PreferenceCategory>
 
 </PreferenceScreen>
