@@ -15,7 +15,7 @@
         <Preference
             android:key="@string/key_test_source"
             android:title="@string/text_test_source"/>
-        <Preference
+        <MultiSelectListPreference
             android:key="@string/key_choose_source"
             android:title="@string/text_choose_source"/>
 
@@ -27,7 +27,7 @@
         <CheckBoxPreference
             android:key="@string/key_click_to_refresh"
             android:title="@string/text_click_to_refresh"/>
-        <Preference
+        <ListPreference
             android:key="@string/key_set_refresh_time"
             android:title="@string/text_refresh_time"/>
         <Preference
@@ -36,12 +36,14 @@
         <CheckBoxPreference
             android:key="@string/key_text_bold"
             android:title="@string/text_text_bold"/>
-        <Preference
+        <ListPreference
             android:key="@string/key_text_aligned"
+            android:entries="@array/list_aligned"
+            android:entryValues="@array/list_aligned"
             android:title="@string/text_text_aligned"/>
         <ListPreference
-            android:entries="@array/list_test"
-            android:entryValues="@array/list_test"
+            android:entries="@array/list_size"
+            android:entryValues="@array/list_size"
             android:key="@string/key_text_size"
             android:title="@string/text_text_size"/>
 

@@ -37,6 +37,17 @@ public class SettingsFragment extends PreferenceFragment
 
         refreshNow = findPreference(getString(R.string.key_refresh_now));
         showCurrent = findPreference(getString(R.string.key_show_current));
+        testSource = findPreference(getString(R.string.key_test_source));
+        chooseSource = findPreference(getString(R.string.key_choose_source));
+        clickToRefresh = findPreference(getString(R.string.key_click_to_refresh));
+        setRefreshTime = findPreference(getString(R.string.key_set_refresh_time));
+        setTextColor = findPreference(getString(R.string.key_set_text_color));
+        textBold = findPreference(getString(R.string.key_text_bold));
+        textAligned = findPreference(getString(R.string.key_text_aligned));
+        textSize = findPreference(getString(R.string.key_text_size));
+        notShowSource = findPreference(getString(R.string.key_not_show_source));
+        resourceAddress = findPreference(getString(R.string.key_resource_address));
+        about = findPreference(getString(R.string.key_about));
     }
 
     private void monitor()

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="list_test">
-        <item>trete</item>
-        <item>caasd</item>
-        <item>caasd</item>
-        <item>caasd</item>
-        <item>caasd</item>
+    <string-array name="list_aligned">
+        <item>Left</item>
+        <item>Center</item>
+        <item>Right</item>
+    </string-array>
+
+    <string-array name="list_size">
     </string-array>
 </resources>
