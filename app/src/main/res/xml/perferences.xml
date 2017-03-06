@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="ets">
+
+    <PreferenceCategory
+        android:title="teetet">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:title="test"/>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="sss"/>
+
+        <Preference
+            android:title="asdasd"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="dasasasdas">
+
+        <Preference
+            android:title="dasddd"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
