@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="key_refresh_now">key_refresh_now</string>
+    <string name="key_show_current">key_show_current</string>
+    <string name="key_test_source">key_test_source</string>
+    <string name="key_choose_source">key_choose_source</string>
+    <string name="key_click_to_refresh">key_click_to_refresh</string>
+    <string name="key_set_refresh_time">key_set_refresh_time</string>
+    <string name="key_set_text_color">key_set_text_color</string>
+    <string name="key_text_bold">key_text_bold</string>
+    <string name="key_text_aligned">key_text_aligned</string>
+    <string name="key_text_size">key_text_size</string>
+    <string name="key_not_show_source">key_not_show_source</string>
+    <string name="key_resource_address">key_resource_address</string>
+    <string name="key_about">key_about</string>
+</resources>

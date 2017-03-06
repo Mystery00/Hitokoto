@@ -6,12 +6,17 @@
         android:title="@string/title_data_source">
         <!--数据源设置-->
         <Preference
-            android:title="@string/text_refresh_now"/>
+            android:key="@string/key_refresh_now"
+            android:title="@string/text_refresh_now">
+        </Preference>
         <Preference
+            android:key="@string/key_show_current"
             android:title="@string/text_show_current"/>
         <Preference
+            android:key="@string/key_test_source"
             android:title="@string/text_test_source"/>
         <Preference
+            android:key="@string/key_choose_source"
             android:title="@string/text_choose_source"/>
 
     </PreferenceCategory>
@@ -20,18 +25,24 @@
         android:title="@string/title_widget_settings">
         <!--小部件设置-->
         <CheckBoxPreference
+            android:key="@string/key_click_to_refresh"
             android:title="@string/text_click_to_refresh"/>
         <Preference
+            android:key="@string/key_set_refresh_time"
             android:title="@string/text_refresh_time"/>
         <Preference
+            android:key="@string/key_set_text_color"
             android:title="@string/text_text_color"/>
         <CheckBoxPreference
+            android:key="@string/key_text_bold"
             android:title="@string/text_text_bold"/>
         <Preference
+            android:key="@string/key_text_aligned"
             android:title="@string/text_text_aligned"/>
         <ListPreference
             android:entries="@array/list_test"
             android:entryValues="@array/list_test"
+            android:key="@string/key_text_size"
             android:title="@string/text_text_size"/>
 
     </PreferenceCategory>
@@ -40,6 +51,7 @@
         android:title="@string/title_advance">
         <!--特殊设置-->
         <CheckBoxPreference
+            android:key="@string/key_not_show_source"
             android:title="@string/text_not_show_source"/>
 
     </PreferenceCategory>
@@ -48,8 +60,10 @@
         android:title="@string/title_info">
         <!--关于-->
         <Preference
+            android:key="@string/key_resource_address"
             android:title="@string/text_open_resource"/>
         <Preference
+            android:key="@string/key_about"
             android:title="@string/text_about"/>
     </PreferenceCategory>
 
