@@ -44,6 +44,7 @@ public class SettingsActivity extends AppCompatActivity
                 CheckBoxPreference textBold = (CheckBoxPreference) preferenceManager.findPreference(getString(R.string.key_text_bold));
                 ListPreference textAligned = (ListPreference) preferenceManager.findPreference(getString(R.string.key_text_aligned));
                 CheckBoxPreference notShowSource = (CheckBoxPreference) preferenceManager.findPreference(getString(R.string.key_not_show_source));
+                WidgetConfigure.setChooseSource(chooseSource.getValues());
                 WidgetConfigure.setClickToRefresh(clickToRefresh.isChecked());
                 WidgetConfigure.setTextBold(textBold.isChecked());
                 WidgetConfigure.setTextAligned(textAligned.findIndexOfValue(textAligned.getValue()));

@@ -6,6 +6,22 @@
         <item>Right</item>
     </string-array>
 
-    <string-array name="list_size">
+    <string-array name="list_source">
+        <item>Anime – 动画</item>
+        <item>Comic – 漫画</item>
+        <item>Game – 游戏</item>
+        <item>Novel – 小说</item>
+        <item>Myself – 原创</item>
+        <item>Internet – 来自网络</item>
+        <item>Other – 其他</item>
+    </string-array>
+    <string-array name="list_map">
+        <item>a</item>
+        <item>b</item>
+        <item>c</item>
+        <item>d</item>
+        <item>e</item>
+        <item>f</item>
+        <item>g</item>
     </string-array>
 </resources>

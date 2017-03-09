@@ -1,14 +1,18 @@
 package com.mystery0.hitokoto.widget;
 
-import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.RemoteViews;
 
 import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.R;
 import com.mystery0.tools.Logs.Logs;
+import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
+import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class WidgetConfigure
@@ -18,6 +22,51 @@ public class WidgetConfigure
     private static SharedPreferences sharedPreferences = context.getSharedPreferences(context
             .getString(R.string.sharedPreferencesName), Context.MODE_PRIVATE);
     private static SharedPreferences.Editor editor = sharedPreferences.edit();
+
+    public enum SourceType
+    {
+        INT, STRING
+    }
+
+    public static Set<String> getChooseSource(SourceType type)
+    {
+        Set<String> defaults = new HashSet<>();
+        Set<String> stringSet = new HashSet<>();
+        String[] strings = context.getResources().getStringArray(R.array.list_source);
+        for (int i = 0; i < strings.length; i++)
+        {
+            defaults.add(String.valueOf(i));
+        }
+        Set<String> temps = sharedPreferences.getStringSet(context.getString(R.string.hitokotoConfigChooseSource), defaults);
+        if (type == SourceType.INT)
+        {
+            return temps;
+        }
+        for (String temp : temps)
+        {
+            stringSet.add(strings[Integer.parseInt(temp)]);
+        }
+        return stringSet;
+    }
+
+    public static void setChooseSource(Set<String> temps)
+    {
+        Set<String> stringSet = new HashSet<>();
+        String[] strings = context.getResources().getStringArray(R.array.list_source);
+        for (String temp : temps)
+        {
+            for (int i = 0; i < strings.length; i++)
+            {
+                if (strings[i].equals(temp))
+                {
+                    stringSet.add(String.valueOf(i));
+                    break;
+                }
+            }
+        }
+        editor.putStringSet(context.getString(R.string.hitokotoConfigChooseSource), stringSet);
+        editor.apply();
+    }
 
     public static boolean getClickToRefresh()
     {
@@ -42,7 +91,7 @@ public class WidgetConfigure
 
     public static void setTextBold(boolean temp)
     {
-        editor.putBoolean(context.getString(R.string.hitokotoConfigTextAligned), temp);
+        editor.putBoolean(context.getString(R.string.hitokotoConfigTextBold), temp);
         Logs.i(TAG, "setTextBold: " + temp);
         editor.apply();
     }
@@ -75,40 +124,25 @@ public class WidgetConfigure
         editor.apply();
     }
 
-
-    public static void updateAllAppWidgets(String word, Context context, AppWidgetManager appWidgetManager, Set<Integer> idsSet)
+    public static void refreshText()
     {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.file_sharedPreferences_widget), Context.MODE_PRIVATE);
-        if (word == null)
-        {
-            word = sharedPreferences.getString(context.getString(R.string.name_widget_text_now), context.getString(R.string.error_widget));
-        }
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(context.getString(R.string.name_widget_text_now), word);
-        editor.apply();
-        int appID;
-        // 迭代器，用于遍历所有保存的widget的id
-        for (Integer anIdsSet : idsSet)
-        {
-            appID = anIdsSet;
-            RemoteViews remoteViews;
-            switch (sharedPreferences.getInt(context.getString(R.string.name_widget_text_alignment), 1))
-            {
-                case 0://left
-                    remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_start);
-                    break;
-                case 2://right
-                    remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_end);
-                    break;
-                default:
-                    remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_center);
-                    break;
-            }
-            remoteViews.setTextViewText(R.id.widget_tv, word);
-            remoteViews.setTextColor(R.id.widget_tv, getTextColor(context));
-            remoteViews.setOnClickPendingIntent(R.id.widget_tv, WidgetUtil.getPendingIntent(context));
-
-            appWidgetManager.updateAppWidget(appID, remoteViews);
-        }
+        Logs.i(TAG, "refreshText: 刷新文本");
+        Map<String, String> map = new HashMap<>();
+        Set<String> stringSet = getChooseSource(SourceType.INT);
+        String[] keys = context.getResources().getStringArray(R.array.list_map);
+        map.put("c", keys[(int) (Math.random() * stringSet.size())]);
+        new HttpUtil(App.getContext())
+                .setRequestMethod(HttpUtil.RequestMethod.GET)
+                .setUrl(context.getString(R.string.request_url))
+                .setResponseListener(new ResponseListener()
+                {
+                    @Override
+                    public void onResponse(int i, String s)
+                    {
+                        Logs.i(TAG, "onResponse: " + s);
+                    }
+                })
+                .setMap(map)
+                .open();
     }
 }

@@ -58,6 +58,7 @@ public class SettingsFragment extends PreferenceFragment
         clickToRefresh.setChecked(WidgetConfigure.getClickToRefresh());
         textBold.setChecked(WidgetConfigure.getTextBold());
         textAligned.setValueIndex(WidgetConfigure.getTextAligned());
+        chooseSource.setValues(WidgetConfigure.getChooseSource(WidgetConfigure.SourceType.STRING));
     }
 
     private void monitor()

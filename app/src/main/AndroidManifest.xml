@@ -31,6 +31,17 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/hitokoto_widget_info"/>
         </receiver>
+
+        <service
+            android:name=".widget.OnClickService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+        <service
+            android:name=".widget.WidgetService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
     </application>
 
 </manifest>
