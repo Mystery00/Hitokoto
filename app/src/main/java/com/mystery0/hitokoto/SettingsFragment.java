@@ -6,7 +6,10 @@ import android.preference.ListPreference;
 import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.util.Log;
+import android.support.v7.app.AlertDialog;
+
+import com.mystery0.hitokoto.widget.WidgetConfigure;
+import com.mystery0.tools.Logs.Logs;
 
 public class SettingsFragment extends PreferenceFragment
 {
@@ -51,6 +54,10 @@ public class SettingsFragment extends PreferenceFragment
         notShowSource = (CheckBoxPreference) findPreference(getString(R.string.key_not_show_source));
         resourceAddress = findPreference(getString(R.string.key_resource_address));
         about = findPreference(getString(R.string.key_about));
+
+        clickToRefresh.setChecked(WidgetConfigure.getClickToRefresh());
+        textBold.setChecked(WidgetConfigure.getTextBold());
+        textAligned.setValueIndex(WidgetConfigure.getTextAligned());
     }
 
     private void monitor()
@@ -60,7 +67,7 @@ public class SettingsFragment extends PreferenceFragment
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                Log.i(TAG, "onPreferenceClick: " + preference.getTitle());
+                Logs.i(TAG, "onPreferenceClick: " + preference.getTitle());
                 return false;
             }
         });
@@ -69,6 +76,8 @@ public class SettingsFragment extends PreferenceFragment
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
+                Logs.i(TAG, textAligned.getValue());
+
                 return false;
             }
         });
@@ -77,6 +86,16 @@ public class SettingsFragment extends PreferenceFragment
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
+                return false;
+            }
+        });
+        setRefreshTime.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                new AlertDialog.Builder(App.getContext())
+                        .show();
                 return false;
             }
         });
