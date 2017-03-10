@@ -1,12 +1,20 @@
 package com.mystery0.hitokoto.widget;
 
+import android.Manifest;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.support.v4.content.ContextCompat;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
+import com.mystery0.hitokoto.App;
+import com.mystery0.hitokoto.Hitokoto;
 import com.mystery0.hitokoto.R;
+import com.mystery0.hitokoto.SettingsActivity;
 import com.mystery0.tools.Logs.Logs;
 
 import java.util.ArrayList;
@@ -63,6 +71,13 @@ public class HitokotoWidget extends AppWidgetProvider
     public void onEnabled(Context context)
     {
         Logs.i(TAG, "onEnabled: ");
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED)
+        {
+            context.startActivity(new Intent(context, SettingsActivity.class));
+            Toast.makeText(context, R.string.hint_permission, Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 
     @Override
@@ -78,7 +93,9 @@ public class HitokotoWidget extends AppWidgetProvider
         String action = intent.getAction();
         if ("android.appwidget.action.APPWIDGET_UPDATE".equals(action))
         {
-            updateAllAppWidget("", context, AppWidgetManager.getInstance(context));
+            Hitokoto hitokoto = (Hitokoto) intent.getSerializableExtra(context.getString(R.string.hitokoto_object));
+            Logs.i(TAG, "onReceive: " + hitokoto.getHitokoto());
+            Logs.i(TAG, "onReceive: " + hitokoto.getFrom());
         }
     }
 }

@@ -1,9 +1,12 @@
 package com.mystery0.hitokoto.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.mystery0.hitokoto.App;
+import com.mystery0.hitokoto.Hitokoto;
 import com.mystery0.hitokoto.R;
 import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
@@ -11,10 +14,10 @@ import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@SuppressLint("StaticFieldLeak")
 public class WidgetConfigure
 {
     private static final String TAG = "WidgetConfigure";
@@ -96,6 +99,20 @@ public class WidgetConfigure
         editor.apply();
     }
 
+    public static boolean getNotShowSource()
+    {
+        boolean temp = sharedPreferences.getBoolean(context.getString(R.string.hitokotoConfigNotShowSource), true);
+        Logs.i(TAG, "NotShowSource: " + temp);
+        return temp;
+    }
+
+    public static void setNotShowSource(boolean temp)
+    {
+        editor.putBoolean(context.getString(R.string.hitokotoConfigNotShowSource), temp);
+        Logs.i(TAG, "setNotShowSource: " + temp);
+        editor.apply();
+    }
+
     public static int getTextAligned()
     {
         int temp = sharedPreferences.getInt(context.getString(R.string.hitokotoConfigTextAligned), 1);
@@ -131,15 +148,21 @@ public class WidgetConfigure
         Set<String> stringSet = getChooseSource(SourceType.INT);
         String[] keys = context.getResources().getStringArray(R.array.list_map);
         map.put("c", keys[(int) (Math.random() * stringSet.size())]);
-        new HttpUtil(App.getContext())
-                .setRequestMethod(HttpUtil.RequestMethod.GET)
+        final HttpUtil httpUtil = new HttpUtil(App.getContext());
+        httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET)
                 .setUrl(context.getString(R.string.request_url))
                 .setResponseListener(new ResponseListener()
                 {
                     @Override
-                    public void onResponse(int i, String s)
+                    public void onResponse(int i, String message)
                     {
-                        Logs.i(TAG, "onResponse: " + s);
+                        Logs.i(TAG, "onResponse: " + message);
+                        editor.putString(context.getString(R.string.hitokotoTemp), message);
+                        editor.apply();
+                        Hitokoto hitokoto = httpUtil.fromJson(message, Hitokoto.class);
+                        Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
+                        intent.putExtra(context.getString(R.string.hitokoto_object), hitokoto);
+                        context.sendBroadcast(intent);
                     }
                 })
                 .setMap(map)
