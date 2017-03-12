@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.Hitokoto;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.SettingsActivity;
@@ -23,8 +24,10 @@ public class HitokotoWidget extends AppWidgetProvider
     private static final String TAG = "HitokotoWidget";
     private static Set<Integer> idsSet = new HashSet<>();
 
-    static void updateAllAppWidget(String text, Context context, AppWidgetManager appWidgetManager)
+    static void updateAllAppWidget(String text, String source)
     {
+        Context context = App.getContext();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         for (int id : idsSet)
         {
             RemoteViews remoteViews;
@@ -41,8 +44,30 @@ public class HitokotoWidget extends AppWidgetProvider
                     break;
             }
             remoteViews.setTextViewText(R.id.appwidget_text, text);
+            remoteViews.setTextViewText(R.id.appwidget_source, source);
             appWidgetManager.updateAppWidget(id, remoteViews);
         }
+    }
+
+    private void initWidget(Context context, int appId, AppWidgetManager appWidgetManager)
+    {
+        RemoteViews remoteViews;
+        String[] strings = WidgetConfigure.getTemp();
+        switch (WidgetConfigure.getTextAligned())
+        {
+            case 0:
+                remoteViews = new RemoteViews(context.getPackageName(), R.layout.hitokoto_widget_left);
+                break;
+            case 2:
+                remoteViews = new RemoteViews(context.getPackageName(), R.layout.hitokoto_widget_right);
+                break;
+            default:
+                remoteViews = new RemoteViews(context.getPackageName(), R.layout.hitokoto_widget_center);
+                break;
+        }
+        remoteViews.setTextViewText(R.id.appwidget_text, strings[0]);
+        remoteViews.setTextViewText(R.id.appwidget_source, strings[1]);
+        appWidgetManager.updateAppWidget(appId, remoteViews);
     }
 
     @Override
@@ -52,9 +77,8 @@ public class HitokotoWidget extends AppWidgetProvider
         for (int id : appWidgetIds)
         {
             idsSet.add(id);
-            //initWidget();
+            initWidget(context, id, appWidgetManager);
         }
-        updateAllAppWidget("", context, appWidgetManager);
     }
 
     @Override
@@ -98,6 +122,7 @@ public class HitokotoWidget extends AppWidgetProvider
             {
                 Logs.i(TAG, "onReceive: " + hitokoto.getHitokoto());
                 Logs.i(TAG, "onReceive: " + hitokoto.getFrom());
+                updateAllAppWidget(hitokoto.getHitokoto(), hitokoto.getFrom());
             }
         }
     }

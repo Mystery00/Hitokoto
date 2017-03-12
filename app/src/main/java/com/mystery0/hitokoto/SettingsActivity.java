@@ -3,13 +3,13 @@ package com.mystery0.hitokoto;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.preference.CheckBoxPreference;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.MultiSelectListPreference;
-import android.preference.PreferenceFragment;
+import android.preference.Preference;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,19 +18,88 @@ import android.widget.Toast;
 import com.mystery0.hitokoto.widget.WidgetConfigure;
 import com.mystery0.tools.Logs.Logs;
 
-public class SettingsActivity extends AppCompatActivity
+public class SettingsActivity extends AppCompatPreferenceActivity
 {
     private static final String TAG = "SettingsActivity";
     private static final int REQUEST_PERMISSION = 456;
-    private PreferenceFragment preferenceManager;
+    private Preference refreshNow;
+    private Preference showCurrent;
+    private Preference testSource;
+    private MultiSelectListPreference chooseSource;
+    private CheckBoxPreference clickToRefresh;
+    private EditTextPreference setRefreshTime;
+    private EditTextPreference setTextColor;
+    private CheckBoxPreference textBold;
+    private ListPreference textAligned;
+    private EditTextPreference textSize;
+    private CheckBoxPreference notShowSource;
+    private Preference resourceAddress;
+    private Preference about;
 
+    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        addPreferencesFromResource(R.xml.perferences);
         CheckPermission();
-        preferenceManager = (PreferenceFragment) getFragmentManager().findFragmentById(R.id.settingsFragment);
+        initialized();
+        monitor();
+    }
+
+    @SuppressWarnings("deprecation")
+    private void initialized()
+    {
+        refreshNow = findPreference(getString(R.string.key_refresh_now));
+        showCurrent = findPreference(getString(R.string.key_show_current));
+        testSource = findPreference(getString(R.string.key_test_source));
+        chooseSource = (MultiSelectListPreference) findPreference(getString(R.string.key_choose_source));
+        clickToRefresh = (CheckBoxPreference) findPreference(getString(R.string.key_click_to_refresh));
+        setRefreshTime = (EditTextPreference) findPreference(getString(R.string.key_set_refresh_time));
+        setTextColor = (EditTextPreference) findPreference(getString(R.string.key_set_text_color));
+        textBold = (CheckBoxPreference) findPreference(getString(R.string.key_text_bold));
+        textAligned = (ListPreference) findPreference(getString(R.string.key_text_aligned));
+        textSize = (EditTextPreference) findPreference(getString(R.string.key_text_size));
+        notShowSource = (CheckBoxPreference) findPreference(getString(R.string.key_not_show_source));
+        resourceAddress = findPreference(getString(R.string.key_resource_address));
+        about = findPreference(getString(R.string.key_about));
+
+        clickToRefresh.setChecked(WidgetConfigure.getClickToRefresh());
+        textBold.setChecked(WidgetConfigure.getTextBold());
+        notShowSource.setChecked(WidgetConfigure.getNotShowSource());
+        textAligned.setValueIndex(WidgetConfigure.getTextAligned());
+        chooseSource.setValues(WidgetConfigure.getChooseSource(WidgetConfigure.SourceType.STRING));
+    }
+
+    private void monitor()
+    {
+        refreshNow.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                WidgetConfigure.refreshText();
+                Toast.makeText(App.getContext(), R.string.hint_broadcast, Toast.LENGTH_SHORT)
+                        .show();
+                return false;
+            }
+        });
+        showCurrent.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                return false;
+            }
+        });
+        testSource.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                return false;
+            }
+        });
     }
 
     private void CheckPermission()
@@ -72,16 +141,12 @@ public class SettingsActivity extends AppCompatActivity
         {
             case R.id.action_done:
                 Logs.i(TAG, "onOptionsItemSelected: Done! ");
-                MultiSelectListPreference chooseSource = (MultiSelectListPreference) preferenceManager.findPreference(getString(R.string.key_choose_source));
-                CheckBoxPreference clickToRefresh = (CheckBoxPreference) preferenceManager.findPreference(getString(R.string.key_click_to_refresh));
-                CheckBoxPreference textBold = (CheckBoxPreference) preferenceManager.findPreference(getString(R.string.key_text_bold));
-                ListPreference textAligned = (ListPreference) preferenceManager.findPreference(getString(R.string.key_text_aligned));
-                CheckBoxPreference notShowSource = (CheckBoxPreference) preferenceManager.findPreference(getString(R.string.key_not_show_source));
                 WidgetConfigure.setChooseSource(chooseSource.getValues());
                 WidgetConfigure.setClickToRefresh(clickToRefresh.isChecked());
                 WidgetConfigure.setTextBold(textBold.isChecked());
                 WidgetConfigure.setTextAligned(textAligned.findIndexOfValue(textAligned.getValue()));
                 WidgetConfigure.setNotShowSource(notShowSource.isChecked());
+                WidgetConfigure.setRefreshTime(Integer.parseInt(setRefreshTime.getText()));
                 break;
         }
         return super.onOptionsItemSelected(item);

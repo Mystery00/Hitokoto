@@ -28,5 +28,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
     compile 'com.github.Mystery00:ToolsDemo:1.2.2'
+    compile 'com.android.support:support-v4:25.2.0'
+    compile 'com.android.support:support-vector-drawable:25.2.0'
     testCompile 'junit:junit:4.12'
 }

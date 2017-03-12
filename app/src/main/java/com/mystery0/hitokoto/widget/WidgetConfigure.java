@@ -141,6 +141,14 @@ public class WidgetConfigure
         editor.apply();
     }
 
+    public static String[] getTemp()
+    {
+        String text = sharedPreferences
+                .getString(context.getString(R.string.hitokotoTemp), context.getString(R.string.app_name));
+        Hitokoto hitokoto = new HttpUtil(App.getContext()).fromJson(text, Hitokoto.class);
+        return new String[]{hitokoto.getHitokoto(), hitokoto.getFrom()};
+    }
+
     public static void refreshText()
     {
         Logs.i(TAG, "refreshText: 刷新文本");

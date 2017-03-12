@@ -9,7 +9,6 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.mystery0.hitokoto.SettingsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

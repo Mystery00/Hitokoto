@@ -29,10 +29,13 @@
         <CheckBoxPreference
             android:key="@string/key_click_to_refresh"
             android:title="@string/text_click_to_refresh"/>
-        <ListPreference
+        <EditTextPreference
+            android:hint="@string/hint_refresh_time"
+            android:inputType="number"
             android:key="@string/key_set_refresh_time"
+            android:maxLines="1"
             android:title="@string/text_refresh_time"/>
-        <Preference
+        <EditTextPreference
             android:key="@string/key_set_text_color"
             android:title="@string/text_text_color"/>
         <CheckBoxPreference
@@ -43,7 +46,7 @@
             android:entryValues="@array/list_aligned"
             android:key="@string/key_text_aligned"
             android:title="@string/text_text_aligned"/>
-        <Preference
+        <EditTextPreference
             android:key="@string/key_text_size"
             android:title="@string/text_text_size"/>
 

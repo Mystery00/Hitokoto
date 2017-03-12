@@ -1,6 +1,7 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <TextView
         android:id="@+id/appwidget_text"
@@ -10,4 +11,12 @@
         android:textColor="#ffffff"
         android:textSize="@dimen/text_size"/>
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/appwidget_source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/source_text_size"/>
+
+</LinearLayout>
