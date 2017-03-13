@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
@@ -87,13 +88,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         textBold.setChecked(WidgetConfigure.getTextBold());
         notShowSource.setChecked(WidgetConfigure.getNotShowSource());
         textAligned.setValueIndex(WidgetConfigure.getTextAligned());
+        setTextColor.setDefaultValue(Color.parseColor(WidgetConfigure.getTextColor()));
         chooseSource.setValues(WidgetConfigure.getChooseSource(WidgetConfigure.SourceType.STRING));
         setRefreshTime.setDefaultValue(WidgetConfigure.getRefreshTime());
         textSize.setDefaultValue(WidgetConfigure.getTextSize());
         PreferenceManager.setDefaultValues(this, R.xml.perferences, false);
-
-        setTextColor.setHexValueEnabled(true);
-        setTextColor.setAlphaSliderEnabled(false);
     }
 
     private void monitor()
