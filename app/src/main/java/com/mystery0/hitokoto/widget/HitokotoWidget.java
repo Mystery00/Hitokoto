@@ -6,7 +6,10 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
+import android.util.TypedValue;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -44,13 +47,18 @@ public class HitokotoWidget extends AppWidgetProvider
                     break;
             }
             remoteViews.setTextViewText(R.id.appwidget_text, text);
+            remoteViews.setTextViewText(R.id.appwidget_source, source);
+            remoteViews.setTextColor(R.id.appwidget_text, Color.parseColor(WidgetConfigure.getTextColor()));
+            remoteViews.setTextColor(R.id.appwidget_source, Color.parseColor(WidgetConfigure.getTextColor()));
             if (WidgetConfigure.getNotShowSource())
             {
-                remoteViews.setTextViewText(R.id.appwidget_source, "");
+                remoteViews.setViewVisibility(R.id.appwidget_source, View.GONE);
             } else
             {
-                remoteViews.setTextViewText(R.id.appwidget_source, "————" + source);
+                remoteViews.setViewVisibility(R.id.appwidget_source, View.VISIBLE);
             }
+            remoteViews.setTextViewTextSize(R.id.appwidget_text, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
+            remoteViews.setTextViewTextSize(R.id.appwidget_source, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
             appWidgetManager.updateAppWidget(id, remoteViews);
         }
     }
@@ -74,6 +82,10 @@ public class HitokotoWidget extends AppWidgetProvider
         remoteViews.setTextViewText(R.id.appwidget_text, strings[0]);
         remoteViews.setTextViewText(R.id.appwidget_source, strings[1]);
         appWidgetManager.updateAppWidget(appId, remoteViews);
+        if (strings[1].equals("开发者"))
+        {
+            WidgetConfigure.refreshText();
+        }
     }
 
     @Override
@@ -101,7 +113,7 @@ public class HitokotoWidget extends AppWidgetProvider
     public void onEnabled(Context context)
     {
         Logs.i(TAG, "onEnabled: ");
-
+        WidgetConfigure.setEnable(true);
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED)
         {
@@ -114,6 +126,7 @@ public class HitokotoWidget extends AppWidgetProvider
     @Override
     public void onDisabled(Context context)
     {
+        WidgetConfigure.setEnable(false);
         Logs.i(TAG, "onDisabled: ");
     }
 
@@ -129,7 +142,7 @@ public class HitokotoWidget extends AppWidgetProvider
             {
                 Logs.i(TAG, "onReceive: " + hitokoto.getHitokoto());
                 Logs.i(TAG, "onReceive: " + hitokoto.getFrom());
-                updateAllAppWidget(hitokoto.getHitokoto(), hitokoto.getFrom());
+                updateAllAppWidget(hitokoto.getHitokoto(), "————" + hitokoto.getFrom());
             }
         }
     }

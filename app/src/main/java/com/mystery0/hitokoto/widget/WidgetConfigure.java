@@ -34,12 +34,15 @@ public class WidgetConfigure
     public static boolean getEnable()
     {
         boolean temp = sharedPreferences.getBoolean(context.getString(R.string.hitokotoConfigEnable), false);
-        Logs.i(TAG, temp);
+        Logs.i(TAG, "Enable: " + temp);
+        return temp;
     }
 
     public static void setEnable(boolean temp)
     {
-
+        editor.putBoolean(context.getString(R.string.hitokotoConfigEnable), temp);
+        Logs.i(TAG, "setEnable: " + temp);
+        editor.apply();
     }
 
     public static Set<String> getChooseSource(SourceType type)
@@ -96,6 +99,20 @@ public class WidgetConfigure
         editor.apply();
     }
 
+    public static String getTextColor()
+    {
+        String temp = sharedPreferences.getString(context.getString(R.string.hitokotoConfigTextColor), "#FFFFFF");
+        Logs.i(TAG, "TextColor: " + temp);
+        return temp;
+    }
+
+    public static void setTextColor(String temp)
+    {
+        editor.putString(context.getString(R.string.hitokotoConfigTextColor), temp);
+        Logs.i(TAG, "setTextColor: " + temp);
+        editor.apply();
+    }
+
     public static boolean getTextBold()
     {
         boolean temp = sharedPreferences.getBoolean(context.getString(R.string.hitokotoConfigTextBold), false);
@@ -138,6 +155,20 @@ public class WidgetConfigure
         editor.apply();
     }
 
+    public static int getTextSize()
+    {
+        int temp = sharedPreferences.getInt(context.getString(R.string.hitokotoConfigTextSize), 16);
+        Logs.i(TAG, "TextSize: " + temp);
+        return temp;
+    }
+
+    public static void setTextSize(int temp)
+    {
+        editor.putInt(context.getString(R.string.hitokotoConfigTextSize), temp);
+        Logs.i(TAG, "setTextSize: " + temp);
+        editor.apply();
+    }
+
     public static int getRefreshTime()
     {
         long temp = sharedPreferences.getLong(context.getString(R.string.hitokotoConfigRefreshTime), 300000);
@@ -155,7 +186,7 @@ public class WidgetConfigure
     public static String[] getTemp()
     {
         String text = sharedPreferences
-                .getString(context.getString(R.string.hitokotoTemp), context.getString(R.string.app_name));
+                .getString(context.getString(R.string.hitokotoTemp), context.getString(R.string.default_temp));
         Hitokoto hitokoto = new HttpUtil(App.getContext()).fromJson(text, Hitokoto.class);
         return new String[]{hitokoto.getHitokoto(), hitokoto.getFrom()};
     }

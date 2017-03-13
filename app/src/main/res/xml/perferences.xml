@@ -35,7 +35,7 @@
             android:key="@string/key_set_refresh_time"
             android:maxLines="1"
             android:title="@string/text_refresh_time"/>
-        <EditTextPreference
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="@string/key_set_text_color"
             android:title="@string/text_text_color"/>
         <CheckBoxPreference
@@ -47,7 +47,10 @@
             android:key="@string/key_text_aligned"
             android:title="@string/text_text_aligned"/>
         <EditTextPreference
+            android:hint="@string/hint_text_size"
+            android:inputType="number"
             android:key="@string/key_text_size"
+            android:maxLines="1"
             android:title="@string/text_text_size"/>
 
     </PreferenceCategory>

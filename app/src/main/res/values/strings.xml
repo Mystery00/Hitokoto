@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Hitokoto</string>
+    <string name="default_temp">{"id": "23333","hitokoto": "小部件出现问题……","type": "e","from": "开发者","creator": "开发者","cearted_at": null}</string>
     <string name="title_activity_settings">Settings</string>
 
     <string name="sharedPreferencesName">Hitokoto</string>
@@ -7,8 +8,10 @@
     <string name="hitokotoConfigEnable">enable</string>
     <string name="hitokotoConfigChooseSource">choose_source</string>
     <string name="hitokotoConfigClickToRefresh">click_to_refresh</string>
+    <string name="hitokotoConfigTextColor">text_color</string>
     <string name="hitokotoConfigTextBold">text_bold</string>
     <string name="hitokotoConfigTextAligned">text_aligned</string>
+    <string name="hitokotoConfigTextSize">text_size</string>
     <string name="hitokotoConfigNotShowSource">not_show_source</string>
     <string name="hitokotoConfigRefreshTime">refresh_time</string>
 
@@ -40,7 +43,10 @@
 
     <string name="hint_permission">Please grant the permission</string>
     <string name="hint_refresh_time">Please Enter Time(Min)</string>
+    <string name="hint_text_color">Please Enter Color</string>
+    <string name="hint_text_size">Please Enter Number</string>
     <string name="hint_broadcast">The Broadcast Send! </string>
+    <string name="hint_add_widget">Please Add Widget First! </string>
 
     <string name="ErrorRefreshTime">Please ensure the time is more than 0 </string>
 
