@@ -31,6 +31,17 @@ public class WidgetConfigure
         INT, STRING
     }
 
+    public static boolean getEnable()
+    {
+        boolean temp = sharedPreferences.getBoolean(context.getString(R.string.hitokotoConfigEnable), false);
+        Logs.i(TAG, temp);
+    }
+
+    public static void setEnable(boolean temp)
+    {
+
+    }
+
     public static Set<String> getChooseSource(SourceType type)
     {
         Set<String> defaults = new HashSet<>();

@@ -44,7 +44,13 @@ public class HitokotoWidget extends AppWidgetProvider
                     break;
             }
             remoteViews.setTextViewText(R.id.appwidget_text, text);
-            remoteViews.setTextViewText(R.id.appwidget_source, source);
+            if (WidgetConfigure.getNotShowSource())
+            {
+                remoteViews.setTextViewText(R.id.appwidget_source, "");
+            } else
+            {
+                remoteViews.setTextViewText(R.id.appwidget_source, "————" + source);
+            }
             appWidgetManager.updateAppWidget(id, remoteViews);
         }
     }
@@ -95,6 +101,7 @@ public class HitokotoWidget extends AppWidgetProvider
     public void onEnabled(Context context)
     {
         Logs.i(TAG, "onEnabled: ");
+
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED)
         {

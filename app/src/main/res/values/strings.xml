@@ -4,6 +4,7 @@
 
     <string name="sharedPreferencesName">Hitokoto</string>
     <string name="hitokotoTemp">temp</string>
+    <string name="hitokotoConfigEnable">enable</string>
     <string name="hitokotoConfigChooseSource">choose_source</string>
     <string name="hitokotoConfigClickToRefresh">click_to_refresh</string>
     <string name="hitokotoConfigTextBold">text_bold</string>

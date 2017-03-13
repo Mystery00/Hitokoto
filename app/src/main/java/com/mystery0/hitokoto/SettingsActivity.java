@@ -1,7 +1,9 @@
 package com.mystery0.hitokoto;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -97,6 +99,28 @@ public class SettingsActivity extends AppCompatPreferenceActivity
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
+                return false;
+            }
+        });
+        resourceAddress.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse("https://github.com/Mystery00/Hitokoto");
+                intent.setData(content_url);
+                startActivity(intent);
+                return false;
+            }
+        });
+        about.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+
                 return false;
             }
         });
