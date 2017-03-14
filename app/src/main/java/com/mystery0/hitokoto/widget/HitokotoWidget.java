@@ -1,6 +1,7 @@
 package com.mystery0.hitokoto.widget;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -59,6 +60,8 @@ public class HitokotoWidget extends AppWidgetProvider
             }
             remoteViews.setTextViewTextSize(R.id.appwidget_text, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
             remoteViews.setTextViewTextSize(R.id.appwidget_source, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
+            remoteViews.setOnClickPendingIntent(R.id.appwidget_text, PendingIntent.getService(context, 0, new Intent(context, OnClickService.class), 0));
+            remoteViews.setOnClickPendingIntent(R.id.appwidget_source, PendingIntent.getService(context, 0, new Intent(context, OnClickService.class), 0));
             appWidgetManager.updateAppWidget(id, remoteViews);
         }
     }
@@ -79,8 +82,20 @@ public class HitokotoWidget extends AppWidgetProvider
                 remoteViews = new RemoteViews(context.getPackageName(), R.layout.hitokoto_widget_center);
                 break;
         }
-        remoteViews.setTextViewText(R.id.appwidget_text, strings[0]);
-        remoteViews.setTextViewText(R.id.appwidget_source, strings[1]);
+        String[] texts=WidgetConfigure.getTemp();
+        remoteViews.setTextViewText(R.id.appwidget_text, texts[0]);
+        remoteViews.setTextViewText(R.id.appwidget_source, texts[1]);
+        remoteViews.setTextColor(R.id.appwidget_text, Color.parseColor(WidgetConfigure.getTextColor()));
+        remoteViews.setTextColor(R.id.appwidget_source, Color.parseColor(WidgetConfigure.getTextColor()));
+        if (WidgetConfigure.getNotShowSource())
+        {
+            remoteViews.setViewVisibility(R.id.appwidget_source, View.GONE);
+        } else
+        {
+            remoteViews.setViewVisibility(R.id.appwidget_source, View.VISIBLE);
+        }
+        remoteViews.setTextViewTextSize(R.id.appwidget_text, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
+        remoteViews.setTextViewTextSize(R.id.appwidget_source, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
         appWidgetManager.updateAppWidget(appId, remoteViews);
         if (strings[1].equals("开发者"))
         {
@@ -121,6 +136,8 @@ public class HitokotoWidget extends AppWidgetProvider
             Toast.makeText(context, R.string.hint_permission, Toast.LENGTH_SHORT)
                     .show();
         }
+        Intent intent = new Intent(context, WidgetService.class);
+        context.startService(intent);
     }
 
     @Override
