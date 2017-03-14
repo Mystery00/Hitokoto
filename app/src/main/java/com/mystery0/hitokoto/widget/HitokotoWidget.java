@@ -145,6 +145,8 @@ public class HitokotoWidget extends AppWidgetProvider
     {
         WidgetConfigure.setEnable(false);
         Logs.i(TAG, "onDisabled: ");
+        Intent intent = new Intent(context, WidgetService.class);
+        context.stopService(intent);
     }
 
     @Override

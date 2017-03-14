@@ -14,7 +14,7 @@ public class WidgetService extends Service
         public void run()
         {
             WidgetConfigure.refreshText();
-            handler.postDelayed(runnable, WidgetConfigure.getRefreshTime());
+            handler.postDelayed(runnable, WidgetConfigure.getRefreshTime() * 60000);
         }
     };
 

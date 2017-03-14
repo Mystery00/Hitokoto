@@ -87,10 +87,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         clickToRefresh.setChecked(WidgetConfigure.getClickToRefresh());
         textBold.setChecked(WidgetConfigure.getTextBold());
         notShowSource.setChecked(WidgetConfigure.getNotShowSource());
+        textAligned.setSummary(getResources().getStringArray(R.array.list_aligned)[WidgetConfigure.getTextAligned()]);
         textAligned.setValueIndex(WidgetConfigure.getTextAligned());
+        setTextColor.setSummary(WidgetConfigure.getTextColor());
         setTextColor.setDefaultValue(Color.parseColor(WidgetConfigure.getTextColor()));
         chooseSource.setValues(WidgetConfigure.getChooseSource(WidgetConfigure.SourceType.STRING));
+        setRefreshTime.setSummary("" + WidgetConfigure.getRefreshTime());
         setRefreshTime.setDefaultValue(WidgetConfigure.getRefreshTime());
+        textSize.setSummary("" + WidgetConfigure.getTextSize());
         textSize.setDefaultValue(WidgetConfigure.getTextSize());
         PreferenceManager.setDefaultValues(this, R.xml.perferences, false);
     }
@@ -103,7 +107,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             public boolean onPreferenceChange(Preference preference, Object newValue)
             {
                 Logs.i(TAG, "onPreferenceChange: " + newValue.toString());
-                preference.setSummary(ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue))));
+                String temp = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
+                preference.setSummary(temp);
+                WidgetConfigure.setTextColor(temp);
                 return true;
             }
         });
@@ -216,6 +222,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         {
             WidgetConfigure.setRefreshTime(Integer.parseInt("0" + setRefreshTime.getEditText().getText().toString()));
         }
-        WidgetConfigure.refreshText();
+        if (WidgetConfigure.getEnable())
+        {
+            WidgetConfigure.refreshText();
+        }
     }
 }
