@@ -82,7 +82,7 @@ public class HitokotoWidget extends AppWidgetProvider
                 remoteViews = new RemoteViews(context.getPackageName(), R.layout.hitokoto_widget_center);
                 break;
         }
-        String[] texts=WidgetConfigure.getTemp();
+        String[] texts = WidgetConfigure.getTemp();
         remoteViews.setTextViewText(R.id.appwidget_text, texts[0]);
         remoteViews.setTextViewText(R.id.appwidget_source, texts[1]);
         remoteViews.setTextColor(R.id.appwidget_text, Color.parseColor(WidgetConfigure.getTextColor()));
@@ -163,6 +163,18 @@ public class HitokotoWidget extends AppWidgetProvider
                 Logs.i(TAG, "onReceive: " + hitokoto.getFrom());
                 updateAllAppWidget(hitokoto.getHitokoto(), "————" + hitokoto.getFrom());
             }
+        } else if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED"))
+        {
+            context.startService(new Intent(context, WidgetService.class));
+            idsSet = WidgetConfigure.getSet();
+            Toast.makeText(App.getContext(), "捕获开机广播", Toast.LENGTH_SHORT)
+                    .show();
+        } else
+        {
+            context.stopService(new Intent(context, WidgetService.class));
+            WidgetConfigure.saveSet(idsSet);
+            Toast.makeText(App.getContext(), "捕获开机广播", Toast.LENGTH_SHORT)
+                    .show();
         }
     }
 }

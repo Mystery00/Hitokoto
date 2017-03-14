@@ -191,6 +191,16 @@ public class WidgetConfigure
         return new String[]{hitokoto.getHitokoto(), hitokoto.getFrom()};
     }
 
+    public static Set<Integer> getSet()
+    {
+
+    }
+
+    public static void saveSet(Set<Integer> set)
+    {
+
+    }
+
     public static void refreshText()
     {
         Logs.i(TAG, "refreshText: 刷新文本");
