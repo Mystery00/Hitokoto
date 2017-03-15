@@ -1,11 +1,14 @@
 package com.mystery0.hitokoto;
 
 import android.Manifest;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -16,12 +19,15 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
 import com.mystery0.hitokoto.widget.WidgetConfigure;
 import com.mystery0.tools.Logs.Logs;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
+
+import java.io.File;
 
 @SuppressWarnings("deprecation")
 public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -39,8 +45,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     private ListPreference textAligned;
     private EditTextPreference textSize;
     private CheckBoxPreference notShowSource;
-    private Preference resourceAddress;
-    private Preference about;
+    private Preference showCrashLog;
+    private Preference contactMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -81,8 +87,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         textAligned = (ListPreference) findPreference(getString(R.string.key_text_aligned));
         textSize = (EditTextPreference) findPreference(getString(R.string.key_text_size));
         notShowSource = (CheckBoxPreference) findPreference(getString(R.string.key_not_show_source));
-        resourceAddress = findPreference(getString(R.string.key_resource_address));
-        about = findPreference(getString(R.string.key_about));
+        showCrashLog = findPreference(getString(R.string.key_show_crash_log));
+        contactMe = findPreference(getString(R.string.key_contact_me));
 
         clickToRefresh.setChecked(WidgetConfigure.getClickToRefresh());
         textBold.setChecked(WidgetConfigure.getTextBold());
@@ -147,25 +153,40 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 return false;
             }
         });
-        resourceAddress.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        showCrashLog.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
         {
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("https://github.com/Mystery00/Hitokoto");
-                intent.setData(content_url);
+                File file = new File(Environment.getExternalStorageDirectory().getPath()+"/hitokoto/log/crash2017-03-15 12:31:39.txt");
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                //判断是否是AndroidN以及更高的版本
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                {
+                    Uri contentUri = FileProvider.getUriForFile(
+                            App.getContext(), "com.mystery0.hitokoto.fileProvider", file);
+                    Logs.i(TAG, "onPreferenceClick: "+contentUri.getPath());
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.setDataAndType(contentUri, "text/*");
+                } else
+                {
+                    intent.setDataAndType(Uri.fromFile(file), "text/*");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                }
                 startActivity(intent);
                 return false;
             }
         });
-        about.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        contactMe.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
         {
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-
+                Logs.i(TAG, "onPreferenceClick: 拷贝到剪切板");
+                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                clipboardManager.setText(getString(R.string.e_mail_address));
+                Toast.makeText(App.getContext(), R.string.hint_copy, Toast.LENGTH_SHORT)
+                        .show();
                 return false;
             }
         });

@@ -167,14 +167,12 @@ public class HitokotoWidget extends AppWidgetProvider
         {
             context.startService(new Intent(context, WidgetService.class));
             idsSet = WidgetConfigure.getSet();
-            Toast.makeText(App.getContext(), "捕获开机广播", Toast.LENGTH_SHORT)
-                    .show();
+            Logs.i(TAG, "onReceive: 捕获开机广播");
         } else
         {
             context.stopService(new Intent(context, WidgetService.class));
             WidgetConfigure.saveSet(idsSet);
-            Toast.makeText(App.getContext(), "捕获开机广播", Toast.LENGTH_SHORT)
-                    .show();
+            Logs.i(TAG, "onReceive: 捕获关机广播");
         }
     }
 }

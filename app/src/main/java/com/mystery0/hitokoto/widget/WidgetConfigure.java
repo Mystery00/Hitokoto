@@ -193,12 +193,30 @@ public class WidgetConfigure
 
     public static Set<Integer> getSet()
     {
-
+        Set<Integer> integerSet = new HashSet<>();
+        Set<String> stringSet = sharedPreferences.getStringSet(context.getString(R.string.hitokotoIdSet), new HashSet<String>());
+        for (String temp : stringSet)
+        {
+            try
+            {
+                integerSet.add(Integer.valueOf(temp));
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return integerSet;
     }
 
     public static void saveSet(Set<Integer> set)
     {
-
+        Set<String> stringSet = new HashSet<>();
+        for (int temp : set)
+        {
+            stringSet.add(String.valueOf(temp));
+        }
+        editor.putStringSet(context.getString(R.string.hitokotoIdSet), stringSet);
+        editor.apply();
     }
 
     public static void refreshText()

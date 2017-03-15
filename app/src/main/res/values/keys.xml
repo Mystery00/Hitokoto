@@ -11,6 +11,6 @@
     <string name="key_text_aligned">key_text_aligned</string>
     <string name="key_text_size">key_text_size</string>
     <string name="key_not_show_source">key_not_show_source</string>
-    <string name="key_resource_address">key_resource_address</string>
-    <string name="key_about">key_about</string>
+    <string name="key_show_crash_log">key_show_crash_log</string>
+    <string name="key_contact_me">key_contact_me</string>
 </resources>

@@ -71,11 +71,29 @@
         android:title="@string/title_info">
         <!--关于-->
         <Preference
-            android:key="@string/key_resource_address"
-            android:title="@string/text_open_resource"/>
-        <Preference
-            android:key="@string/key_about"
-            android:title="@string/text_about"/>
+            android:title="@string/text_open_resource">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/Mystery00/Hitokoto"/>
+        </Preference>
+
+        <PreferenceScreen
+            android:title="@string/text_about">
+            <Preference
+                android:summary="@string/summary_developer"
+                android:title="@string/text_developer"/>
+
+            <Preference
+                android:key="@string/key_show_crash_log"
+                android:title="@string/text_show_crash"/>
+
+            <Preference
+                android:key="@string/key_contact_me"
+                android:summary="@string/summary_contact_me"
+                android:title="@string/text_contact_me"/>
+
+        </PreferenceScreen>
+
     </PreferenceCategory>
 
 </PreferenceScreen>
