@@ -37,4 +37,11 @@
     <string name="left">左对齐</string>
     <string name="right">右对齐</string>
     <string name="unavailable_now">当前不可用！</string>
+    <string name="list_source_a">动画</string>
+    <string name="list_source_b">漫画</string>
+    <string name="list_source_c">游戏</string>
+    <string name="list_source_d">小说</string>
+    <string name="list_source_e">原创</string>
+    <string name="list_source_f">来自网络</string>
+    <string name="list_source_g">其他</string>
 </resources>

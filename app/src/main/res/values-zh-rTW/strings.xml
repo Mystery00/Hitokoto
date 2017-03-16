@@ -37,4 +37,11 @@
     <string name="left">左對齊</string>
     <string name="right">右對齊</string>
     <string name="unavailable_now">當前不可用！</string>
+    <string name="list_source_a">動畫</string>
+    <string name="list_source_b">漫畫</string>
+    <string name="list_source_c">遊戲</string>
+    <string name="list_source_d">小說</string>
+    <string name="list_source_e">原創</string>
+    <string name="list_source_f">來自網絡</string>
+    <string name="list_source_g">其他</string>
 </resources>
