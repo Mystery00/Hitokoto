@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="key_refresh_now">key_refresh_now</string>
-    <string name="key_show_current">key_show_current</string>
-    <string name="key_test_source">key_test_source</string>
-    <string name="key_choose_source">key_choose_source</string>
-    <string name="key_auto_refresh">key_auto_refresh</string>
-    <string name="key_click_to_refresh">key_click_to_refresh</string>
-    <string name="key_set_refresh_time">key_set_refresh_time</string>
-    <string name="key_set_text_color">key_set_text_color</string>
-    <string name="key_text_aligned">key_text_aligned</string>
-    <string name="key_text_size">key_text_size</string>
-    <string name="key_not_show_source">key_not_show_source</string>
-    <string name="key_show_crash_log">key_show_crash_log</string>
-    <string name="key_contact_me">key_contact_me</string>
+    <string name="key_refresh_now" translatable="false">key_refresh_now</string>
+    <string name="key_show_current" translatable="false">key_show_current</string>
+    <string name="key_test_source" translatable="false">key_test_source</string>
+    <string name="key_choose_source" translatable="false">key_choose_source</string>
+    <string name="key_auto_refresh" translatable="false">key_auto_refresh</string>
+    <string name="key_click_to_refresh" translatable="false">key_click_to_refresh</string>
+    <string name="key_set_refresh_time" translatable="false">key_set_refresh_time</string>
+    <string name="key_set_text_color" translatable="false">key_set_text_color</string>
+    <string name="key_text_aligned" translatable="false">key_text_aligned</string>
+    <string name="key_text_size" translatable="false">key_text_size</string>
+    <string name="key_not_show_source" translatable="false">key_not_show_source</string>
+    <string name="key_show_crash_log" translatable="false">key_show_crash_log</string>
+    <string name="key_contact_me" translatable="false">key_contact_me</string>
 </resources>

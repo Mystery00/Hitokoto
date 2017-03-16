@@ -12,10 +12,12 @@
         <Preference
             android:enabled="false"
             android:key="@string/key_show_current"
+            android:summary="@string/unavailable_now"
             android:title="@string/text_show_current"/>
         <Preference
             android:enabled="false"
             android:key="@string/key_test_source"
+            android:summary="@string/unavailable_now"
             android:title="@string/text_test_source"/>
         <MultiSelectListPreference
             android:entries="@array/list_source"
@@ -30,7 +32,7 @@
         <!--小部件设置-->
         <CheckBoxPreference
             android:key="@string/key_auto_refresh"
-            android:title="@string/text_auto_refresh"/>
+            android:title=""/>
         <CheckBoxPreference
             android:key="@string/key_click_to_refresh"
             android:title="@string/text_click_to_refresh"/>
@@ -86,7 +88,9 @@
                 android:title="@string/text_developer"/>
 
             <Preference
+                android:enabled="false"
                 android:key="@string/key_show_crash_log"
+                android:summary="@string/unavailable_now"
                 android:title="@string/text_show_crash"/>
 
             <Preference
