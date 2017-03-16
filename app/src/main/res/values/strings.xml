@@ -76,7 +76,4 @@
     <string name="list_source_e">Original</string>
     <string name="list_source_f">Internet</string>
     <string name="list_source_g">Other</string>
-
-    <!--App ShortCuts-->
-    <string name="list_shortcuts_refresh">Refresh</string>
 </resources>

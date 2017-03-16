@@ -15,7 +15,7 @@ public class App extends Application
     {
         super.onCreate();
         context = getApplicationContext();
-        Logs.setLevel(Logs.LogLevel.Debug);
+        Logs.setLevel(Logs.LogLevel.Release);
         CrashHandler.getInstance()
                 .setDirectory("hitokoto/log")
                 .init(this);

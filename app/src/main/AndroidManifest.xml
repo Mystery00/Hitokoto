@@ -39,6 +39,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.ACTION_SHUTDOWN"/>
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/hitokoto_widget_info"/>
@@ -53,6 +54,15 @@
             android:name=".widget.WidgetService"
             android:enabled="true"
             android:exported="true">
+        </service>
+        <service
+            android:name=".HitokotoTitleService"
+            android:icon="@drawable/ic_bubble"
+            android:label="@string/text_auto_refresh"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TITLE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
         </service>
 
         <provider
