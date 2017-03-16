@@ -10,9 +10,11 @@
             android:title="@string/text_refresh_now">
         </Preference>
         <Preference
+            android:enabled="false"
             android:key="@string/key_show_current"
             android:title="@string/text_show_current"/>
         <Preference
+            android:enabled="false"
             android:key="@string/key_test_source"
             android:title="@string/text_test_source"/>
         <MultiSelectListPreference
@@ -27,6 +29,9 @@
         android:title="@string/title_widget_settings">
         <!--小部件设置-->
         <CheckBoxPreference
+            android:key="@string/key_auto_refresh"
+            android:title="@string/text_auto_refresh"/>
+        <CheckBoxPreference
             android:key="@string/key_click_to_refresh"
             android:title="@string/text_click_to_refresh"/>
         <EditTextPreference
@@ -40,9 +45,6 @@
             android:defaultValue="-1"
             android:key="@string/key_set_text_color"
             android:title="@string/text_text_color"/>
-        <CheckBoxPreference
-            android:key="@string/key_text_bold"
-            android:title="@string/text_text_bold"/>
         <ListPreference
             android:entries="@array/list_aligned"
             android:entryValues="@array/list_aligned"

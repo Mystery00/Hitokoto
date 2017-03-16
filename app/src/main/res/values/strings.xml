@@ -8,9 +8,9 @@
     <string name="hitokotoTemp">temp</string>
     <string name="hitokotoConfigEnable">enable</string>
     <string name="hitokotoConfigChooseSource">choose_source</string>
+    <string name="hitokotoConfigAutoRefresh">auto_refresh</string>
     <string name="hitokotoConfigClickToRefresh">click_to_refresh</string>
     <string name="hitokotoConfigTextColor">text_color</string>
-    <string name="hitokotoConfigTextBold">text_bold</string>
     <string name="hitokotoConfigTextAligned">text_aligned</string>
     <string name="hitokotoConfigTextSize">text_size</string>
     <string name="hitokotoConfigNotShowSource">not_show_source</string>
@@ -29,10 +29,10 @@
     <string name="text_choose_source">Choose Source</string>
 
     <string name="title_widget_settings">Widget Settings</string>
+    <string name="text_auto_refresh">Auto Refresh</string>
     <string name="text_click_to_refresh">Click To Refresh</string>
     <string name="text_refresh_time">Set Refresh Time</string>
-    <string name="text_text_color">Set Text Color</string>
-    <string name="text_text_bold">Text Bold</string>
+    <string name="text_text_color">Text Color</string>
     <string name="text_text_aligned">Text Aligned</string>
     <string name="text_text_size">Text Size</string>
 

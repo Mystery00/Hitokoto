@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 
+import com.mystery0.hitokoto.App;
+
 public class WidgetService extends Service
 {
     private Handler handler = new Handler();
@@ -14,7 +16,13 @@ public class WidgetService extends Service
         public void run()
         {
             WidgetConfigure.refreshText();
-            handler.postDelayed(runnable, WidgetConfigure.getRefreshTime() * 60000);
+            if (WidgetConfigure.getAutoRefresh())
+            {
+                handler.postDelayed(runnable, WidgetConfigure.getRefreshTime() * 60000);
+            } else
+            {
+                stopService(new Intent(App.getContext(), WidgetService.class));
+            }
         }
     };
 

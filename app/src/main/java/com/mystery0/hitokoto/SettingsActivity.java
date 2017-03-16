@@ -38,10 +38,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     private Preference showCurrent;
     private Preference testSource;
     private MultiSelectListPreference chooseSource;
+    private CheckBoxPreference autoRefresh;
     private CheckBoxPreference clickToRefresh;
     private EditTextPreference setRefreshTime;
     private ColorPickerPreference setTextColor;
-    private CheckBoxPreference textBold;
     private ListPreference textAligned;
     private EditTextPreference textSize;
     private CheckBoxPreference notShowSource;
@@ -80,18 +80,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         showCurrent = findPreference(getString(R.string.key_show_current));
         testSource = findPreference(getString(R.string.key_test_source));
         chooseSource = (MultiSelectListPreference) findPreference(getString(R.string.key_choose_source));
+        autoRefresh = (CheckBoxPreference) findPreference(getString(R.string.key_auto_refresh));
         clickToRefresh = (CheckBoxPreference) findPreference(getString(R.string.key_click_to_refresh));
         setRefreshTime = (EditTextPreference) findPreference(getString(R.string.key_set_refresh_time));
         setTextColor = (ColorPickerPreference) findPreference(getString(R.string.key_set_text_color));
-        textBold = (CheckBoxPreference) findPreference(getString(R.string.key_text_bold));
         textAligned = (ListPreference) findPreference(getString(R.string.key_text_aligned));
         textSize = (EditTextPreference) findPreference(getString(R.string.key_text_size));
         notShowSource = (CheckBoxPreference) findPreference(getString(R.string.key_not_show_source));
         showCrashLog = findPreference(getString(R.string.key_show_crash_log));
         contactMe = findPreference(getString(R.string.key_contact_me));
 
+        autoRefresh.setChecked(WidgetConfigure.getAutoRefresh());
         clickToRefresh.setChecked(WidgetConfigure.getClickToRefresh());
-        textBold.setChecked(WidgetConfigure.getTextBold());
         notShowSource.setChecked(WidgetConfigure.getNotShowSource());
         textAligned.setSummary(getResources().getStringArray(R.array.list_aligned)[WidgetConfigure.getTextAligned()]);
         textAligned.setValueIndex(WidgetConfigure.getTextAligned());
@@ -158,14 +158,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                File file = new File(Environment.getExternalStorageDirectory().getPath()+"/hitokoto/log/crash2017-03-15 12:31:39.txt");
+                File file = new File(Environment.getExternalStorageDirectory().getPath() + "/hitokoto/log/crash2017-03-15 12:31:39.txt");
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 //判断是否是AndroidN以及更高的版本
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                 {
                     Uri contentUri = FileProvider.getUriForFile(
                             App.getContext(), "com.mystery0.hitokoto.fileProvider", file);
-                    Logs.i(TAG, "onPreferenceClick: "+contentUri.getPath());
+                    Logs.i(TAG, "onPreferenceClick: " + contentUri.getPath());
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     intent.setDataAndType(contentUri, "text/*");
                 } else
@@ -224,12 +224,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         if (key.equals(getString(R.string.key_choose_source)))
         {
             WidgetConfigure.setChooseSource(chooseSource.getValues());
+        } else if (key.equals(getString(R.string.key_auto_refresh)))
+        {
+            WidgetConfigure.setAutoRefresh(autoRefresh.isChecked());
         } else if (key.equals(getString(R.string.key_click_to_refresh)))
         {
             WidgetConfigure.setClickToRefresh(clickToRefresh.isChecked());
-        } else if (key.equals(getString(R.string.key_text_bold)))
-        {
-            WidgetConfigure.setTextBold(textBold.isChecked());
         } else if (key.equals(getString(R.string.key_text_aligned)))
         {
             WidgetConfigure.setTextAligned(textAligned.findIndexOfValue(textAligned.getValue()));

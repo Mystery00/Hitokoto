@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.google.gson.JsonSyntaxException;
 import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.Hitokoto;
 import com.mystery0.hitokoto.R;
@@ -85,6 +86,20 @@ public class WidgetConfigure
         editor.apply();
     }
 
+    public static boolean getAutoRefresh()
+    {
+        boolean temp = sharedPreferences.getBoolean(context.getString(R.string.key_auto_refresh), true);
+        Logs.i(TAG, "AutoRefresh: " + temp);
+        return temp;
+    }
+
+    public static void setAutoRefresh(boolean temp)
+    {
+        editor.putBoolean(context.getString(R.string.key_auto_refresh), temp);
+        Logs.i(TAG, "setAutoRefresh: " + temp);
+        editor.apply();
+    }
+
     public static boolean getClickToRefresh()
     {
         boolean temp = sharedPreferences.getBoolean(context.getString(R.string.hitokotoConfigClickToRefresh), true);
@@ -110,20 +125,6 @@ public class WidgetConfigure
     {
         editor.putString(context.getString(R.string.hitokotoConfigTextColor), temp);
         Logs.i(TAG, "setTextColor: " + temp);
-        editor.apply();
-    }
-
-    public static boolean getTextBold()
-    {
-        boolean temp = sharedPreferences.getBoolean(context.getString(R.string.hitokotoConfigTextBold), false);
-        Logs.i(TAG, "TextBold: " + temp);
-        return temp;
-    }
-
-    public static void setTextBold(boolean temp)
-    {
-        editor.putBoolean(context.getString(R.string.hitokotoConfigTextBold), temp);
-        Logs.i(TAG, "setTextBold: " + temp);
         editor.apply();
     }
 
@@ -187,7 +188,15 @@ public class WidgetConfigure
     {
         String text = sharedPreferences
                 .getString(context.getString(R.string.hitokotoTemp), context.getString(R.string.default_temp));
-        Hitokoto hitokoto = new HttpUtil(App.getContext()).fromJson(text, Hitokoto.class);
+        Hitokoto hitokoto;
+        try
+        {
+            hitokoto = new HttpUtil(App.getContext()).fromJson(text, Hitokoto.class);
+        } catch (JsonSyntaxException e)
+        {
+            Logs.e(TAG, "getTemp: " + e.getMessage());
+            hitokoto = new HttpUtil(App.getContext()).fromJson(context.getString(R.string.default_temp), Hitokoto.class);
+        }
         return new String[]{hitokoto.getHitokoto(), hitokoto.getFrom()};
     }
 

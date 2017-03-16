@@ -60,8 +60,11 @@ public class HitokotoWidget extends AppWidgetProvider
             }
             remoteViews.setTextViewTextSize(R.id.appwidget_text, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
             remoteViews.setTextViewTextSize(R.id.appwidget_source, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
-            remoteViews.setOnClickPendingIntent(R.id.appwidget_text, PendingIntent.getService(context, 0, new Intent(context, OnClickService.class), 0));
-            remoteViews.setOnClickPendingIntent(R.id.appwidget_source, PendingIntent.getService(context, 0, new Intent(context, OnClickService.class), 0));
+            if(WidgetConfigure.getClickToRefresh())
+            {
+                remoteViews.setOnClickPendingIntent(R.id.appwidget_text, PendingIntent.getService(context, 0, new Intent(context, OnClickService.class), 0));
+                remoteViews.setOnClickPendingIntent(R.id.appwidget_source, PendingIntent.getService(context, 0, new Intent(context, OnClickService.class), 0));
+            }
             appWidgetManager.updateAppWidget(id, remoteViews);
         }
     }
@@ -93,6 +96,11 @@ public class HitokotoWidget extends AppWidgetProvider
         } else
         {
             remoteViews.setViewVisibility(R.id.appwidget_source, View.VISIBLE);
+        }
+        if(WidgetConfigure.getClickToRefresh())
+        {
+            remoteViews.setOnClickPendingIntent(R.id.appwidget_text, PendingIntent.getService(context, 0, new Intent(context, OnClickService.class), 0));
+            remoteViews.setOnClickPendingIntent(R.id.appwidget_source, PendingIntent.getService(context, 0, new Intent(context, OnClickService.class), 0));
         }
         remoteViews.setTextViewTextSize(R.id.appwidget_text, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
         remoteViews.setTextViewTextSize(R.id.appwidget_source, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
@@ -154,6 +162,7 @@ public class HitokotoWidget extends AppWidgetProvider
     {
         super.onReceive(context, intent);
         String action = intent.getAction();
+        Logs.i(TAG, "onReceive: " + action);
         if ("android.appwidget.action.APPWIDGET_UPDATE".equals(action))
         {
             Hitokoto hitokoto = (Hitokoto) intent.getSerializableExtra(context.getString(R.string.hitokoto_object));
@@ -163,12 +172,12 @@ public class HitokotoWidget extends AppWidgetProvider
                 Logs.i(TAG, "onReceive: " + hitokoto.getFrom());
                 updateAllAppWidget(hitokoto.getHitokoto(), "————" + hitokoto.getFrom());
             }
-        } else if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED"))
+        } else if (action.equals("android.intent.action.BOOT_COMPLETED"))
         {
             context.startService(new Intent(context, WidgetService.class));
             idsSet = WidgetConfigure.getSet();
             Logs.i(TAG, "onReceive: 捕获开机广播");
-        } else
+        } else if (action.equals("android.intent.action.ACTION_SHUTDOWN"))
         {
             context.stopService(new Intent(context, WidgetService.class));
             WidgetConfigure.saveSet(idsSet);
