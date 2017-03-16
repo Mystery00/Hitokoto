@@ -233,7 +233,7 @@ public class WidgetConfigure
         Logs.i(TAG, "refreshText: 刷新文本");
         Map<String, String> map = new HashMap<>();
         Set<String> stringSet = getChooseSource(SourceType.INT);
-        String[] keys = context.getResources().getStringArray(R.array.list_map);
+        String[] keys = new String[]{"a", "b", "c", "d", "e", "f", "g"};
         map.put("c", keys[(int) (Math.random() * stringSet.size())]);
         final HttpUtil httpUtil = new HttpUtil(App.getContext());
         httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET)

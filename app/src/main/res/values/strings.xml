@@ -63,7 +63,17 @@
 
     <string name="add_widget">Add widget</string>
 
+    <!--List Aligned-->
     <string name="left">Left</string>
     <string name="center">Center</string>
     <string name="right">Right</string>
+
+    <!--List Source-->
+    <string name="list_source_a" translatable="false">Anime – 动画</string>
+    <string name="list_source_b" translatable="false">Comic – 漫画</string>
+    <string name="list_source_c" translatable="false">Game – 游戏</string>
+    <string name="list_source_d" translatable="false">Novel – 小说</string>
+    <string name="list_source_e" translatable="false">Myself – 原创</string>
+    <string name="list_source_f" translatable="false">Internet – 来自网络</string>
+    <string name="list_source_g" translatable="false">Other – 其他</string>
 </resources>
