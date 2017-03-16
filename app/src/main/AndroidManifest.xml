@@ -26,13 +26,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts"/>
         </activity>
+        <activity android:name=".ShortCutsActivity"/>
 
         <receiver android:name=".widget.HitokotoWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+                <action android:name="android.intent.action.ACTION_SHUTDOWN"/>
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -49,14 +54,15 @@
             android:enabled="true"
             android:exported="true">
         </service>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.mystery0.hitokoto.fileProvider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/file_paths"/>
         </provider>
     </application>
 
