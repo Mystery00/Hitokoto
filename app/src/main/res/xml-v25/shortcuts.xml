@@ -2,7 +2,7 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/ic_refresh"
+        android:icon="@mipmap/ic_refresh"
         android:shortcutDisabledMessage="@string/text_refresh_now"
         android:shortcutId="refresh"
         android:shortcutLongLabel="@string/text_refresh_now"
