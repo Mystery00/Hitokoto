@@ -116,6 +116,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 String temp = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
                 preference.setSummary(temp);
                 WidgetConfigure.setTextColor(temp);
+                if (WidgetConfigure.getEnable())
+                {
+                    WidgetConfigure.refreshText();
+                }
                 return true;
             }
         });
@@ -233,15 +237,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         } else if (key.equals(getString(R.string.key_text_aligned)))
         {
             WidgetConfigure.setTextAligned(textAligned.findIndexOfValue(textAligned.getValue()));
+            textAligned.setSummary(getResources().getStringArray(R.array.list_aligned)[WidgetConfigure.getTextAligned()]);
         } else if (key.equals(getString(R.string.key_text_size)))
         {
             WidgetConfigure.setTextSize(Integer.parseInt("0" + textSize.getEditText().getText().toString()));
+            textSize.setSummary("" + WidgetConfigure.getTextSize());
         } else if (key.equals(getString(R.string.key_not_show_source)))
         {
             WidgetConfigure.setNotShowSource(notShowSource.isChecked());
         } else if (key.equals(getString(R.string.key_set_refresh_time)))
         {
             WidgetConfigure.setRefreshTime(Integer.parseInt("0" + setRefreshTime.getEditText().getText().toString()));
+            setRefreshTime.setSummary("" + WidgetConfigure.getRefreshTime());
         }
         if (WidgetConfigure.getEnable())
         {

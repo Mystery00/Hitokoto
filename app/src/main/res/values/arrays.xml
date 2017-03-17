@@ -15,13 +15,4 @@
         <item>@string/list_source_f</item>
         <item>@string/list_source_g</item>
     </string-array>
-    <!--<string-array name="list_map">-->
-    <!--<item>a</item>-->
-    <!--<item>b</item>-->
-    <!--<item>c</item>-->
-    <!--<item>d</item>-->
-    <!--<item>e</item>-->
-    <!--<item>f</item>-->
-    <!--<item>g</item>-->
-    <!--</string-array>-->
 </resources>
