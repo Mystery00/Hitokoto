@@ -59,6 +59,9 @@
     <string name="hint_broadcast">The Broadcast Send! </string>
     <string name="hint_add_widget">Please Add Widget First! </string>
     <string name="hint_copy">The E-mail Address is copied! </string>
+    <string name="hint_custom_content">Please Enter the content of Hitokoto</string>
+    <string name="hint_custom_source">Please Enter the source of Hitokoto</string>
+    <string name="hint_null">Text Can\'t be Null! </string>
 
     <string name="ErrorRefreshTime">Please ensure the time is more than 0 </string>
 

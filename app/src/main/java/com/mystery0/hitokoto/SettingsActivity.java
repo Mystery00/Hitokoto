@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
+import com.mystery0.hitokoto.custom.CustomSingleActivity;
 import com.mystery0.hitokoto.widget.WidgetConfigure;
 import com.mystery0.tools.Logs.Logs;
 
@@ -47,6 +48,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     private CheckBoxPreference notShowSource;
     private Preference showCrashLog;
     private Preference contactMe;
+    private Preference customSingleHitokoto;
+    private Preference customMultipleHitokoto;
+    private Preference showCustomHitokoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -89,6 +93,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         notShowSource = (CheckBoxPreference) findPreference(getString(R.string.key_not_show_source));
         showCrashLog = findPreference(getString(R.string.key_show_crash_log));
         contactMe = findPreference(getString(R.string.key_contact_me));
+        customSingleHitokoto = findPreference(getString(R.string.key_custom_single_hitokoto));
+        customMultipleHitokoto = findPreference(getString(R.string.key_custom_multiple_hitokoto));
+        showCustomHitokoto = findPreference(getString(R.string.key_custom_show_hitokoto));
 
         autoRefresh.setChecked(WidgetConfigure.getAutoRefresh());
         clickToRefresh.setChecked(WidgetConfigure.getClickToRefresh());
@@ -191,6 +198,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 clipboardManager.setText(getString(R.string.e_mail_address));
                 Toast.makeText(App.getContext(), R.string.hint_copy, Toast.LENGTH_SHORT)
                         .show();
+                return false;
+            }
+        });
+        customSingleHitokoto.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                startActivity(new Intent(App.getContext(), CustomSingleActivity.class));
                 return false;
             }
         });
