@@ -35,6 +35,22 @@
             android:name=".ShortCutsActivity"
             android:theme="@android:style/Theme.NoDisplay"/>
 
+        <activity
+            android:name=".custom.CustomSingleActivity"
+            android:label="@string/text_custom_single_hitokoto"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert">
+        </activity>
+        <activity
+            android:name=".custom.CustomMultipleActivity"
+            android:label="@string/text_custom_multiple_hitokoto"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert">
+        </activity>
+        <activity
+            android:name=".custom.CustomHitokotoActivity"
+            android:label="@string/title_activity_custom_hitokoto"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <receiver android:name=".widget.HitokotoWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -76,22 +92,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
-
-        <activity
-            android:name=".custom.CustomSingleActivity"
-            android:label="@string/text_custom_single_hitokoto"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert">
-        </activity>
-        <activity
-            android:name=".custom.CustomMultipleActivity"
-            android:label="@string/text_custom_multiple_hitokoto"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert">
-        </activity>
-        <activity
-            android:name=".custom.CustomHitokotoActivity"
-            android:label="@string/title_activity_custom_hitokoto"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
     </application>
 
 </manifest>
