@@ -5,6 +5,7 @@ import com.mystery0.tools.Logs.Logs;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class CustomConfigure
@@ -22,17 +23,13 @@ public class CustomConfigure
         hitokotoLocal.save();
     }
 
-    public static void saveToDatabase(String[] contents, String[] sources)
+    public static void saveToDatabase(List<HitokotoLocal> contents)
     {
-        if (contents.length != sources.length)
-        {
-            throw new ArrayIndexOutOfBoundsException("Number Error!");
-        }
-        int number = contents.length;
+        int number = contents.size();
         Logs.i(TAG, "saveToDatabase: 添加数量:" + number);
-        for (int i = 0; i < number; i++)
+        for (HitokotoLocal hitokotoLocal : contents)
         {
-            saveToDatabase(contents[i], sources[i]);
+            saveToDatabase(hitokotoLocal.getContent(), hitokotoLocal.getSource());
         }
     }
 }

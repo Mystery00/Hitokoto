@@ -82,6 +82,11 @@
             android:label="@string/text_custom_single_hitokoto"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert">
         </activity>
+        <activity
+            android:name=".custom.CustomMultipleActivity"
+            android:label="@string/text_custom_multiple_hitokoto"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert">
+        </activity>
     </application>
 
 </manifest>

@@ -8,6 +8,17 @@ public class HitokotoLocal extends DataSupport
     private String source;
     private String date;
 
+    public HitokotoLocal()
+    {
+    }
+
+    public HitokotoLocal(String content, String source, String date)
+    {
+        this.content = content;
+        this.source = source;
+        this.date = date;
+    }
+
     public String getContent()
     {
         return content;

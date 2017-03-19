@@ -11,39 +11,44 @@ import android.widget.Toast;
 
 import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.R;
+import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.tools.Logs.Logs;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+
 @SuppressWarnings("ConstantConditions")
-public class CustomSingleActivity extends AppCompatActivity
+public class CustomMultipleActivity extends AppCompatActivity
 {
-    private static final String TAG = "CustomSingleActivity";
+    private static final String TAG = "CustomMultipleActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_custom_single);
+        setContentView(R.layout.activity_custom_multiple);
 
-        final TextInputLayout hitokotoContent = (TextInputLayout) findViewById(R.id.custom_content);
-        final TextInputLayout hitokotoSource = (TextInputLayout) findViewById(R.id.custom_source);
+        final TextInputLayout hitokotoContent = (TextInputLayout) findViewById(R.id.text);
         Button button_ok = (Button) findViewById(R.id.button_ok);
         Button button_cancel = (Button) findViewById(R.id.button_cancel);
         button_ok.getBackground().setAlpha(0);
         button_cancel.getBackground().setAlpha(0);
 
         check(hitokotoContent);
-        check(hitokotoSource);
+
         button_ok.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                if (isFormat(hitokotoContent) & isFormat(hitokotoSource))
+                if (isFormat(hitokotoContent))
                 {
-                    CustomConfigure.saveToDatabase(
-                            hitokotoContent.getEditText().getText().toString(),
-                            hitokotoSource.getEditText().getText().toString());
-                    Logs.i(TAG, "onOptionsItemSelected: 存储");
+//                    CustomConfigure.saveToDatabase(Analysis(hitokotoContent.getEditText().getText().toString()));
+                    Analysis(hitokotoContent.getEditText().getText().toString());
                     Toast.makeText(App.getContext(), R.string.hint_save_custom_done, Toast.LENGTH_SHORT)
                             .show();
                 } else
@@ -53,6 +58,7 @@ public class CustomSingleActivity extends AppCompatActivity
                 }
             }
         });
+
         button_cancel.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -95,5 +101,27 @@ public class CustomSingleActivity extends AppCompatActivity
     {
         layout.setError(layout.getEditText().getText().length() != 0 ? null : getString(R.string.ErrorNull));
         return layout.getEditText().getText().length() != 0;
+    }
+
+    private List<HitokotoLocal> Analysis(String content)
+    {
+        List<HitokotoLocal> list = new ArrayList<>();
+        String time = (new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA)).format(Calendar.getInstance().getTime());
+        Scanner scanner = new Scanner(content);
+        try
+        {
+            while (scanner.hasNext())
+            {
+                String[] temp = scanner.nextLine().split(" ");
+                list.add(new HitokotoLocal(temp[0], temp[1], time));
+            }
+        } catch (ArrayIndexOutOfBoundsException e)
+        {
+            Logs.e(TAG, "Analysis: " + e.getMessage());
+            Toast.makeText(App.getContext(), R.string.ErrorData, Toast.LENGTH_LONG)
+                    .show();
+        }
+        scanner.close();
+        return list;
     }
 }

@@ -45,4 +45,9 @@
     <string name="list_source_f">来自网络</string>
     <string name="list_source_g">其他</string>
     <string name="list_source_h">自定义</string>
+    <string name="title_custom_hitokoto">本地Hitokoto</string>
+    <string name="text_custom_multiple_hitokoto">添加多条Hitokoto</string>
+    <string name="text_custom_show_hitokoto">查看Hitokoto</string>
+    <string name="text_custom_single_hitokoto">添加单条Hitokoto</string>
+    <string name="hint_text_custom">文本与来源之间用空格间隔。\n每一行表示一条Hitokoto。</string>
 </resources>
