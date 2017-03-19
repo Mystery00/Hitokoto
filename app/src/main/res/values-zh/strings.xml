@@ -44,4 +44,5 @@
     <string name="list_source_e">原创</string>
     <string name="list_source_f">来自网络</string>
     <string name="list_source_g">其他</string>
+    <string name="list_source_h">自定义</string>
 </resources>

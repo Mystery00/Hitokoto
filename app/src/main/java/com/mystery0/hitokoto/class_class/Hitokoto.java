@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto;
+package com.mystery0.hitokoto.class_class;
 
 import java.io.Serializable;
 

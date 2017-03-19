@@ -14,5 +14,6 @@
         <item>@string/list_source_e</item>
         <item>@string/list_source_f</item>
         <item>@string/list_source_g</item>
+        <item>@string/list_source_h</item>
     </string-array>
 </resources>

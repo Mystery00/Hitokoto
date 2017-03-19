@@ -27,6 +27,11 @@
     <string name="text_test_source">Test Source</string>
     <string name="text_choose_source">Choose Source</string>
 
+    <string name="title_custom_hitokoto">Custom Hitokoto</string>
+    <string name="text_custom_single_hitokoto">Add Single Hitokoto</string>
+    <string name="text_custom_multiple_hitokoto">Add Multiple Hitokoto</string>
+    <string name="text_custom_show_hitokoto">Show Custom Hitokoto</string>
+
     <string name="title_widget_settings">Widget Settings</string>
     <string name="text_auto_refresh">Auto Refresh</string>
     <string name="text_click_to_refresh">Click To Refresh</string>
@@ -76,4 +81,5 @@
     <string name="list_source_e">Original</string>
     <string name="list_source_f">Internet</string>
     <string name="list_source_g">Other</string>
+    <string name="list_source_h">Custom</string>
 </resources>

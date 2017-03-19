@@ -31,7 +31,8 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts"/>
         </activity>
-        <activity android:name=".ShortCutsActivity"
+        <activity
+            android:name=".ShortCutsActivity"
             android:theme="@android:style/Theme.NoDisplay"/>
 
         <receiver android:name=".widget.HitokotoWidget">
@@ -75,6 +76,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
+
+        <activity android:name=".custom.CustomSingleActivity">
+        </activity>
     </application>
 
 </manifest>

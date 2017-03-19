@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.JsonSyntaxException;
 import com.mystery0.hitokoto.App;
-import com.mystery0.hitokoto.Hitokoto;
+import com.mystery0.hitokoto.class_class.Hitokoto;
 import com.mystery0.hitokoto.R;
 import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
@@ -130,7 +130,7 @@ public class WidgetConfigure
 
     public static boolean getNotShowSource()
     {
-        boolean temp = sharedPreferences.getBoolean(context.getString(R.string.hitokotoConfigNotShowSource), true);
+        boolean temp = sharedPreferences.getBoolean(context.getString(R.string.hitokotoConfigNotShowSource), false);
         Logs.i(TAG, "NotShowSource: " + temp);
         return temp;
     }

@@ -24,6 +24,22 @@
             android:entryValues="@array/list_source"
             android:key="@string/key_choose_source"
             android:title="@string/text_choose_source"/>
+        <PreferenceScreen
+            android:title="@string/title_custom_hitokoto">
+
+            <Preference
+                android:key="@string/key_custom_single_hitokoto"
+                android:title="@string/text_custom_single_hitokoto"/>
+
+            <Preference
+                android:key="@string/key_custom_multiple_hitokoto"
+                android:title="@string/text_custom_multiple_hitokoto"/>
+
+            <Preference
+                android:key="@string/key_custom_show_hitokoto"
+                android:title="@string/text_custom_show_hitokoto"/>
+
+        </PreferenceScreen>
 
     </PreferenceCategory>
 

@@ -6,6 +6,8 @@ import android.content.Context;
 import com.mystery0.tools.CrashHandler.CrashHandler;
 import com.mystery0.tools.Logs.Logs;
 
+import org.litepal.LitePal;
+
 public class App extends Application
 {
     private static Context context;
@@ -16,6 +18,7 @@ public class App extends Application
         super.onCreate();
         context = getApplicationContext();
         Logs.setLevel(Logs.LogLevel.Release);
+        LitePal.initialize(this);
         CrashHandler.getInstance()
                 .setDirectory("hitokoto/log")
                 .init(this);

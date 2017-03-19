@@ -15,7 +15,7 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.mystery0.hitokoto.App;
-import com.mystery0.hitokoto.Hitokoto;
+import com.mystery0.hitokoto.class_class.Hitokoto;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.SettingsActivity;
 import com.mystery0.tools.Logs.Logs;
