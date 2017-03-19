@@ -61,12 +61,12 @@
     <string name="hint_copy">The E-mail Address is copied! </string>
     <string name="hint_custom_content">Please Enter the content of Hitokoto</string>
     <string name="hint_custom_source">Please Enter the source of Hitokoto</string>
-    <string name="hint_null">Text Can\'t be Null! </string>
+    <string name="hint_save_custom_done">The Hitokoto Saved! </string>
 
     <string name="ErrorRefreshTime">Please ensure the time is more than 0 </string>
+    <string name="ErrorNull">Text Can\'t be Null! </string>
+    <string name="ErrorFormat">Error Format!</string>
 
-    <string name="done">Done</string>
-    <string name="cancel">Cancel</string>
     <string name="unavailable_now">Unavailable Now!</string>
 
     <string name="add_widget">Add widget</string>

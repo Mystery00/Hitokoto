@@ -5,9 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
+import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.R;
 import com.mystery0.tools.Logs.Logs;
 
@@ -15,8 +17,6 @@ import com.mystery0.tools.Logs.Logs;
 public class CustomSingleActivity extends AppCompatActivity
 {
     private static final String TAG = "CustomSingleActivity";
-    private TextInputLayout hitokotoContent;
-    private TextInputLayout hitokotoSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -24,36 +24,33 @@ public class CustomSingleActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_single);
 
-        hitokotoContent = (TextInputLayout) findViewById(R.id.custom_content);
-        hitokotoSource = (TextInputLayout) findViewById(R.id.custom_source);
+        final TextInputLayout hitokotoContent = (TextInputLayout) findViewById(R.id.custom_content);
+        final TextInputLayout hitokotoSource = (TextInputLayout) findViewById(R.id.custom_source);
+        Button button = (Button) findViewById(R.id.button);
+        button.getBackground().setAlpha(0);
 
         check(hitokotoContent);
         check(hitokotoSource);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.custom, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
+        button.setOnClickListener(new View.OnClickListener()
         {
-            case R.id.action_done:
+            @Override
+            public void onClick(View v)
+            {
                 if (isFormat(hitokotoContent) && isFormat(hitokotoSource))
                 {
                     CustomConfigure.saveToDatabase(
                             hitokotoContent.getEditText().getText().toString(),
                             hitokotoSource.getEditText().getText().toString());
                     Logs.i(TAG, "onOptionsItemSelected: 存储");
+                    Toast.makeText(App.getContext(), R.string.hint_save_custom_done, Toast.LENGTH_SHORT)
+                            .show();
+                } else
+                {
+                    Toast.makeText(App.getContext(), R.string.ErrorFormat, Toast.LENGTH_SHORT)
+                            .show();
                 }
-                break;
-        }
-        return super.onOptionsItemSelected(item);
+            }
+        });
     }
 
     private void check(final TextInputLayout layout)
@@ -75,7 +72,7 @@ public class CustomSingleActivity extends AppCompatActivity
             {
                 if (s.toString().length() == 0)
                 {
-                    layout.setError(getString(R.string.hint_null));
+                    layout.setError(getString(R.string.ErrorNull));
                 } else
                 {
                     layout.setError(null);

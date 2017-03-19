@@ -79,7 +79,8 @@
 
         <activity
             android:name=".custom.CustomSingleActivity"
-            android:theme="@style/AlertDialog.AppCompat">
+            android:label="@string/text_custom_single_hitokoto"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert">
         </activity>
     </application>
 
