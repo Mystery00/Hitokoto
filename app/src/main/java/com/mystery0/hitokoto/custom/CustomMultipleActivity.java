@@ -47,8 +47,7 @@ public class CustomMultipleActivity extends AppCompatActivity
             {
                 if (isFormat(hitokotoContent))
                 {
-//                    CustomConfigure.saveToDatabase(Analysis(hitokotoContent.getEditText().getText().toString()));
-                    Analysis(hitokotoContent.getEditText().getText().toString());
+                    CustomConfigure.saveToDatabase(Analysis(hitokotoContent.getEditText().getText().toString()));
                     Toast.makeText(App.getContext(), R.string.hint_save_custom_done, Toast.LENGTH_SHORT)
                             .show();
                 } else

@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
+import com.mystery0.hitokoto.custom.CustomHitokotoActivity;
 import com.mystery0.hitokoto.custom.CustomMultipleActivity;
 import com.mystery0.hitokoto.custom.CustomSingleActivity;
 import com.mystery0.hitokoto.widget.WidgetConfigure;
@@ -217,6 +218,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             public boolean onPreferenceClick(Preference preference)
             {
                 startActivity(new Intent(App.getContext(), CustomMultipleActivity.class));
+                return false;
+            }
+        });
+        showCustomHitokoto.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                startActivity(new Intent(App.getContext(), CustomHitokotoActivity.class));
                 return false;
             }
         });

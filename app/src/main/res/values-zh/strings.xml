@@ -44,7 +44,7 @@
     <string name="list_source_e">原创</string>
     <string name="list_source_f">来自网络</string>
     <string name="list_source_g">其他</string>
-    <string name="list_source_h">自定义</string>
+    <string name="list_source_h">本地</string>
     <string name="title_custom_hitokoto">本地Hitokoto</string>
     <string name="text_custom_multiple_hitokoto">添加多条Hitokoto</string>
     <string name="text_custom_show_hitokoto">查看Hitokoto</string>

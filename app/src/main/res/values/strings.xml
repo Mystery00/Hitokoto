@@ -87,5 +87,6 @@
     <string name="list_source_e">Original</string>
     <string name="list_source_f">Internet</string>
     <string name="list_source_g">Other</string>
-    <string name="list_source_h">Custom</string>
+    <string name="list_source_h">Local</string>
+    <string name="title_activity_custom_hitokoto">CustomHitokotoActivity</string>
 </resources>
