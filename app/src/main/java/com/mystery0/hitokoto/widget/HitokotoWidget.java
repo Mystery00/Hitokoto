@@ -60,10 +60,12 @@ public class HitokotoWidget extends AppWidgetProvider
             }
             remoteViews.setTextViewTextSize(R.id.appwidget_text, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
             remoteViews.setTextViewTextSize(R.id.appwidget_source, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
-            if(WidgetConfigure.getClickToRefresh())
+            if (WidgetConfigure.getClickToRefresh())
             {
-                remoteViews.setOnClickPendingIntent(R.id.appwidget_text, PendingIntent.getService(context, 0, new Intent(context, OnClickService.class), 0));
-                remoteViews.setOnClickPendingIntent(R.id.appwidget_source, PendingIntent.getService(context, 0, new Intent(context, OnClickService.class), 0));
+                Intent topIntent = new Intent(context, OnClickService.class);
+                PendingIntent topPendingIntent = PendingIntent.getService(context, 0, topIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                remoteViews.setOnClickPendingIntent(R.id.appwidget_text, topPendingIntent);
+                remoteViews.setOnClickPendingIntent(R.id.appwidget_source, topPendingIntent);
             }
             appWidgetManager.updateAppWidget(id, remoteViews);
         }
@@ -97,10 +99,12 @@ public class HitokotoWidget extends AppWidgetProvider
         {
             remoteViews.setViewVisibility(R.id.appwidget_source, View.VISIBLE);
         }
-        if(WidgetConfigure.getClickToRefresh())
+        if (WidgetConfigure.getClickToRefresh())
         {
-            remoteViews.setOnClickPendingIntent(R.id.appwidget_text, PendingIntent.getService(context, 0, new Intent(context, OnClickService.class), 0));
-            remoteViews.setOnClickPendingIntent(R.id.appwidget_source, PendingIntent.getService(context, 0, new Intent(context, OnClickService.class), 0));
+            Intent topIntent = new Intent(context, OnClickService.class);
+            PendingIntent topPendingIntent = PendingIntent.getService(context, 0, topIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteViews.setOnClickPendingIntent(R.id.appwidget_text, topPendingIntent);
+            remoteViews.setOnClickPendingIntent(R.id.appwidget_source, topPendingIntent);
         }
         remoteViews.setTextViewTextSize(R.id.appwidget_text, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
         remoteViews.setTextViewTextSize(R.id.appwidget_source, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
