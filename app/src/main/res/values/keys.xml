@@ -6,6 +6,7 @@
     <string name="key_choose_source" translatable="false">key_choose_source</string>
     <string name="key_auto_refresh" translatable="false">key_auto_refresh</string>
     <string name="key_click_to_refresh" translatable="false">key_click_to_refresh</string>
+    <string name="key_set_text_padding" translatable="false">key_set_text_padding</string>
     <string name="key_set_refresh_time" translatable="false">key_set_refresh_time</string>
     <string name="key_set_text_color" translatable="false">key_set_text_color</string>
     <string name="key_text_aligned" translatable="false">key_text_aligned</string>

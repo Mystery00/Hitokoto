@@ -3,7 +3,6 @@ package com.mystery0.hitokoto;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ClipboardManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -29,7 +28,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.hitokoto.custom.CustomHitokotoActivity;
 import com.mystery0.hitokoto.custom.CustomMultipleActivity;
 import com.mystery0.hitokoto.custom.CustomSingleActivity;
@@ -38,12 +36,7 @@ import com.mystery0.tools.Logs.Logs;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
-import org.litepal.crud.DataSupport;
-
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
 
 @SuppressWarnings("deprecation")
 public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -56,6 +49,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     private MultiSelectListPreference chooseSource;
     private CheckBoxPreference autoRefresh;
     private CheckBoxPreference clickToRefresh;
+    private EditTextPreference setTextPadding;
     private EditTextPreference setRefreshTime;
     private ColorPickerPreference setTextColor;
     private ListPreference textAligned;
@@ -101,6 +95,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         chooseSource = (MultiSelectListPreference) findPreference(getString(R.string.key_choose_source));
         autoRefresh = (CheckBoxPreference) findPreference(getString(R.string.key_auto_refresh));
         clickToRefresh = (CheckBoxPreference) findPreference(getString(R.string.key_click_to_refresh));
+        setTextPadding = (EditTextPreference) findPreference(getString(R.string.key_set_text_padding));
         setRefreshTime = (EditTextPreference) findPreference(getString(R.string.key_set_refresh_time));
         setTextColor = (ColorPickerPreference) findPreference(getString(R.string.key_set_text_color));
         textAligned = (ListPreference) findPreference(getString(R.string.key_text_aligned));
@@ -120,6 +115,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         setTextColor.setSummary(WidgetConfigure.getTextColor());
         setTextColor.setDefaultValue(Color.parseColor(WidgetConfigure.getTextColor()));
         chooseSource.setValues(WidgetConfigure.getChooseSource(WidgetConfigure.SourceType.STRING));
+        setTextPadding.setSummary("" + WidgetConfigure.getTextPadding());
+        setTextPadding.setDefaultValue(WidgetConfigure.getTextPadding());
         setRefreshTime.setSummary("" + WidgetConfigure.getRefreshTime());
         setRefreshTime.setDefaultValue(WidgetConfigure.getRefreshTime());
         textSize.setSummary("" + WidgetConfigure.getTextSize());
@@ -172,6 +169,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_show_currect, null);
                 TextView content = (TextView) view.findViewById(R.id.content);
                 TextView source = (TextView) view.findViewById(R.id.source);
+                setOnClick(content);
+                setOnClick(source);
                 String[] temp = WidgetConfigure.getTemp();
                 content.setText(temp[0]);
                 source.setText(temp[1]);
@@ -188,6 +187,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
+//                new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
+//                        .setView(view)
+//                        .setTitle(R.string.text_show_current)
+//                        .setPositiveButton(android.R.string.ok, null)
+//                        .show();
                 return false;
             }
         });
@@ -223,7 +227,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 Logs.i(TAG, "onPreferenceClick: 拷贝到剪切板");
                 ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                 clipboardManager.setText(getString(R.string.e_mail_address));
-                Toast.makeText(App.getContext(), R.string.hint_copy, Toast.LENGTH_SHORT)
+                Toast.makeText(App.getContext(), R.string.hint_copy_address, Toast.LENGTH_SHORT)
                         .show();
                 return false;
             }
@@ -310,10 +314,30 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         {
             WidgetConfigure.setRefreshTime(Integer.parseInt("0" + setRefreshTime.getEditText().getText().toString()));
             setRefreshTime.setSummary("" + WidgetConfigure.getRefreshTime());
+        } else if (key.equals(getString(R.string.key_set_text_padding)))
+        {
+            WidgetConfigure.setTextPadding(Integer.parseInt("0" + setTextPadding.getEditText().getText().toString()));
+            setTextPadding.setSummary("" + WidgetConfigure.getTextPadding());
         }
         if (WidgetConfigure.getEnable())
         {
             WidgetConfigure.refreshText();
         }
+    }
+
+    private void setOnClick(final TextView view)
+    {
+        view.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Logs.i(TAG, "onClick: 拷贝到剪切板");
+                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                clipboardManager.setText(view.getText().toString());
+                Toast.makeText(App.getContext(), R.string.hint_copy_text, Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
     }
 }

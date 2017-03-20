@@ -49,6 +49,13 @@
             android:key="@string/key_click_to_refresh"
             android:title="@string/text_click_to_refresh"/>
         <EditTextPreference
+            android:defaultValue="20"
+            android:hint="@string/text_text_size"
+            android:inputType="number"
+            android:key="@string/key_set_text_padding"
+            android:maxLines="1"
+            android:title="@string/text_text_padding"/>
+        <EditTextPreference
             android:defaultValue="5"
             android:hint="@string/hint_refresh_time"
             android:inputType="number"

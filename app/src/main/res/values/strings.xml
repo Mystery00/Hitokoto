@@ -16,6 +16,7 @@
     <string name="hitokotoConfigTextSize" translatable="false">text_size</string>
     <string name="hitokotoConfigNotShowSource" translatable="false">not_show_source</string>
     <string name="hitokotoConfigRefreshTime" translatable="false">refresh_time</string>
+    <string name="hitokotoConfigTextPadding" translatable="false">text_padding</string>
     <string name="hitokotoIdSet" translatable="false">id_set</string>
 
     <string name="hitokoto_object" translatable="false">hitokoto_object</string>
@@ -37,6 +38,7 @@
     <string name="text_auto_refresh">Auto Refresh</string>
     <string name="text_click_to_refresh">Click To Refresh</string>
     <string name="text_refresh_time">Set Refresh Time</string>
+    <string name="text_text_padding">Set Text Padding</string>
     <string name="text_text_color">Text Color</string>
     <string name="text_text_aligned">Text Aligned</string>
     <string name="text_text_size">Text Size</string>
@@ -59,7 +61,8 @@
     <string name="hint_text_size">Please Enter Number</string>
     <string name="hint_broadcast">The Broadcast Send! </string>
     <string name="hint_add_widget">Please Add Widget First! </string>
-    <string name="hint_copy">The E-mail Address is copied! </string>
+    <string name="hint_copy_address">The E-mail Address is copied! </string>
+    <string name="hint_copy_text">The Text is copied! </string>
     <string name="hint_custom_content">Please Enter the content of Hitokoto</string>
     <string name="hint_custom_source">Please Enter the source of Hitokoto</string>
     <string name="hint_custom_multiple">Please Enter Hitokotos</string>

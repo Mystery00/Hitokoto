@@ -5,7 +5,7 @@
     <string name="add_widget">添加小部件</string>
     <string name="hint_add_widget">請先添加小部件</string>
     <string name="hint_broadcast">廣播已發送</string>
-    <string name="hint_copy">E-mail地址已經復制到剪切板</string>
+    <string name="hint_copy_address">E-mail地址已經復制到剪切板</string>
     <string name="hint_permission">請授予權限</string>
     <string name="hint_refresh_time">請輸入時間（分）</string>
     <string name="hint_text_size">請輸入大小</string>

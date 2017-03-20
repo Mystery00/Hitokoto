@@ -174,6 +174,20 @@ public class WidgetConfigure
         editor.apply();
     }
 
+    public static int getTextPadding()
+    {
+        int temp = sharedPreferences.getInt(context.getString(R.string.hitokotoConfigTextPadding), 20);
+        Logs.i(TAG, "TextPadding: " + temp);
+        return temp;
+    }
+
+    public static void setTextPadding(int temp)
+    {
+        editor.putInt(context.getString(R.string.hitokotoConfigTextPadding), temp);
+        Logs.i(TAG, "setTextPadding: " + temp);
+        editor.apply();
+    }
+
     public static int getRefreshTime()
     {
         long temp = sharedPreferences.getLong(context.getString(R.string.hitokotoConfigRefreshTime), 300000);

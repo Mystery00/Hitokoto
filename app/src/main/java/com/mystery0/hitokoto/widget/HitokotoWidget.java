@@ -47,6 +47,7 @@ public class HitokotoWidget extends AppWidgetProvider
                     remoteViews = new RemoteViews(context.getPackageName(), R.layout.hitokoto_widget_center);
                     break;
             }
+            remoteViews.setViewPadding(R.id.appwidget_source, 0, WidgetConfigure.getTextPadding(), 0, 0);
             remoteViews.setTextViewText(R.id.appwidget_text, text);
             remoteViews.setTextViewText(R.id.appwidget_source, source);
             remoteViews.setTextColor(R.id.appwidget_text, Color.parseColor(WidgetConfigure.getTextColor()));
@@ -88,6 +89,7 @@ public class HitokotoWidget extends AppWidgetProvider
                 break;
         }
         String[] texts = WidgetConfigure.getTemp();
+        remoteViews.setViewPadding(R.id.appwidget_source, 0, WidgetConfigure.getTextPadding(), 0, 0);
         remoteViews.setTextViewText(R.id.appwidget_text, texts[0]);
         remoteViews.setTextViewText(R.id.appwidget_source, texts[1]);
         remoteViews.setTextColor(R.id.appwidget_text, Color.parseColor(WidgetConfigure.getTextColor()));

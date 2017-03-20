@@ -33,7 +33,7 @@
     <string name="hint_text_size">番号を入力してください</string>
     <string name="hint_broadcast">ブロードキャスト送信！ </string>
     <string name="hint_add_widget">ウィジェットを先に追加してください！ </string>
-    <string name="hint_copy">電子メールアドレスがコピーされます！ </string>
+    <string name="hint_copy_address">電子メールアドレスがコピーされます！ </string>
     <string name="hint_custom_content"> Hitokotoの内容を入力してください</string>
     <string name="hint_custom_source"> Hitokotoのソースを入力してください</string>
     <string name="hint_custom_multiple"> Hitokotosを入力してください</string>
