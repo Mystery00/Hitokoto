@@ -3,6 +3,8 @@ package com.mystery0.hitokoto.custom;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.tools.Logs.Logs;
 
+import org.litepal.crud.DataSupport;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -29,6 +31,19 @@ public class CustomConfigure
         for (HitokotoLocal hitokotoLocal : contents)
         {
             saveToDatabase(hitokotoLocal.getContent(), hitokotoLocal.getSource());
+        }
+    }
+
+    public static HitokotoLocal getRandom()
+    {
+        List<HitokotoLocal> list = DataSupport.findAll(HitokotoLocal.class);
+        Logs.i(TAG, "getRandom: " + list.size());
+        if (list.size() == 0)
+        {
+            return null;
+        } else
+        {
+            return list.get((int) (Math.random() * list.size()));
         }
     }
 }

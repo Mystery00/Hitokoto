@@ -9,12 +9,16 @@ import com.google.gson.JsonSyntaxException;
 import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.class_class.Hitokoto;
 import com.mystery0.hitokoto.R;
+import com.mystery0.hitokoto.class_class.HitokotoLocal;
+import com.mystery0.hitokoto.custom.CustomConfigure;
 import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -233,8 +237,29 @@ public class WidgetConfigure
         Logs.i(TAG, "refreshText: 刷新文本");
         Map<String, String> map = new HashMap<>();
         Set<String> stringSet = getChooseSource(SourceType.INT);
-        String[] keys = new String[]{"a", "b", "c", "d", "e", "f", "g"};
-        map.put("c", keys[(int) (Math.random() * stringSet.size())]);
+        List<Integer> integerList = new ArrayList<>();
+        for (String t : stringSet)
+        {
+            integerList.add(Integer.valueOf(t));
+        }
+        String[] keys = new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
+        String temp = keys[integerList.get((int) (Math.random() * stringSet.size()))];
+        Logs.i(TAG, "refreshText: " + temp);
+        if (temp.equals("h"))
+        {
+            HitokotoLocal hitokotoLocal = CustomConfigure.getRandom();
+            if (hitokotoLocal != null)
+            {
+                Hitokoto hitokoto = new Hitokoto();
+                hitokoto.setHitokoto(hitokotoLocal.getContent());
+                hitokoto.setFrom(hitokotoLocal.getSource());
+                Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
+                intent.putExtra(context.getString(R.string.hitokoto_object), hitokoto);
+                context.sendBroadcast(intent);
+                return;
+            }
+        }
+        map.put("c", temp.equals("h") ? "a" : temp);
         final HttpUtil httpUtil = new HttpUtil(App.getContext());
         httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET)
                 .setUrl(context.getString(R.string.request_url))
@@ -254,5 +279,6 @@ public class WidgetConfigure
                 })
                 .setMap(map)
                 .open();
+
     }
 }

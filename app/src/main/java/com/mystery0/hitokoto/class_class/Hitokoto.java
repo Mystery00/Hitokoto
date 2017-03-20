@@ -11,6 +11,10 @@ public class Hitokoto implements Serializable
     private String creator;
     private String cearted_at;
 
+    public Hitokoto()
+    {
+    }
+
     public Hitokoto(int id, String hitokoto, String type, String from, String creator, String cearted_at)
     {
         this.id = id;
