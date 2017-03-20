@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -20,12 +22,20 @@ import com.mystery0.tools.Logs.Logs;
 
 import org.litepal.crud.DataSupport;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+
+import static android.support.v7.widget.helper.ItemTouchHelper.RIGHT;
 
 public class CustomHitokotoActivity extends AppCompatActivity implements ShowItemListener
 {
     private static final String TAG = "CustomHitokotoActivity";
     private Toolbar toolbar;
+    private List<HitokotoLocal> list;
+    private RecyclerView recyclerView;
+    private ShowAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,12 +49,12 @@ public class CustomHitokotoActivity extends AppCompatActivity implements ShowIte
 
     private void initialize()
     {
-        List<HitokotoLocal> list = DataSupport.findAll(HitokotoLocal.class);
+        list = DataSupport.findAll(HitokotoLocal.class);
         setContentView(R.layout.activity_custom_hitokoto);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ShowAdapter adapter = new ShowAdapter(list, this);
+        adapter = new ShowAdapter(list, this);
         recyclerView.setAdapter(adapter);
 
         setSupportActionBar(toolbar);
@@ -62,30 +72,55 @@ public class CustomHitokotoActivity extends AppCompatActivity implements ShowIte
                 finish();
             }
         });
+        ItemTouchHelper.Callback callback = new ItemTouchHelper.SimpleCallback(0, RIGHT)
+        {
 
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)
+            {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
+            {
+                int position = viewHolder.getAdapterPosition();
+                list.remove(position).delete();
+                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @SuppressWarnings("ConstantConditions")
     @Override
-    public void onItemClick(HitokotoLocal hitokotoLocal, int position)
+    public void onItemClick(final HitokotoLocal hitokotoLocal, final int position)
     {
-        @SuppressLint("InflateParams")
-        View view = LayoutInflater.from(App.getContext()).inflate(R.layout.dialog_edit_hitokoto, null);
-        TextInputLayout content_layout = (TextInputLayout) view.findViewById(R.id.custom_content);
-        TextInputLayout source_layout = (TextInputLayout) view.findViewById(R.id.custom_source);
-        TextView textView = (TextView) findViewById(R.id.custom_date);
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_edit_hitokoto, null);
+        final TextInputLayout content_layout = (TextInputLayout) view.findViewById(R.id.custom_content);
+        final TextInputLayout source_layout = (TextInputLayout) view.findViewById(R.id.custom_source);
+        TextView textView = (TextView) view.findViewById(R.id.custom_date);
         content_layout.getEditText().setText(hitokotoLocal.getContent());
         source_layout.getEditText().setText(hitokotoLocal.getSource());
         textView.setText(hitokotoLocal.getDate());
-        new AlertDialog.Builder(App.getContext())
+        new AlertDialog.Builder(CustomHitokotoActivity.this, R.style.AlertDialogStyle)
                 .setView(view)
-                .setTitle("test")
+                .setTitle(R.string.hint_title_edit_hitokoto)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        Logs.i(TAG, "onClick: ");
+                        String time = (new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA)).format(Calendar.getInstance().getTime());
+                        hitokotoLocal.setContent(content_layout.getEditText().getText().toString());
+                        hitokotoLocal.setSource(source_layout.getEditText().getText().toString());
+                        hitokotoLocal.setDate(time);
+                        boolean result = hitokotoLocal.save();
+                        list = DataSupport.findAll(HitokotoLocal.class);
+                        adapter.notifyItemChanged(position);
+                        Logs.i(TAG, "onClick: " + result);
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)

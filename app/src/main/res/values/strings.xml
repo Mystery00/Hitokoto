@@ -3,6 +3,7 @@
     <string name="default_temp" translatable="false">{"id": "23333","hitokoto": "小部件出现问题……","type": "e","from": "开发者","creator": "开发者","cearted_at": null}</string>
     <string name="e_mail_address" translatable="false">mystery0dyl520@gmail.com</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_custom_hitokoto">CustomHitokotoActivity</string>
 
     <string name="sharedPreferencesName" translatable="false">Hitokoto</string>
     <string name="hitokotoTemp" translatable="false">temp</string>
@@ -64,6 +65,8 @@
     <string name="hint_custom_multiple">Please Enter Hitokotos</string>
     <string name="hint_save_custom_done">The Hitokoto Saved! </string>
     <string name="hint_text_custom">Intervals with a space between the text and sources.\nEach row represents a Hitokoto.</string>
+    <string name="hint_update_time">Update Time: </string>
+    <string name="hint_title_edit_hitokoto">Edit</string>
 
     <string name="ErrorRefreshTime">Please ensure the time is more than 0 </string>
     <string name="ErrorNull">Text Can\'t be Null! </string>
@@ -88,5 +91,4 @@
     <string name="list_source_f">Internet</string>
     <string name="list_source_g">Other</string>
     <string name="list_source_h">Local</string>
-    <string name="title_activity_custom_hitokoto">CustomHitokotoActivity</string>
 </resources>

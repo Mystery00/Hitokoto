@@ -19,7 +19,6 @@ public class CustomConfigure
         hitokotoLocal.setContent(content);
         hitokotoLocal.setSource(source);
         hitokotoLocal.setDate(time);
-        Logs.i(TAG, "saveToDatabase: " + hitokotoLocal);
         hitokotoLocal.save();
     }
 
