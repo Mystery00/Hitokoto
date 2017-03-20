@@ -3,8 +3,6 @@
     <string name="app_name">Hitokoto</string>
     <string name="ErrorRefreshTime">請保證時間超過0</string>
     <string name="add_widget">添加小部件</string>
-    <string name="cancel">取消</string>
-    <string name="done">完成</string>
     <string name="hint_add_widget">請先添加小部件</string>
     <string name="hint_broadcast">廣播已發送</string>
     <string name="hint_copy">E-mail地址已經復制到剪切板</string>
@@ -44,4 +42,20 @@
     <string name="list_source_e">原創</string>
     <string name="list_source_f">來自網絡</string>
     <string name="list_source_g">其他</string>
+    <string name="list_source_h">本地</string>
+    <string name="title_custom_hitokoto">本地Hitokoto</string>
+    <string name="text_custom_multiple_hitokoto">添加多條Hitokoto</string>
+    <string name="text_custom_show_hitokoto">查看Hitokoto</string>
+    <string name="text_custom_single_hitokoto">添加單條Hitokoto</string>
+    <string name="hint_text_custom">文本與來源之間用空格間隔。\n每一行表示一條Hitokoto。</string>
+    <string name="ErrorData">數據錯誤！請檢查文本！</string>
+    <string name="ErrorFormat">格式錯誤！</string>
+    <string name="ErrorNull">文本不能為空！</string>
+    <string name="hint_custom_content">請輸入Hitokoto的主體</string>
+    <string name="hint_custom_multiple">請輸入多條Hitokoto</string>
+    <string name="hint_custom_source">請輸入Hitokoto的來源</string>
+    <string name="hint_save_custom_done">Hitokoto已存儲！</string>
+    <string name="hint_title_edit_hitokoto">編輯</string>
+    <string name="hint_update_time">更新時間：</string>
+    <string name="title_activity_custom_hitokoto">本地Hitokoto</string>
 </resources>
