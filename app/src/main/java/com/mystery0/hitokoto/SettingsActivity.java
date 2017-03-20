@@ -1,7 +1,9 @@
 package com.mystery0.hitokoto;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ClipboardManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -20,8 +22,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.hitokoto.custom.CustomHitokotoActivity;
 import com.mystery0.hitokoto.custom.CustomMultipleActivity;
 import com.mystery0.hitokoto.custom.CustomSingleActivity;
@@ -30,7 +38,12 @@ import com.mystery0.tools.Logs.Logs;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 @SuppressWarnings("deprecation")
 public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -155,6 +168,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
+                ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+                @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_show_currect, null);
+                TextView content = (TextView) view.findViewById(R.id.content);
+                TextView source = (TextView) view.findViewById(R.id.source);
+                String[] temp = WidgetConfigure.getTemp();
+                content.setText(temp[0]);
+                source.setText(temp[1]);
+                new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
+                        .setView(view)
+                        .setTitle(R.string.text_show_current)
+                        .setPositiveButton(android.R.string.ok, null)
+                        .show();
                 return false;
             }
         });
