@@ -38,7 +38,7 @@
     <string name="text_auto_refresh">Auto Refresh</string>
     <string name="text_click_to_refresh">Click To Refresh</string>
     <string name="text_refresh_time">Set Refresh Time</string>
-    <string name="text_text_padding">Set Text Padding</string>
+    <string name="text_text_padding">Text Padding</string>
     <string name="text_text_color">Text Color</string>
     <string name="text_text_aligned">Text Aligned</string>
     <string name="text_text_size">Text Size</string>

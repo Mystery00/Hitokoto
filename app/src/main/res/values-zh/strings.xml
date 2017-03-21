@@ -5,7 +5,7 @@
     <string name="add_widget">添加小部件</string>
     <string name="hint_add_widget">请先添加小部件</string>
     <string name="hint_broadcast">广播已发送</string>
-    <string name="hint_copy_address">E-mail地址已经复制到剪切板</string>
+    <string name="hint_copy_address">E-mail地址已经复制到剪切板！</string>
     <string name="hint_permission">请授予权限</string>
     <string name="hint_refresh_time">请输入时间（分）</string>
     <string name="hint_text_size">请输入大小</string>
@@ -58,4 +58,7 @@
     <string name="hint_title_edit_hitokoto">编辑</string>
     <string name="hint_update_time">更新时间：</string>
     <string name="title_activity_custom_hitokoto">本地Hitokoto</string>
+    <string name="hint_copy_text">文本已经复制到剪切板！</string>
+    <string name="test">测试</string>
+    <string name="text_text_padding">文字间隔</string>
 </resources>
