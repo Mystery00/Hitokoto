@@ -43,12 +43,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/custom_source"
+        android:layout_marginEnd="@dimen/item_show_margin"
+        android:layout_marginStart="@dimen/item_show_margin"
         android:text="@string/hint_update_time"/>
 
     <TextView
         android:id="@+id/custom_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_date"/>
+        android:layout_below="@id/text_date"
+        android:layout_marginEnd="@dimen/item_show_margin"
+        android:layout_marginStart="@dimen/item_show_margin"/>
 
 </RelativeLayout>

@@ -62,4 +62,5 @@
     <string name="test">テスト</string>
     <string name="hint_copy_text">テキストがクリップボードにコピーされました！</string>
     <string name="hint_show_current">テキストをコピーするための長押し!</string>
+    <string name="hint_show_hitokoto">右のエントリを削除スライドさせ！</string>
 </resources>

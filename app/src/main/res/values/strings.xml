@@ -71,6 +71,7 @@
     <string name="hint_update_time">Update Time: </string>
     <string name="hint_title_edit_hitokoto">Edit</string>
     <string name="hint_show_current">Long press text to copy! </string>
+    <string name="hint_show_hitokoto">Right slide delete entry! </string>
 
     <string name="ErrorRefreshTime">Please ensure the time is more than 0 </string>
     <string name="ErrorNull">Text Can\'t be Null! </string>
