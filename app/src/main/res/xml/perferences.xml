@@ -13,6 +13,7 @@
             android:key="@string/key_show_current"
             android:title="@string/text_show_current"/>
         <Preference
+            android:enabled="false"
             android:key="@string/key_test_source"
             android:title="@string/text_test_source"/>
         <MultiSelectListPreference
