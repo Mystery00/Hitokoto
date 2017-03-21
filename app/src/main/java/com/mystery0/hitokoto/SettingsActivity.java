@@ -165,6 +165,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
+                //noinspection RestrictedApi
                 ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
                 @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_show_currect, null);
                 TextView content = (TextView) view.findViewById(R.id.content);
@@ -177,6 +178,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
                         .setView(view)
                         .setTitle(R.string.text_show_current)
+                        .setMessage(R.string.hint_show_current)
                         .setPositiveButton(android.R.string.ok, null)
                         .show();
                 return false;

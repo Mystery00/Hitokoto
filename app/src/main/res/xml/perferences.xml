@@ -15,6 +15,7 @@
         <Preference
             android:enabled="false"
             android:key="@string/key_test_source"
+            android:summary="@string/unavailable_now"
             android:title="@string/text_test_source"/>
         <MultiSelectListPreference
             android:entries="@array/list_source"

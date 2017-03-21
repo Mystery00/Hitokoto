@@ -61,4 +61,5 @@
     <string name="text_text_padding">テキスト間隔</string>
     <string name="test">テスト</string>
     <string name="hint_copy_text">テキストがクリップボードにコピーされました！</string>
+    <string name="hint_show_current">テキストをコピーするための長押し!</string>
 </resources>

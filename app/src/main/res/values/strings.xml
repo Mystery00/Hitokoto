@@ -70,6 +70,7 @@
     <string name="hint_text_custom">Intervals with a space between the text and sources.\nEach row represents a Hitokoto.</string>
     <string name="hint_update_time">Update Time: </string>
     <string name="hint_title_edit_hitokoto">Edit</string>
+    <string name="hint_show_current">Long press text to copy! </string>
 
     <string name="ErrorRefreshTime">Please ensure the time is more than 0 </string>
     <string name="ErrorNull">Text Can\'t be Null! </string>
