@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import com.google.gson.JsonSyntaxException;
 import com.mystery0.hitokoto.App;
@@ -283,9 +284,19 @@ public class WidgetConfigure
                     public void onResponse(int i, String message)
                     {
                         Logs.i(TAG, "onResponse: " + message);
+                        Hitokoto hitokoto;
+                        try
+                        {
+                            hitokoto = httpUtil.fromJson(message, Hitokoto.class);
+                        } catch (Exception e)
+                        {
+                            hitokoto = httpUtil.fromJson(context.getString(R.string.default_temp), Hitokoto.class);
+                            Logs.e(TAG, "onResponse: " + e.getMessage());
+                            Toast.makeText(App.getContext(), "检查网络连接", Toast.LENGTH_SHORT)
+                                    .show();
+                        }
                         editor.putString(context.getString(R.string.hitokotoTemp), message);
                         editor.apply();
-                        Hitokoto hitokoto = httpUtil.fromJson(message, Hitokoto.class);
                         Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
                         intent.putExtra(context.getString(R.string.hitokoto_object), hitokoto);
                         context.sendBroadcast(intent);
