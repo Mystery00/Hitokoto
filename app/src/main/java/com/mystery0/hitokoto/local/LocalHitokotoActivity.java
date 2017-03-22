@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto.custom;
+package com.mystery0.hitokoto.local;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -29,9 +29,9 @@ import java.util.Locale;
 
 import static android.support.v7.widget.helper.ItemTouchHelper.RIGHT;
 
-public class CustomHitokotoActivity extends AppCompatActivity implements ShowItemListener
+public class LocalHitokotoActivity extends AppCompatActivity implements ShowItemListener
 {
-    private static final String TAG = "CustomHitokotoActivity";
+    private static final String TAG = "LocalHitokotoActivity";
     private Toolbar toolbar;
     private List<HitokotoLocal> list;
     private RecyclerView recyclerView;
@@ -105,7 +105,7 @@ public class CustomHitokotoActivity extends AppCompatActivity implements ShowIte
         content_layout.getEditText().setText(hitokotoLocal.getContent());
         source_layout.getEditText().setText(hitokotoLocal.getSource());
         textView.setText(hitokotoLocal.getDate());
-        new AlertDialog.Builder(CustomHitokotoActivity.this, R.style.AlertDialogStyle)
+        new AlertDialog.Builder(LocalHitokotoActivity.this, R.style.AlertDialogStyle)
                 .setView(view)
                 .setTitle(R.string.hint_title_edit_hitokoto)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()

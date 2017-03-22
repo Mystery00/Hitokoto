@@ -14,7 +14,7 @@
     <string name="key_not_show_source" translatable="false">key_not_show_source</string>
     <string name="key_show_crash_log" translatable="false">key_show_crash_log</string>
     <string name="key_contact_me" translatable="false">key_contact_me</string>
-    <string name="key_custom_single_hitokoto" translatable="false">key_custom_single_hitokoto</string>
-    <string name="key_custom_multiple_hitokoto" translatable="false">key_custom_multiple_hitokoto</string>
-    <string name="key_custom_show_hitokoto" translatable="false">key_custom_show_hitokoto</string>
+    <string name="key_local_single_hitokoto" translatable="false">key_local_single_hitokoto</string>
+    <string name="key_local_multiple_hitokoto" translatable="false">key_local_multiple_hitokoto</string>
+    <string name="key_local_show_hitokoto" translatable="false">key_local_show_hitokoto</string>
 </resources>

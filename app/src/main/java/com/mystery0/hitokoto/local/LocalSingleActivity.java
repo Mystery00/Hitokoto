@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto.custom;
+package com.mystery0.hitokoto.local;
 
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,9 +14,9 @@ import com.mystery0.hitokoto.R;
 import com.mystery0.tools.Logs.Logs;
 
 @SuppressWarnings("ConstantConditions")
-public class CustomSingleActivity extends AppCompatActivity
+public class LocalSingleActivity extends AppCompatActivity
 {
-    private static final String TAG = "CustomSingleActivity";
+    private static final String TAG = "LocalSingleActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,7 +40,7 @@ public class CustomSingleActivity extends AppCompatActivity
             {
                 if (isFormat(hitokotoContent) & isFormat(hitokotoSource))
                 {
-                    CustomConfigure.saveToDatabase(
+                    LocalConfigure.saveToDatabase(
                             hitokotoContent.getEditText().getText().toString(),
                             hitokotoSource.getEditText().getText().toString());
                     Logs.i(TAG, "onOptionsItemSelected: 存储");

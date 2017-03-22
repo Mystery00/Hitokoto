@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/activity_horizontal_margin"
-    tools:context="com.mystery0.hitokoto.custom.CustomMultipleActivity">
+    tools:context="com.mystery0.hitokoto.local.LocalMultipleActivity">
 
     <TextView
         android:id="@+id/help"

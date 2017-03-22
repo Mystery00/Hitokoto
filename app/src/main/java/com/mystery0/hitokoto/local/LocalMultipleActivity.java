@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto.custom;
+package com.mystery0.hitokoto.local;
 
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -22,9 +22,9 @@ import java.util.Locale;
 import java.util.Scanner;
 
 @SuppressWarnings("ConstantConditions")
-public class CustomMultipleActivity extends AppCompatActivity
+public class LocalMultipleActivity extends AppCompatActivity
 {
-    private static final String TAG = "CustomMultipleActivity";
+    private static final String TAG = "LocalMultipleActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,7 +47,7 @@ public class CustomMultipleActivity extends AppCompatActivity
             {
                 if (isFormat(hitokotoContent))
                 {
-                    CustomConfigure.saveToDatabase(Analysis(hitokotoContent.getEditText().getText().toString()));
+                    LocalConfigure.saveToDatabase(Analysis(hitokotoContent.getEditText().getText().toString()));
                     Toast.makeText(App.getContext(), R.string.hint_save_custom_done, Toast.LENGTH_SHORT)
                             .show();
                 } else

@@ -26,15 +26,15 @@
             android:title="@string/title_custom_hitokoto">
 
             <Preference
-                android:key="@string/key_custom_single_hitokoto"
+                android:key="@string/key_local_single_hitokoto"
                 android:title="@string/text_custom_single_hitokoto"/>
 
             <Preference
-                android:key="@string/key_custom_multiple_hitokoto"
+                android:key="@string/key_local_multiple_hitokoto"
                 android:title="@string/text_custom_multiple_hitokoto"/>
 
             <Preference
-                android:key="@string/key_custom_show_hitokoto"
+                android:key="@string/key_local_show_hitokoto"
                 android:title="@string/text_custom_show_hitokoto"/>
 
         </PreferenceScreen>

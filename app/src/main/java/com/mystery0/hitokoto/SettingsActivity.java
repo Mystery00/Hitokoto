@@ -28,9 +28,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mystery0.hitokoto.custom.CustomHitokotoActivity;
-import com.mystery0.hitokoto.custom.CustomMultipleActivity;
-import com.mystery0.hitokoto.custom.CustomSingleActivity;
+import com.mystery0.hitokoto.local.LocalHitokotoActivity;
+import com.mystery0.hitokoto.local.LocalMultipleActivity;
+import com.mystery0.hitokoto.local.LocalSingleActivity;
 import com.mystery0.hitokoto.widget.WidgetConfigure;
 import com.mystery0.tools.Logs.Logs;
 
@@ -103,9 +103,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         notShowSource = (CheckBoxPreference) findPreference(getString(R.string.key_not_show_source));
         showCrashLog = findPreference(getString(R.string.key_show_crash_log));
         contactMe = findPreference(getString(R.string.key_contact_me));
-        customSingleHitokoto = findPreference(getString(R.string.key_custom_single_hitokoto));
-        customMultipleHitokoto = findPreference(getString(R.string.key_custom_multiple_hitokoto));
-        showCustomHitokoto = findPreference(getString(R.string.key_custom_show_hitokoto));
+        customSingleHitokoto = findPreference(getString(R.string.key_local_single_hitokoto));
+        customMultipleHitokoto = findPreference(getString(R.string.key_local_multiple_hitokoto));
+        showCustomHitokoto = findPreference(getString(R.string.key_local_show_hitokoto));
 
         autoRefresh.setChecked(WidgetConfigure.getAutoRefresh());
         clickToRefresh.setChecked(WidgetConfigure.getClickToRefresh());
@@ -239,7 +239,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                startActivity(new Intent(App.getContext(), CustomSingleActivity.class));
+                startActivity(new Intent(App.getContext(), LocalSingleActivity.class));
                 return false;
             }
         });
@@ -248,7 +248,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                startActivity(new Intent(App.getContext(), CustomMultipleActivity.class));
+                startActivity(new Intent(App.getContext(), LocalMultipleActivity.class));
                 return false;
             }
         });
@@ -257,7 +257,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                startActivity(new Intent(App.getContext(), CustomHitokotoActivity.class));
+                startActivity(new Intent(App.getContext(), LocalHitokotoActivity.class));
                 return false;
             }
         });

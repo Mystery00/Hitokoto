@@ -37,17 +37,17 @@
             android:theme="@android:style/Theme.NoDisplay"/>
 
         <activity
-            android:name=".custom.CustomSingleActivity"
+            android:name=".local.LocalSingleActivity"
             android:label="@string/text_custom_single_hitokoto"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert">
         </activity>
         <activity
-            android:name=".custom.CustomMultipleActivity"
+            android:name=".local.LocalMultipleActivity"
             android:label="@string/text_custom_multiple_hitokoto"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert">
         </activity>
         <activity
-            android:name=".custom.CustomHitokotoActivity"
+            android:name=".local.LocalHitokotoActivity"
             android:label="@string/title_activity_custom_hitokoto"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

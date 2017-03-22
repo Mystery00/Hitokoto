@@ -11,7 +11,7 @@ import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.class_class.Hitokoto;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
-import com.mystery0.hitokoto.custom.CustomConfigure;
+import com.mystery0.hitokoto.local.LocalConfigure;
 import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
@@ -262,7 +262,7 @@ public class WidgetConfigure
         Logs.i(TAG, "refreshText: " + temp);
         if (temp.equals("h"))
         {
-            HitokotoLocal hitokotoLocal = CustomConfigure.getRandom();
+            HitokotoLocal hitokotoLocal = LocalConfigure.getRandom();
             if (hitokotoLocal != null)
             {
                 Hitokoto hitokoto = new Hitokoto();

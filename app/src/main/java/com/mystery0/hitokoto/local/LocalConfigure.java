@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto.custom;
+package com.mystery0.hitokoto.local;
 
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.tools.Logs.Logs;
@@ -10,9 +10,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class CustomConfigure
+public class LocalConfigure
 {
-    private static final String TAG = "CustomConfigure";
+    private static final String TAG = "LocalConfigure";
 
     public static void saveToDatabase(String content, String source)
     {
