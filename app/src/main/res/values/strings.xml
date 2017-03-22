@@ -84,9 +84,16 @@
     <string name="unavailable_now">Unavailable Now!</string>
 
     <string name="add_widget">Add widget</string>
+
     <string name="test">Test</string>
+    <string name="Name">Name</string>
+    <string name="Address">Address</string>
+    <string name="Status">Status</string>
+    <string name="Wait">Wait</string>
     <string name="Enable">Enable</string>
     <string name="Disable">Disable</string>
+
+    <string name="Local">Local</string>
 
     <!--List Aligned-->
     <string name="left">Left</string>

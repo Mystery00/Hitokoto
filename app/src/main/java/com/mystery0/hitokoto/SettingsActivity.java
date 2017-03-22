@@ -35,13 +35,17 @@ import com.mystery0.hitokoto.class_class.HitokotoSource;
 import com.mystery0.hitokoto.local.LocalHitokotoActivity;
 import com.mystery0.hitokoto.local.LocalMultipleActivity;
 import com.mystery0.hitokoto.local.LocalSingleActivity;
+import com.mystery0.hitokoto.test_source.TestSource;
+import com.mystery0.hitokoto.test_source.TestSourceAdapter;
+import com.mystery0.hitokoto.test_source.TestSourceListener;
 import com.mystery0.hitokoto.widget.WidgetConfigure;
 import com.mystery0.tools.Logs.Logs;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
@@ -96,6 +100,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 
     private void initialized()
     {
+        new HitokotoSource("online", getString(R.string.app_name), getString(R.string.request_url), getString(R.string.Wait), 1)
+                .saveOrUpdate("address = ?", getString(R.string.request_url));
+        new HitokotoSource("local", getString(R.string.Local), "Local", getString(R.string.Wait), 3)
+                .saveOrUpdate("address = ?", "Local");
+
         refreshNow = findPreference(getString(R.string.key_refresh_now));
         showCurrent = findPreference(getString(R.string.key_show_current));
         testSource = findPreference(getString(R.string.key_test_source));
@@ -197,19 +206,44 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                List<HitokotoSource> list = new ArrayList<>();
-                list.add(new HitokotoSource("name", "add", "en"));
+                final List<HitokotoSource> list = DataSupport.findAll(HitokotoSource.class);
                 //noinspection RestrictedApi
                 ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
                 @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_test_source, null);
                 RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
                 Button button = (Button) view.findViewById(R.id.test);
                 recyclerView.setLayoutManager(new LinearLayoutManager(App.getContext()));
-                TestSourceAdapter adapter = new TestSourceAdapter(list);
+                final TestSourceAdapter adapter = new TestSourceAdapter(list);
+                button.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        for (int i = 0; i < list.size(); i++)
+                        {
+                            final int finalI = i;
+                            TestSource.test(list.get(i), new TestSourceListener()
+                            {
+                                @Override
+                                public void result(boolean result)
+                                {
+                                    if (result)
+                                    {
+                                        list.get(finalI).setEnable(getString(R.string.Enable));
+                                    } else
+                                    {
+                                        list.get(finalI).setEnable(getString(R.string.Disable));
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
+                        }
+                    }
+                });
                 recyclerView.setAdapter(adapter);
                 new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
                         .setView(view)
-                        .setTitle(R.string.text_show_current)
+                        .setTitle(R.string.text_test_source)
                         .setPositiveButton(android.R.string.ok, null)
                         .show();
                 return false;

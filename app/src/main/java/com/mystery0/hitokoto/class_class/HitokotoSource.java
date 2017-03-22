@@ -1,20 +1,32 @@
 package com.mystery0.hitokoto.class_class;
 
-public class HitokotoSource
+import org.litepal.crud.DataSupport;
+
+public class HitokotoSource extends DataSupport
 {
+    private String source;
     private String name;
     private String address;
     private String enable;
+    private int method;
 
-    public HitokotoSource()
+    public HitokotoSource(String source, String name, String address, String enable, int method)
     {
-    }
-
-    public HitokotoSource(String name, String address, String enable)
-    {
+        this.source = source;
         this.name = name;
         this.address = address;
         this.enable = enable;
+        this.method = method;
+    }
+
+    public String getSource()
+    {
+        return source;
+    }
+
+    public void setSource(String source)
+    {
+        this.source = source;
     }
 
     public String getName()
@@ -45,5 +57,15 @@ public class HitokotoSource
     public void setEnable(String enable)
     {
         this.enable = enable;
+    }
+
+    public int getMethod()
+    {
+        return method;
+    }
+
+    public void setMethod(int method)
+    {
+        this.method = method;
     }
 }

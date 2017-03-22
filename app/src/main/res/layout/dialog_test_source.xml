@@ -4,17 +4,22 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/item_show_margin"
+        android:layout_marginStart="@dimen/item_show_margin"
+        android:layout_marginTop="@dimen/item_show_margin"/>
+
     <Button
         android:id="@+id/test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/recyclerView"
+        android:layout_marginBottom="@dimen/item_show_margin"
+        android:layout_marginEnd="@dimen/item_show_margin"
+        android:layout_marginStart="@dimen/item_show_margin"
         android:text="@string/test"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/test"/>
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto;
+package com.mystery0.hitokoto.test_source;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
 
 import java.util.List;
@@ -46,14 +47,22 @@ public class TestSourceAdapter extends RecyclerView.Adapter<TestSourceAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position)
     {
-        holder.name.setText(list.get(position).getName());
-        holder.address.setText(list.get(position).getAddress());
-        holder.enable.setText(list.get(position).getEnable());
+        if (position == 0)
+        {
+            holder.name.setText(R.string.Name);
+            holder.address.setText(R.string.Address);
+            holder.enable.setText(R.string.Status);
+        } else
+        {
+            holder.name.setText(list.get(position - 1).getName());
+            holder.address.setText(list.get(position - 1).getAddress());
+            holder.enable.setText(list.get(position - 1).getEnable());
+        }
     }
 
     @Override
     public int getItemCount()
     {
-        return list.size();
+        return list.size() + 1;
     }
 }
