@@ -63,4 +63,5 @@
     <string name="hint_copy_text">文本已經復製到剪切板！</string>
     <string name="hint_show_current">長按複製文本！</string>
     <string name="hint_show_hitokoto">右滑刪除條目！</string>
+    <string name="hint_network_error">網絡連接錯誤！</string>
 </resources>

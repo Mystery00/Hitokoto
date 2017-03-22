@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Hitokoto</string>
     <string name="default_temp" translatable="false">{"id": "23333","hitokoto": "小部件出现问题……","type": "e","from": "开发者","creator": "开发者","cearted_at": null}</string>
+    <string name="network_error" translatable="false">{"id": "23333","hitokoto": "网络连接异常……","type": "e","from": "开发者","creator": "开发者","cearted_at": null}</string>
     <string name="e_mail_address" translatable="false">mystery0dyl520@gmail.com</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_custom_hitokoto">LocalHitokoto</string>
@@ -72,6 +73,7 @@
     <string name="hint_title_edit_hitokoto">Edit</string>
     <string name="hint_show_current">Long press text to copy! </string>
     <string name="hint_show_hitokoto">Right slide delete entry! </string>
+    <string name="hint_network_error">Network Error！</string>
 
     <string name="ErrorRefreshTime">Please ensure the time is more than 0 </string>
     <string name="ErrorNull">Text Can\'t be Null! </string>

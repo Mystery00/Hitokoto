@@ -283,16 +283,25 @@ public class WidgetConfigure
                     @Override
                     public void onResponse(int i, String message)
                     {
-                        Logs.i(TAG, "onResponse: " + message);
                         Hitokoto hitokoto;
-                        try
+                        if (i == 1)
                         {
-                            hitokoto = httpUtil.fromJson(message, Hitokoto.class);
-                        } catch (Exception e)
+                            Logs.i(TAG, "onResponse: " + message);
+                            try
+                            {
+                                hitokoto = httpUtil.fromJson(message, Hitokoto.class);
+                            } catch (Exception e)
+                            {
+                                hitokoto = httpUtil.fromJson(context.getString(R.string.network_error), Hitokoto.class);
+                                Logs.e(TAG, "onResponse: " + e.getMessage());
+                                Toast.makeText(App.getContext(), context.getString(R.string.hint_network_error), Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        } else
                         {
-                            hitokoto = httpUtil.fromJson(context.getString(R.string.default_temp), Hitokoto.class);
-                            Logs.e(TAG, "onResponse: " + e.getMessage());
-                            Toast.makeText(App.getContext(), "检查网络连接", Toast.LENGTH_SHORT)
+                            hitokoto = httpUtil.fromJson(context.getString(R.string.network_error), Hitokoto.class);
+                            Logs.e(TAG, "onResponse: " + message);
+                            Toast.makeText(App.getContext(), context.getString(R.string.hint_network_error), Toast.LENGTH_SHORT)
                                     .show();
                         }
                         editor.putString(context.getString(R.string.hitokotoTemp), message);
