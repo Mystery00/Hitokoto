@@ -18,6 +18,7 @@
         android:layout_below="@id/content"
         android:layout_marginEnd="@dimen/item_show_margin"
         android:layout_marginStart="@dimen/item_show_margin"
+        android:layout_marginTop="@dimen/item_show_margin"
         android:gravity="end"/>
 
 </RelativeLayout>

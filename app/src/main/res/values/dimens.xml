@@ -10,4 +10,6 @@
     <dimen name="item_show_height">32dp</dimen>
     <dimen name="item_show_divider_margin">15dp</dimen>
     <dimen name="item_show_margin">16dp</dimen>
+    <dimen name="item_test_source_width">60dp</dimen>
+    <dimen name="item_test_source_height">40dp</dimen>
 </resources>

@@ -13,9 +13,7 @@
             android:key="@string/key_show_current"
             android:title="@string/text_show_current"/>
         <Preference
-            android:enabled="false"
             android:key="@string/key_test_source"
-            android:summary="@string/unavailable_now"
             android:title="@string/text_test_source"/>
         <MultiSelectListPreference
             android:entries="@array/list_source"
@@ -38,6 +36,10 @@
                 android:title="@string/text_custom_show_hitokoto"/>
 
         </PreferenceScreen>
+
+        <Preference
+            android:key="@string/key_custom_source"
+            android:title="@string/text_custom_source"/>
 
     </PreferenceCategory>
 

@@ -23,11 +23,15 @@ import android.os.Bundle;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mystery0.hitokoto.class_class.HitokotoSource;
 import com.mystery0.hitokoto.local.LocalHitokotoActivity;
 import com.mystery0.hitokoto.local.LocalMultipleActivity;
 import com.mystery0.hitokoto.local.LocalSingleActivity;
@@ -37,6 +41,8 @@ import com.mystery0.tools.Logs.Logs;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("deprecation")
 public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -60,6 +66,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     private Preference customSingleHitokoto;
     private Preference customMultipleHitokoto;
     private Preference showCustomHitokoto;
+    private Preference customSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -106,6 +113,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         customSingleHitokoto = findPreference(getString(R.string.key_local_single_hitokoto));
         customMultipleHitokoto = findPreference(getString(R.string.key_local_multiple_hitokoto));
         showCustomHitokoto = findPreference(getString(R.string.key_local_show_hitokoto));
+        customSource = findPreference(getString(R.string.key_custom_source));
 
         autoRefresh.setChecked(WidgetConfigure.getAutoRefresh());
         clickToRefresh.setChecked(WidgetConfigure.getClickToRefresh());
@@ -189,11 +197,21 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-//                new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
-//                        .setView(view)
-//                        .setTitle(R.string.text_show_current)
-//                        .setPositiveButton(android.R.string.ok, null)
-//                        .show();
+                List<HitokotoSource> list = new ArrayList<>();
+                list.add(new HitokotoSource("name", "add", "en"));
+                //noinspection RestrictedApi
+                ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+                @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_test_source, null);
+                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+                Button button = (Button) view.findViewById(R.id.test);
+                recyclerView.setLayoutManager(new LinearLayoutManager(App.getContext()));
+                TestSourceAdapter adapter = new TestSourceAdapter(list);
+                recyclerView.setAdapter(adapter);
+                new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
+                        .setView(view)
+                        .setTitle(R.string.text_show_current)
+                        .setPositiveButton(android.R.string.ok, null)
+                        .show();
                 return false;
             }
         });
@@ -258,6 +276,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             public boolean onPreferenceClick(Preference preference)
             {
                 startActivity(new Intent(App.getContext(), LocalHitokotoActivity.class));
+                return false;
+            }
+        });
+        customSource.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
                 return false;
             }
         });

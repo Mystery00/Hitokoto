@@ -101,10 +101,10 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
         @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_edit_hitokoto, null);
         final TextInputLayout content_layout = (TextInputLayout) view.findViewById(R.id.custom_content);
         final TextInputLayout source_layout = (TextInputLayout) view.findViewById(R.id.custom_source);
-        TextView textView = (TextView) view.findViewById(R.id.custom_date);
+        TextView text_date = (TextView) view.findViewById(R.id.custom_date);
         content_layout.getEditText().setText(hitokotoLocal.getContent());
         source_layout.getEditText().setText(hitokotoLocal.getSource());
-        textView.setText(hitokotoLocal.getDate());
+        text_date.setText(hitokotoLocal.getDate());
         new AlertDialog.Builder(LocalHitokotoActivity.this, R.style.AlertDialogStyle)
                 .setView(view)
                 .setTitle(R.string.hint_title_edit_hitokoto)

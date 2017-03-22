@@ -34,6 +34,7 @@
     <string name="text_custom_single_hitokoto">Add Single Hitokoto</string>
     <string name="text_custom_multiple_hitokoto">Add Multiple Hitokoto</string>
     <string name="text_custom_show_hitokoto">Show Custom Hitokoto</string>
+    <string name="text_custom_source">Custom Source</string>
 
     <string name="title_widget_settings">Widget Settings</string>
     <string name="text_auto_refresh">Auto Refresh</string>
@@ -84,6 +85,8 @@
 
     <string name="add_widget">Add widget</string>
     <string name="test">Test</string>
+    <string name="Enable">Enable</string>
+    <string name="Disable">Disable</string>
 
     <!--List Aligned-->
     <string name="left">Left</string>
