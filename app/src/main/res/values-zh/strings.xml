@@ -64,4 +64,13 @@
     <string name="hint_show_current">长按复制文本！</string>
     <string name="hint_show_hitokoto">右滑删除条目！</string>
     <string name="hint_network_error">网络连接错误！</string>
+    <string name="Address">地址</string>
+    <string name="Disable">不可用</string>
+    <string name="Enable">可用</string>
+    <string name="Local">本地</string>
+    <string name="Name">名字</string>
+    <string name="Status">状态</string>
+    <string name="Wait">等待测试</string>
+    <string name="text_custom_source">自定义源</string>
+    <string name="hint_null_data">这里没有数据！</string>
 </resources>

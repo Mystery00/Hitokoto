@@ -266,10 +266,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                             App.getContext(), "com.mystery0.hitokoto.fileProvider", log);
                     Logs.i(TAG, "onPreferenceClick: " + contentUri.getPath());
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    intent.setDataAndType(contentUri, "text/plain");
+                    intent.setDataAndType(contentUri, "text/*");
                 } else
                 {
-                    intent.setDataAndType(Uri.fromFile(log), "text/plain");
+                    intent.setDataAndType(Uri.fromFile(log), "text/*");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 }
                 startActivity(intent);

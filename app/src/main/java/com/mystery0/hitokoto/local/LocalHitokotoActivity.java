@@ -43,8 +43,6 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
         super.onCreate(savedInstanceState);
         initialize();
         monitor();
-
-
     }
 
     private void initialize()
@@ -53,9 +51,14 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
         setContentView(R.layout.activity_custom_hitokoto);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        TextView null_data = (TextView) findViewById(R.id.null_data);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ShowAdapter(list, this);
         recyclerView.setAdapter(adapter);
+        if (list.size() == 0)
+        {
+            null_data.setVisibility(View.VISIBLE);
+        }
 
         setSupportActionBar(toolbar);
     }
