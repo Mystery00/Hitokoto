@@ -46,6 +46,7 @@ import net.margaritov.preference.colorpicker.ColorPickerPreference;
 import org.litepal.crud.DataSupport;
 
 import java.io.File;
+
 import java.util.List;
 
 @SuppressWarnings("deprecation")
@@ -254,19 +255,21 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                File file = new File(Environment.getExternalStorageDirectory().getPath() + "/hitokoto/log/crash2017-03-15 12:31:39.txt");
+                File file = new File(Environment.getExternalStorageDirectory().getPath() + "/hitokoto/log/");
+                File[] logs = file.listFiles();
+                File log = logs[logs.length - 1];
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 //判断是否是AndroidN以及更高的版本
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                 {
                     Uri contentUri = FileProvider.getUriForFile(
-                            App.getContext(), "com.mystery0.hitokoto.fileProvider", file);
+                            App.getContext(), "com.mystery0.hitokoto.fileProvider", log);
                     Logs.i(TAG, "onPreferenceClick: " + contentUri.getPath());
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    intent.setDataAndType(contentUri, "text/*");
+                    intent.setDataAndType(contentUri, "text/plain");
                 } else
                 {
-                    intent.setDataAndType(Uri.fromFile(file), "text/*");
+                    intent.setDataAndType(Uri.fromFile(log), "text/plain");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 }
                 startActivity(intent);

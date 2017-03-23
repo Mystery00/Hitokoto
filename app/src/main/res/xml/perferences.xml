@@ -111,9 +111,7 @@
                 android:title="@string/text_developer"/>
 
             <Preference
-                android:enabled="false"
                 android:key="@string/key_show_crash_log"
-                android:summary="@string/unavailable_now"
                 android:title="@string/text_show_crash"/>
 
             <Preference
