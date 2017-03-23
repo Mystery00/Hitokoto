@@ -1,6 +1,5 @@
 package com.mystery0.hitokoto;
 
-
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.service.quicksettings.Tile;

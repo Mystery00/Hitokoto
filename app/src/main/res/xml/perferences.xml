@@ -38,7 +38,9 @@
         </PreferenceScreen>
 
         <Preference
+            android:enabled="false"
             android:key="@string/key_custom_source"
+            android:summary="@string/unavailable_now"
             android:title="@string/text_custom_source"/>
 
     </PreferenceCategory>
