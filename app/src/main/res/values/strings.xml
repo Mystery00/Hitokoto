@@ -2,6 +2,7 @@
     <string name="app_name">Hitokoto</string>
     <string name="default_temp" translatable="false">{"id": "23333","hitokoto": "小部件出现问题……","type": "e","from": "开发者","creator": "开发者","cearted_at": null}</string>
     <string name="network_error" translatable="false">{"id": "23333","hitokoto": "网络连接异常……","type": "e","from": "开发者","creator": "开发者","cearted_at": null}</string>
+    <string name="json_example" translatable="false">{\n  "id": "1148",\n  "hitokoto": "你说最开心的是你，我说最难过的是你……",\n  "type": "e",\n  "from": "原创",\n  "creator": "Mystery0",\n  "create_at": null\n}</string>
     <string name="e_mail_address" translatable="false">mystery0dyl520@gmail.com</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_custom_hitokoto">LocalHitokoto</string>
@@ -34,7 +35,11 @@
     <string name="text_custom_single_hitokoto">Add Single Hitokoto</string>
     <string name="text_custom_multiple_hitokoto">Add Multiple Hitokoto</string>
     <string name="text_custom_show_hitokoto">Show Custom Hitokoto</string>
-    <string name="text_custom_source">Custom Source</string>
+
+    <string name="title_custom_source">Custom Source</string>
+    <string name="text_custom_source_new">Add Source</string>
+    <string name="text_custom_source_manager">Source Manager</string>
+    <string name="text_custom_source_helper">Custom Source Help</string>
 
     <string name="title_widget_settings">Widget Settings</string>
     <string name="text_auto_refresh">Auto Refresh</string>
@@ -76,6 +81,11 @@
     <string name="hint_show_hitokoto">Right slide delete entry! </string>
     <string name="hint_network_error">Network Error! </string>
     <string name="hint_null_data">There is no data! </string>
+    <string name="hint_custom_source_name">Please Enter the name of source</string>
+    <string name="hint_custom_source_address">Please Enter the address of source</string>
+    <string name="hint_custom_source_request_method">Request Method:</string>
+    <string name="hint_custom_source_content">Content Key</string>
+    <string name="hint_custom_source_from">From Key</string>
 
     <string name="ErrorRefreshTime">Please ensure the time is more than 0 </string>
     <string name="ErrorNull">Text Can\'t be Null! </string>
@@ -93,6 +103,7 @@
     <string name="Wait">Wait</string>
     <string name="Enable">Enable</string>
     <string name="Disable">Disable</string>
+    <string name="Custom">Custom</string>
 
     <!--List Aligned-->
     <string name="left">Left</string>

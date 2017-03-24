@@ -8,6 +8,8 @@ public class HitokotoSource extends DataSupport
     private String name;//源名称
     private String address;//源地址
     private String enable;//是否可用，默认wait
+    private String content_key;
+    private String from_key;
     private int method;//请求方式,1-get,2-post
 
     public HitokotoSource(String source, String name, String address, String enable, int method)
@@ -57,6 +59,26 @@ public class HitokotoSource extends DataSupport
     public void setEnable(String enable)
     {
         this.enable = enable;
+    }
+
+    public String getContent_key()
+    {
+        return content_key;
+    }
+
+    public void setContent_key(String content_key)
+    {
+        this.content_key = content_key;
+    }
+
+    public String getFrom_key()
+    {
+        return from_key;
+    }
+
+    public void setFrom_key(String from_key)
+    {
+        this.from_key = from_key;
     }
 
     public int getMethod()

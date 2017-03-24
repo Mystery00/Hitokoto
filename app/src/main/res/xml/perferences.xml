@@ -37,11 +37,24 @@
 
         </PreferenceScreen>
 
-        <Preference
-            android:enabled="false"
+        <PreferenceScreen
             android:key="@string/key_custom_source"
             android:summary="@string/unavailable_now"
-            android:title="@string/text_custom_source"/>
+            android:title="@string/title_custom_source">
+
+            <Preference
+                android:key="@string/key_custom_source_new"
+                android:title="@string/text_custom_source_new"/>
+
+            <Preference
+                android:key="@string/key_custom_source_manager"
+                android:title="@string/text_custom_source_manager"/>
+
+            <Preference
+                android:key="@string/key_custom_source_helper"
+                android:title="@string/text_custom_source_helper"/>
+
+        </PreferenceScreen>
 
     </PreferenceCategory>
 

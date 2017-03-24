@@ -18,4 +18,7 @@
     <string name="key_local_multiple_hitokoto" translatable="false">key_local_multiple_hitokoto</string>
     <string name="key_local_show_hitokoto" translatable="false">key_local_show_hitokoto</string>
     <string name="key_custom_source" translatable="false">key_custom_source</string>
+    <string name="key_custom_source_new" translatable="false">key_custom_source_new</string>
+    <string name="key_custom_source_manager" translatable="false">key_custom_source_manager</string>
+    <string name="key_custom_source_helper" translatable="false">key_custom_source_helper</string>
 </resources>

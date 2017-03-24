@@ -21,4 +21,8 @@
         <item>local</item>
         <item>custom</item>
     </string-array>
+    <string-array name="list_request_method">
+        <item>GET</item>
+        <item>POST</item>
+    </string-array>
 </resources>

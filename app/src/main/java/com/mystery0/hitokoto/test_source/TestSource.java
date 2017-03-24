@@ -1,15 +1,18 @@
 package com.mystery0.hitokoto.test_source;
 
+import com.google.gson.JsonObject;
 import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.Hitokoto;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
 import com.mystery0.hitokoto.local.LocalConfigure;
+import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
 
 public class TestSource
 {
+    private static final String TAG = "TestSource";
     public static void test(HitokotoSource hitokotoSource, final TestSourceListener listener)
     {
         final HttpUtil httpUtil = new HttpUtil(App.getContext());
@@ -59,6 +62,38 @@ public class TestSource
             }
         } else if (hitokotoSource.getSource().equals(types[2]))
         {
+            switch (hitokotoSource.getMethod())
+            {
+                case 1://get
+                    httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET);
+                    break;
+                case 2://post
+                    httpUtil.setRequestMethod(HttpUtil.RequestMethod.POST);
+                    break;
+            }
+            httpUtil.setUrl(hitokotoSource.getAddress())
+                    .setResponseListener(new ResponseListener()
+                    {
+                        @Override
+                        public void onResponse(int i, String s)
+                        {
+                            if (i == 1)
+                            {
+                                Logs.i(TAG, "onResponse: "+s);
+                                try
+                                {
+                                    JsonObject jsonObject=new JsonObject();
+                                } catch (Exception e)
+                                {
+                                    listener.result(false);
+                                }
+                            } else
+                            {
+                                listener.result(false);
+                            }
+                        }
+                    })
+                    .open();
             listener.result(true);
         }
     }

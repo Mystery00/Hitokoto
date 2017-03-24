@@ -30,7 +30,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,7 +82,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     private Preference customSingleHitokoto;
     private Preference customMultipleHitokoto;
     private Preference showCustomHitokoto;
-    private Preference customSource;
+    private Preference customSourceNew;
+    private Preference customSourceManager;
+    private Preference customSourceHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -131,7 +136,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         customSingleHitokoto = findPreference(getString(R.string.key_local_single_hitokoto));
         customMultipleHitokoto = findPreference(getString(R.string.key_local_multiple_hitokoto));
         showCustomHitokoto = findPreference(getString(R.string.key_local_show_hitokoto));
-        customSource = findPreference(getString(R.string.key_custom_source));
+        customSourceNew = findPreference(getString(R.string.key_custom_source_new));
+        customSourceManager = findPreference(getString(R.string.key_custom_source_manager));
+        customSourceHelper = findPreference(getString(R.string.key_custom_source_helper));
 
         autoRefresh.setChecked(WidgetConfigure.getAutoRefresh());
         clickToRefresh.setChecked(WidgetConfigure.getClickToRefresh());
@@ -324,7 +331,24 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 return false;
             }
         });
-        customSource.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        customSourceNew.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                customSourceNewDialog();
+                return false;
+            }
+        });
+        customSourceManager.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                return false;
+            }
+        });
+        customSourceHelper.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
         {
             @Override
             public boolean onPreferenceClick(Preference preference)
@@ -382,12 +406,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_multiple, null);
         final TextInputLayout hitokotoContent = (TextInputLayout) view.findViewById(R.id.text);
         check(hitokotoContent);
-        AlertDialog.Builder alertDialog=new AlertDialog.Builder(SettingsActivity.this,R.style.AlertDialogStyle)
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
                 .setView(view)
                 .setTitle(R.string.text_custom_multiple_hitokoto)
-                .setPositiveButton(android.R.string.ok,null)
-                .setNegativeButton(android.R.string.cancel,null);
-        AlertDialog dialog=alertDialog.create();
+                .setPositiveButton(android.R.string.ok, null)
+                .setNegativeButton(android.R.string.cancel, null);
+        AlertDialog dialog = alertDialog.create();
         dialog.show();
         if (dialog.getButton(AlertDialog.BUTTON_POSITIVE) != null)
         {
@@ -406,6 +430,85 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                         Toast.makeText(App.getContext(), R.string.ErrorFormat, Toast.LENGTH_SHORT)
                                 .show();
                     }
+                }
+            });
+        }
+    }
+
+    private void customSourceNewDialog()
+    {
+        final int[] method = new int[1];
+        //noinspection RestrictedApi
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_source_new, null);
+        final TextInputLayout source_name = (TextInputLayout) view.findViewById(R.id.custom_source_name);
+        final TextInputLayout source_address = (TextInputLayout) view.findViewById(R.id.custom_source_address);
+        final TextInputLayout source_content = (TextInputLayout) view.findViewById(R.id.custom_source_content);
+        final TextInputLayout source_from = (TextInputLayout) view.findViewById(R.id.custom_source_from);
+        Button button = (Button) view.findViewById(R.id.test);
+        Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.list_request_method));
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setSelection(0);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                method[0] = position + 1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                HitokotoSource hitokotoSource = new HitokotoSource(
+                        getResources().getStringArray(R.array.list_source_type)[2],
+                        source_name.getEditText().getText().length() > 0 ? source_name.getEditText().getText().toString() : getString(R.string.Custom),
+                        source_address.getEditText().getText().toString(),
+                        getString(R.string.Wait),
+                        method[0]
+                );
+                hitokotoSource.setContent_key(source_content.getEditText().getText().toString());
+                hitokotoSource.setFrom_key(source_from.getEditText().getText().toString());
+                TestSource.test(hitokotoSource, new TestSourceListener()
+                {
+                    @Override
+                    public void result(boolean result)
+                    {
+                        if (result)
+                        {
+                            source_address.setError(getString(R.string.Enable));
+                        } else
+                        {
+                            source_address.setError(getString(R.string.Disable));
+                        }
+                    }
+                });
+            }
+        });
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
+                .setView(view)
+                .setTitle(R.string.text_custom_source_new)
+                .setPositiveButton(android.R.string.ok, null)
+                .setNegativeButton(android.R.string.cancel, null);
+        AlertDialog dialog = alertDialog.create();
+        dialog.show();
+        if (dialog.getButton(AlertDialog.BUTTON_POSITIVE) != null)
+        {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+
                 }
             });
         }
