@@ -4,11 +4,11 @@ import org.litepal.crud.DataSupport;
 
 public class HitokotoSource extends DataSupport
 {
-    private String source;
-    private String name;
-    private String address;
-    private String enable;
-    private int method;
+    private String source;//源类型
+    private String name;//源名称
+    private String address;//源地址
+    private String enable;//是否可用，默认wait
+    private int method;//请求方式,1-get,2-post
 
     public HitokotoSource(String source, String name, String address, String enable, int method)
     {

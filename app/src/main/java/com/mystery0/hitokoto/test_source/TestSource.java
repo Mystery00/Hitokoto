@@ -1,6 +1,7 @@
 package com.mystery0.hitokoto.test_source;
 
 import com.mystery0.hitokoto.App;
+import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.Hitokoto;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
 import com.mystery0.hitokoto.local.LocalConfigure;
@@ -12,7 +13,8 @@ public class TestSource
     public static void test(HitokotoSource hitokotoSource, final TestSourceListener listener)
     {
         final HttpUtil httpUtil = new HttpUtil(App.getContext());
-        if (hitokotoSource.getSource().equals("online"))
+        String[] types = App.getContext().getResources().getStringArray(R.array.list_source_type);
+        if (hitokotoSource.getSource().equals(types[0]))
         {
             switch (hitokotoSource.getMethod())
             {
@@ -20,6 +22,7 @@ public class TestSource
                     httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET);
                     break;
                 case 2://post
+                    httpUtil.setRequestMethod(HttpUtil.RequestMethod.POST);
                     break;
             }
             httpUtil.setUrl(hitokotoSource.getAddress())
@@ -45,7 +48,7 @@ public class TestSource
                         }
                     })
                     .open();
-        } else if (hitokotoSource.getSource().equals("local"))
+        } else if (hitokotoSource.getSource().equals(types[1]))
         {
             if (LocalConfigure.getRandom() == null)
             {
@@ -54,7 +57,7 @@ public class TestSource
             {
                 listener.result(true);
             }
-        } else if (hitokotoSource.getSource().equals("custom"))
+        } else if (hitokotoSource.getSource().equals(types[2]))
         {
             listener.result(true);
         }

@@ -17,6 +17,7 @@ import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
@@ -25,16 +26,18 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
+import com.mystery0.hitokoto.local.LocalConfigure;
 import com.mystery0.hitokoto.local.LocalHitokotoActivity;
-import com.mystery0.hitokoto.local.LocalMultipleActivity;
-import com.mystery0.hitokoto.local.LocalSingleActivity;
 import com.mystery0.hitokoto.test_source.TestSource;
 import com.mystery0.hitokoto.test_source.TestSourceAdapter;
 import com.mystery0.hitokoto.test_source.TestSourceListener;
@@ -47,9 +50,14 @@ import org.litepal.crud.DataSupport;
 
 import java.io.File;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "ConstantConditions"})
 public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static final String TAG = "SettingsActivity";
@@ -294,7 +302,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                startActivity(new Intent(App.getContext(), LocalSingleActivity.class));
+                customSingleHitokotoDialog();
                 return false;
             }
         });
@@ -303,7 +311,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                startActivity(new Intent(App.getContext(), LocalMultipleActivity.class));
+                customMultipleHitokotoDialog();
                 return false;
             }
         });
@@ -324,6 +332,139 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 return false;
             }
         });
+    }
+
+    private void customSingleHitokotoDialog()
+    {
+        //noinspection RestrictedApi
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_single, null);
+        final TextInputLayout hitokotoContent = (TextInputLayout) view.findViewById(R.id.custom_content);
+        final TextInputLayout hitokotoSource = (TextInputLayout) view.findViewById(R.id.custom_source);
+        check(hitokotoContent);
+        check(hitokotoSource);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
+                .setView(view)
+                .setTitle(R.string.text_custom_single_hitokoto)
+                .setPositiveButton(android.R.string.ok, null)
+                .setNegativeButton(android.R.string.cancel, null);
+        AlertDialog dialog = alertDialog.create();
+        dialog.show();
+        if (dialog.getButton(AlertDialog.BUTTON_POSITIVE) != null)
+        {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    if (isFormat(hitokotoContent) & isFormat(hitokotoSource))
+                    {
+                        LocalConfigure.saveToDatabase(
+                                hitokotoContent.getEditText().getText().toString(),
+                                hitokotoSource.getEditText().getText().toString());
+                        Logs.i(TAG, "onOptionsItemSelected: 存储");
+                        Toast.makeText(App.getContext(), R.string.hint_save_custom_done, Toast.LENGTH_SHORT)
+                                .show();
+                    } else
+                    {
+                        Toast.makeText(App.getContext(), R.string.ErrorFormat, Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                }
+            });
+        }
+    }
+
+    private void customMultipleHitokotoDialog()
+    {
+        //noinspection RestrictedApi
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_multiple, null);
+        final TextInputLayout hitokotoContent = (TextInputLayout) view.findViewById(R.id.text);
+        check(hitokotoContent);
+        AlertDialog.Builder alertDialog=new AlertDialog.Builder(SettingsActivity.this,R.style.AlertDialogStyle)
+                .setView(view)
+                .setTitle(R.string.text_custom_multiple_hitokoto)
+                .setPositiveButton(android.R.string.ok,null)
+                .setNegativeButton(android.R.string.cancel,null);
+        AlertDialog dialog=alertDialog.create();
+        dialog.show();
+        if (dialog.getButton(AlertDialog.BUTTON_POSITIVE) != null)
+        {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    if (isFormat(hitokotoContent))
+                    {
+                        LocalConfigure.saveToDatabase(Analysis(hitokotoContent.getEditText().getText().toString()));
+                        Toast.makeText(App.getContext(), R.string.hint_save_custom_done, Toast.LENGTH_SHORT)
+                                .show();
+                    } else
+                    {
+                        Toast.makeText(App.getContext(), R.string.ErrorFormat, Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                }
+            });
+        }
+    }
+
+    private void check(final TextInputLayout layout)
+    {
+        layout.getEditText().addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                if (s.toString().length() == 0)
+                {
+                    layout.setError(getString(R.string.ErrorNull));
+                } else
+                {
+                    layout.setError(null);
+                }
+            }
+        });
+    }
+
+    private boolean isFormat(TextInputLayout layout)
+    {
+        layout.setError(layout.getEditText().getText().length() != 0 ? null : getString(R.string.ErrorNull));
+        return layout.getEditText().getText().length() != 0;
+    }
+
+    private List<HitokotoLocal> Analysis(String content)
+    {
+        List<HitokotoLocal> list = new ArrayList<>();
+        String time = (new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA)).format(Calendar.getInstance().getTime());
+        Scanner scanner = new Scanner(content);
+        try
+        {
+            while (scanner.hasNext())
+            {
+                String[] temp = scanner.nextLine().split(" ");
+                list.add(new HitokotoLocal(temp[0], temp[1], time));
+            }
+        } catch (ArrayIndexOutOfBoundsException e)
+        {
+            Logs.e(TAG, "Analysis: " + e.getMessage());
+            Toast.makeText(App.getContext(), R.string.ErrorData, Toast.LENGTH_LONG)
+                    .show();
+        }
+        scanner.close();
+        return list;
     }
 
     private void CheckPermission()

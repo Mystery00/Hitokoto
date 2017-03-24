@@ -94,8 +94,6 @@
     <string name="Enable">Enable</string>
     <string name="Disable">Disable</string>
 
-    <string name="Local">Local</string>
-
     <!--List Aligned-->
     <string name="left">Left</string>
     <string name="center">Center</string>

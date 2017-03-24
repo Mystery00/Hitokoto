@@ -16,4 +16,9 @@
         <item>@string/list_source_g</item>
         <item>@string/list_source_h</item>
     </string-array>
+    <string-array name="list_source_type">
+        <item>online</item>
+        <item>local</item>
+        <item>custom</item>
+    </string-array>
 </resources>
