@@ -35,7 +35,6 @@
         <activity
             android:name=".ShortCutsActivity"
             android:theme="@android:style/Theme.NoDisplay"/>
-
         <activity
             android:name=".local.LocalHitokotoActivity"
             android:label="@string/title_activity_custom_hitokoto"
@@ -83,6 +82,12 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
+
+        <activity
+            android:name=".custom.CustomSourceActivity"
+            android:label="@string/title_activity_custom_source"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

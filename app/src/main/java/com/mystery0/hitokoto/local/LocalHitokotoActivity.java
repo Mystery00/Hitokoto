@@ -33,9 +33,9 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
 {
     private static final String TAG = "LocalHitokotoActivity";
     private Toolbar toolbar;
-    private List<HitokotoLocal> list;
     private RecyclerView recyclerView;
     private ShowAdapter adapter;
+    private List<HitokotoLocal> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -90,6 +90,7 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
                 int position = viewHolder.getAdapterPosition();
                 list.remove(position).delete();
                 adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                Logs.i(TAG, "onSwiped: 滑动删除");
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
@@ -100,6 +101,7 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
     @Override
     public void onItemClick(final HitokotoLocal hitokotoLocal, final int position)
     {
+        //noinspection RestrictedApi
         ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
         @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_edit_hitokoto, null);
         final TextInputLayout content_layout = (TextInputLayout) view.findViewById(R.id.custom_content);

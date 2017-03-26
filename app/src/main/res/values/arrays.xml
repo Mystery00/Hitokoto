@@ -16,13 +16,15 @@
         <item>@string/list_source_g</item>
         <item>@string/list_source_h</item>
     </string-array>
+
     <string-array name="list_source_type">
-        <item>online</item>
-        <item>local</item>
-        <item>custom</item>
+        <item>@string/list_source_type_online</item>
+        <item>@string/list_source_type_local</item>
+        <item>@string/list_source_type_custom</item>
     </string-array>
+
     <string-array name="list_request_method">
-        <item>GET</item>
-        <item>POST</item>
+        <item>@string/list_request_method_get</item>
+        <item>@string/list_request_method_post</item>
     </string-array>
 </resources>

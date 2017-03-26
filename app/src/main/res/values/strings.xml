@@ -6,6 +6,7 @@
     <string name="e_mail_address" translatable="false">mystery0dyl520@gmail.com</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_custom_hitokoto">LocalHitokoto</string>
+    <string name="title_activity_custom_source">CustomSource</string>
 
     <string name="sharedPreferencesName" translatable="false">Hitokoto</string>
     <string name="hitokotoTemp" translatable="false">temp</string>
@@ -86,6 +87,9 @@
     <string name="hint_custom_source_request_method">Request Method:</string>
     <string name="hint_custom_source_content">Content Key</string>
     <string name="hint_custom_source_from">From Key</string>
+    <string name="hint_invalid_source">Invalid Source! </string>
+    <string name="hint_custom_add_source_done">The Source Saved!</string>
+    <string name="hint_custom_add_source_error">Something Error!</string>
 
     <string name="ErrorRefreshTime">Please ensure the time is more than 0 </string>
     <string name="ErrorNull">Text Can\'t be Null! </string>
@@ -104,6 +108,8 @@
     <string name="Enable">Enable</string>
     <string name="Disable">Disable</string>
     <string name="Custom">Custom</string>
+    <string name="Content">Content</string>
+    <string name="From">From</string>
 
     <!--List Aligned-->
     <string name="left">Left</string>
@@ -119,4 +125,14 @@
     <string name="list_source_f">Internet</string>
     <string name="list_source_g">Other</string>
     <string name="list_source_h">Local</string>
+
+    <!--List Source Type-->
+    <string name="list_source_type_online" translatable="false">online</string>
+    <string name="list_source_type_local" translatable="false">local</string>
+    <string name="list_source_type_custom" translatable="false">custom</string>
+
+    <!--List Request Method-->
+    <string name="list_request_method_get" translatable="false">GET</string>
+    <string name="list_request_method_post" translatable="false">POST</string>
+    <string name="Local">Local</string>
 </resources>

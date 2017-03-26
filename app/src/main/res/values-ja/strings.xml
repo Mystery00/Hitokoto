@@ -73,4 +73,13 @@
     <string name="Disable">利用できません</string>
     <string name="Enable">利用できます</string>
     <string name="hint_null_data">データがありません！</string>
+    <string name="text_custom_source_helper">助けます</string>
+    <string name="text_custom_source_manager">ソースマネージャ</string>
+    <string name="text_custom_source_new">新しいソース</string>
+    <string name="hint_custom_source_address">要求されたアドレスを入力してください。</string>
+    <string name="hint_custom_source_content">主題Key</string>
+    <string name="hint_custom_source_from">ソースKey</string>
+    <string name="hint_custom_source_name">名前を入力してください</string>
+    <string name="hint_custom_source_request_method">リクエストメソッド:</string>
+    <string name="Custom">カスタム</string>
 </resources>

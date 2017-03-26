@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="hitokoto"/>
-    <version value="3"/>
+    <version value="4"/>
     <list>
         <mapping class="com.mystery0.hitokoto.class_class.HitokotoLocal"/>
         <mapping class="com.mystery0.hitokoto.class_class.HitokotoSource"/>

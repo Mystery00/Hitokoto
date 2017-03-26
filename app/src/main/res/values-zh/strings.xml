@@ -73,4 +73,13 @@
     <string name="Wait">等待测试</string>
     <string name="title_custom_source">自定义源</string>
     <string name="hint_null_data">这里没有数据！</string>
+    <string name="Custom">自定义</string>
+    <string name="hint_custom_source_content">主体Key</string>
+    <string name="hint_custom_source_from">来源Key</string>
+    <string name="hint_custom_source_name">请输入源的名字</string>
+    <string name="hint_custom_source_request_method">请求方式：</string>
+    <string name="hint_custom_source_address">请输入源的请求地址</string>
+    <string name="text_custom_source_new">新增源</string>
+    <string name="text_custom_source_manager">源管理</string>
+    <string name="text_custom_source_helper">帮助</string>
 </resources>

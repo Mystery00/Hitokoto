@@ -39,6 +39,7 @@ import android.widget.Toast;
 
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
+import com.mystery0.hitokoto.custom.CustomSourceActivity;
 import com.mystery0.hitokoto.local.LocalConfigure;
 import com.mystery0.hitokoto.local.LocalHitokotoActivity;
 import com.mystery0.hitokoto.test_source.TestSource;
@@ -345,6 +346,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
+                startActivity(new Intent(App.getContext(), CustomSourceActivity.class));
                 return false;
             }
         });
@@ -447,7 +449,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         final TextInputLayout source_from = (TextInputLayout) view.findViewById(R.id.custom_source_from);
         Button button = (Button) view.findViewById(R.id.test);
         Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.list_request_method));
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.list_request_method));
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
         spinner.setSelection(0);
@@ -483,13 +485,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                     @Override
                     public void result(boolean result)
                     {
-                        if (result)
-                        {
-                            source_address.setError(getString(R.string.Enable));
-                        } else
-                        {
-                            source_address.setError(getString(R.string.Disable));
-                        }
+                        source_address.setError(result ? getString(R.string.Enable) : getString(R.string.Disable));
                     }
                 });
             }
@@ -508,7 +504,38 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 @Override
                 public void onClick(View v)
                 {
-
+                    if (isFormat(source_address) && isFormat(source_content) && isFormat(source_from))
+                    {
+                        final HitokotoSource hitokotoSource = new HitokotoSource(
+                                getResources().getStringArray(R.array.list_source_type)[2],
+                                source_name.getEditText().getText().length() > 0 ? source_name.getEditText().getText().toString() : getString(R.string.Custom),
+                                source_address.getEditText().getText().toString(),
+                                getString(R.string.Wait),
+                                method[0]
+                        );
+                        hitokotoSource.setContent_key(source_content.getEditText().getText().toString());
+                        hitokotoSource.setFrom_key(source_from.getEditText().getText().toString());
+                        TestSource.test(hitokotoSource, new TestSourceListener()
+                        {
+                            @Override
+                            public void result(boolean result)
+                            {
+                                source_address.setError(result ? getString(R.string.Enable) : getString(R.string.Disable));
+                                Toast.makeText(App.getContext(),
+                                        result ?
+                                                (hitokotoSource.saveOrUpdate("address = ?", hitokotoSource.getAddress()) ?
+                                                        getString(R.string.hint_custom_add_source_done) :
+                                                        getString(R.string.hint_custom_add_source_error)) :
+                                                getString(R.string.hint_invalid_source),
+                                        Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        });
+                    } else
+                    {
+                        Toast.makeText(App.getContext(), getString(R.string.ErrorFormat), Toast.LENGTH_SHORT)
+                                .show();
+                    }
                 }
             });
         }
@@ -531,13 +558,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public void afterTextChanged(Editable s)
             {
-                if (s.toString().length() == 0)
-                {
-                    layout.setError(getString(R.string.ErrorNull));
-                } else
-                {
-                    layout.setError(null);
-                }
+                layout.setError(s.toString().length() == 0 ? getString(R.string.ErrorNull) : null);
             }
         });
     }
@@ -545,7 +566,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     private boolean isFormat(TextInputLayout layout)
     {
         layout.setError(layout.getEditText().getText().length() != 0 ? null : getString(R.string.ErrorNull));
-        return layout.getEditText().getText().length() != 0;
+        return layout.getEditText().getText().toString().trim().length() != 0;
     }
 
     private List<HitokotoLocal> Analysis(String content)

@@ -73,4 +73,13 @@
     <string name="Disable">不可用</string>
     <string name="Enable">可用</string>
     <string name="hint_null_data">這裡沒有數據！</string>
+    <string name="text_custom_source_helper">幫助</string>
+    <string name="text_custom_source_manager">源管理</string>
+    <string name="text_custom_source_new">新增源</string>
+    <string name="hint_custom_source_address">請輸入請求地址</string>
+    <string name="hint_custom_source_content">主體Key</string>
+    <string name="hint_custom_source_from">來源Key</string>
+    <string name="hint_custom_source_name">請輸入名稱</string>
+    <string name="hint_custom_source_request_method">請求方式:</string>
+    <string name="Custom">自定義</string>
 </resources>

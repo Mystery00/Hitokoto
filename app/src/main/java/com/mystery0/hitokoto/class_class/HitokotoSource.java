@@ -1,12 +1,15 @@
 package com.mystery0.hitokoto.class_class;
 
+import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
 public class HitokotoSource extends DataSupport
 {
     private String source;//源类型
+    @Column(defaultValue = "Custom")
     private String name;//源名称
     private String address;//源地址
+    @Column(ignore = true)
     private String enable;//是否可用，默认wait
     private String content_key;
     private String from_key;
