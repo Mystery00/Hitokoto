@@ -46,7 +46,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_source, parent, false);
         final CustomAdapter.ViewHolder holder = new CustomAdapter.ViewHolder(view);
-        if (holder.getAdapterPosition() != 0)
+        if (holder.getAdapterPosition() >= 0)
         {
             holder.fullView.setOnClickListener(new View.OnClickListener()
             {

@@ -64,6 +64,7 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
         recyclerView.setAdapter(adapter);
         if (list.size() == 0)
         {
+            recyclerView.setVisibility(View.GONE);
             null_data.setVisibility(View.VISIBLE);
         }
 
@@ -96,7 +97,7 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
             {
                 int position = viewHolder.getAdapterPosition();
-                if (position != 0)
+                if (position >= 0)
                 {
                     list.remove(position).delete();
                     adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
