@@ -355,6 +355,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
+                customSourceHelperDialog();
                 return false;
             }
         });
@@ -539,6 +540,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 }
             });
         }
+    }
+
+    private void customSourceHelperDialog()
+    {
+
     }
 
     private void check(final TextInputLayout layout)

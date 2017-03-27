@@ -8,11 +8,13 @@ import android.widget.TextView;
 
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
+import com.mystery0.tools.Logs.Logs;
 
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder>
 {
+    private static final String TAG = "CustomAdapter";
     private List<HitokotoSource> list;
     private CustomItemListener listener;
 
@@ -45,42 +47,31 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_source, parent, false);
-        final CustomAdapter.ViewHolder holder = new CustomAdapter.ViewHolder(view);
-        if (holder.getAdapterPosition() >= 0)
+        final ViewHolder holder = new ViewHolder(view);
+        Logs.i(TAG, "onCreateViewHolder: " + holder.getAdapterPosition());
+        holder.fullView.setOnClickListener(new View.OnClickListener()
         {
-            holder.fullView.setOnClickListener(new View.OnClickListener()
+            @Override
+            public void onClick(View v)
             {
-                @Override
-                public void onClick(View v)
-                {
-                    listener.onItemClick(list.get(holder.getAdapterPosition() - 1), holder.getAdapterPosition());
-                }
-            });
-        }
+                listener.onItemClick(list.get(holder.getAdapterPosition()), holder.getAdapterPosition());
+            }
+        });
         return holder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position)
     {
-        if (position == 0)
-        {
-            holder.name.setText(R.string.Name);
-            holder.content.setText(R.string.Content);
-            holder.from.setText(R.string.From);
-            holder.enable.setText(R.string.Status);
-        } else
-        {
-            holder.name.setText(list.get(position - 1).getName());
-            holder.content.setText(list.get(position - 1).getContent_key());
-            holder.from.setText(list.get(position - 1).getFrom_key());
-            holder.enable.setText(list.get(position - 1).getEnable());
-        }
+        holder.name.setText(list.get(position).getName());
+        holder.content.setText(list.get(position).getContent_key());
+        holder.from.setText(list.get(position).getFrom_key());
+        holder.enable.setText(list.get(position).getEnable());
     }
 
     @Override
     public int getItemCount()
     {
-        return list.size() + 1;
+        return list.size();
     }
 }

@@ -102,7 +102,6 @@ public class TestSource
                         }
                     })
                     .open();
-            listener.result(true);
         }
     }
 }

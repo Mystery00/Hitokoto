@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
     private Button button;
     private RecyclerView recyclerView;
     private CustomAdapter adapter;
+    private RelativeLayout layout;
     private List<HitokotoSource> list;
 
     @Override
@@ -58,12 +60,22 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         button = (Button) findViewById(R.id.test);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        layout = (RelativeLayout) findViewById(R.id.head);
         TextView null_data = (TextView) findViewById(R.id.null_data);
+        TextView head_name = (TextView) layout.findViewById(R.id.source_name);
+        TextView head_enable = (TextView) layout.findViewById(R.id.source_enable);
+        TextView head_content = (TextView) layout.findViewById(R.id.source_content);
+        TextView head_from = (TextView) layout.findViewById(R.id.source_from);
+        head_name.setText(getString(R.string.Name));
+        head_enable.setText(getString(R.string.Enable));
+        head_content.setText(getString(R.string.Content));
+        head_from.setText(getString(R.string.From));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CustomAdapter(list, this);
         recyclerView.setAdapter(adapter);
         if (list.size() == 0)
         {
+            layout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
             null_data.setVisibility(View.VISIBLE);
         }
@@ -97,12 +109,9 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
             {
                 int position = viewHolder.getAdapterPosition();
-                if (position >= 0)
-                {
-                    list.remove(position).delete();
-                    adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-                    Logs.i(TAG, "onSwiped: 滑动删除");
-                }
+                list.remove(position).delete();
+                adapter.notifyItemRemoved(position);
+                Logs.i(TAG, "onSwiped: 滑动删除");
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
@@ -150,7 +159,11 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.list_request_method));
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
-        spinner.setSelection(0);
+        source_name.getEditText().setText(hitokotoSource.getName());
+        source_address.getEditText().setText(hitokotoSource.getAddress());
+        source_content.getEditText().setText(hitokotoSource.getContent_key());
+        source_from.getEditText().setText(hitokotoSource.getFrom_key());
+        spinner.setSelection(hitokotoSource.getMethod() - 1);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
