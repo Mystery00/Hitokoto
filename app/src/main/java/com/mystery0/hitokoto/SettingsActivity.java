@@ -543,8 +543,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     }
 
     private void customSourceHelperDialog()
-    {
-
+    {//noinspection RestrictedApi
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_source_helper, null);
+        new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
+                .setView(view)
+                .setTitle(R.string.text_custom_source_helper)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 
     private void check(final TextInputLayout layout)

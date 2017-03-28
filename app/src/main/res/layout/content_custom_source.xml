@@ -13,7 +13,7 @@
         android:id="@+id/test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/test"/>
+        android:text="@string/Test"/>
 
     <TextView
         android:id="@+id/hint"

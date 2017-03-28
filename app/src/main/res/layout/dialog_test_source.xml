@@ -20,6 +20,6 @@
         android:layout_marginBottom="@dimen/item_show_margin"
         android:layout_marginEnd="@dimen/item_show_margin"
         android:layout_marginStart="@dimen/item_show_margin"
-        android:text="@string/test"/>
+        android:text="@string/Test"/>
 
 </RelativeLayout>

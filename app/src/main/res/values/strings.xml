@@ -100,7 +100,7 @@
 
     <string name="add_widget">Add widget</string>
 
-    <string name="test">Test</string>
+    <string name="Test">Test</string>
     <string name="Name">Name</string>
     <string name="Address">Address</string>
     <string name="Status">Status</string>
@@ -110,6 +110,7 @@
     <string name="Custom">Custom</string>
     <string name="Content">Content</string>
     <string name="From">From</string>
+    <string name="Local">Local</string>
 
     <!--List Aligned-->
     <string name="left">Left</string>
@@ -134,5 +135,4 @@
     <!--List Request Method-->
     <string name="list_request_method_get" translatable="false">GET</string>
     <string name="list_request_method_post" translatable="false">POST</string>
-    <string name="Local">Local</string>
 </resources>

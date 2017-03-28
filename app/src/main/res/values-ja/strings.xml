@@ -59,7 +59,7 @@
     <string name="list_source_g">その他</string>
     <string name="list_source_h">ローカル</string>
     <string name="text_text_padding">テキスト間隔</string>
-    <string name="test">テスト</string>
+    <string name="Test">テスト</string>
     <string name="hint_copy_text">テキストがクリップボードにコピーされました！</string>
     <string name="hint_show_current">テキストをコピーするための長押し!</string>
     <string name="hint_show_hitokoto">右のエントリを削除スライドさせ！</string>

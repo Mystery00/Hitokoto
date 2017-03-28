@@ -59,7 +59,7 @@
     <string name="hint_update_time">更新時間：</string>
     <string name="title_activity_custom_hitokoto">本地Hitokoto</string>
     <string name="text_text_padding">文字間隔</string>
-    <string name="test">測試</string>
+    <string name="Test">測試</string>
     <string name="hint_copy_text">文本已經復製到剪切板！</string>
     <string name="hint_show_current">長按複製文本！</string>
     <string name="hint_show_hitokoto">右滑刪除條目！</string>
