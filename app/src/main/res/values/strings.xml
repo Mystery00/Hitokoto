@@ -126,6 +126,7 @@
     <string name="list_source_f">Internet</string>
     <string name="list_source_g">Other</string>
     <string name="list_source_h">Local</string>
+    <string name="list_source_i">Custom Source</string>
 
     <!--List Source Type-->
     <string name="list_source_type_online" translatable="false">online</string>

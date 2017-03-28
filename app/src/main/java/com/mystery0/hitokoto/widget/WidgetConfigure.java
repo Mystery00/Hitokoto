@@ -11,10 +11,14 @@ import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.class_class.Hitokoto;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
+import com.mystery0.hitokoto.class_class.HitokotoSource;
 import com.mystery0.hitokoto.local.LocalConfigure;
 import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
+
+import org.json.JSONObject;
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -257,7 +261,7 @@ public class WidgetConfigure
         {
             integerList.add(Integer.valueOf(t));
         }
-        String[] keys = new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
+        String[] keys = new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i"};
         String temp = keys[integerList.get((int) (Math.random() * stringSet.size()))];
         Logs.i(TAG, "refreshText: " + temp);
         if (temp.equals("h"))
@@ -273,6 +277,67 @@ public class WidgetConfigure
                 context.sendBroadcast(intent);
                 return;
             }
+        }
+        if (temp.equals("i"))
+        {
+            List<HitokotoSource> list = DataSupport
+                    .where("source = ?", context.getResources().getStringArray(R.array.list_source_type)[2])
+                    .find(HitokotoSource.class);
+            final HitokotoSource hitokotoSource = list.get((int) (Math.random() * (list.size() - 1)));
+            Logs.i(TAG, "refreshText: " + hitokotoSource.getName());
+            Logs.i(TAG, "refreshText: " + hitokotoSource.getAddress());
+            final HttpUtil httpUtil = new HttpUtil(App.getContext());
+            switch (hitokotoSource.getMethod())
+            {
+                case 1://get
+                    httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET);
+                    break;
+                case 2://post
+                    httpUtil.setRequestMethod(HttpUtil.RequestMethod.POST);
+                    break;
+            }
+            httpUtil.setUrl(hitokotoSource.getAddress())
+                    .setResponseListener(new ResponseListener()
+                    {
+                        @Override
+                        public void onResponse(int i, String s)
+                        {
+                            Hitokoto hitokoto;
+                            if (i == 1)
+                            {
+                                Logs.i(TAG, "onResponse: " + s);
+                                try
+                                {
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    String content = jsonObject.getString(hitokotoSource.getContent_key());
+                                    String from = jsonObject.getString(hitokotoSource.getFrom_key());
+                                    Logs.i(TAG, "onResponse: content: " + content);
+                                    Logs.i(TAG, "onResponse: from: " + from);
+                                    hitokoto = new Hitokoto();
+                                    hitokoto.setHitokoto(content);
+                                    hitokoto.setFrom(from);
+                                } catch (Exception e)
+                                {
+                                    hitokoto = httpUtil.fromJson(context.getString(R.string.network_error), Hitokoto.class);
+                                    Logs.e(TAG, "onResponse: " + e.getMessage());
+                                    Toast.makeText(App.getContext(), context.getString(R.string.hint_network_error), Toast.LENGTH_SHORT)
+                                            .show();
+                                }
+                            } else
+                            {
+                                hitokoto = httpUtil.fromJson(context.getString(R.string.network_error), Hitokoto.class);
+                                Toast.makeText(App.getContext(), context.getString(R.string.hint_network_error), Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                            editor.putString(context.getString(R.string.hitokotoTemp), httpUtil.toJson(hitokoto));
+                            editor.apply();
+                            Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
+                            intent.putExtra(context.getString(R.string.hitokoto_object), hitokoto);
+                            context.sendBroadcast(intent);
+                        }
+                    })
+                    .open();
+            return;
         }
         map.put("c", temp.equals("h") ? "a" : temp);
         final HttpUtil httpUtil = new HttpUtil(App.getContext());
@@ -313,6 +378,5 @@ public class WidgetConfigure
                 })
                 .setMap(map)
                 .open();
-
     }
 }

@@ -88,4 +88,5 @@
     <string name="title_activity_custom_source">自定義源</string>
     <string name="hint_custom_add_source_done">源已存儲！</string>
     <string name="hint_custom_add_source_error">某些地方出現錯誤！ &#62;_&#60;</string>
+    <string name="list_source_i">自定義源</string>
 </resources>

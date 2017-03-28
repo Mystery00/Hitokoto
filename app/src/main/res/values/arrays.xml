@@ -15,6 +15,7 @@
         <item>@string/list_source_f</item>
         <item>@string/list_source_g</item>
         <item>@string/list_source_h</item>
+        <item>@string/list_source_i</item>
     </string-array>
 
     <string-array name="list_source_type">

@@ -88,4 +88,5 @@
     <string name="title_activity_custom_source">カスタムソース</string>
     <string name="hint_custom_add_source_done">ソースは、保存されました！</string>
     <string name="hint_custom_add_source_error">いくつかの地元のエラー！&#62;_&#60;</string>
+    <string name="list_source_i">カスタムソース</string>
 </resources>
