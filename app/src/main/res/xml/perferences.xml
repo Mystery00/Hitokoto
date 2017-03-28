@@ -39,7 +39,6 @@
 
         <PreferenceScreen
             android:key="@string/key_custom_source"
-            android:summary="@string/unavailable_now"
             android:title="@string/title_custom_source">
 
             <Preference

@@ -2,7 +2,7 @@
     <string name="app_name">Hitokoto</string>
     <string name="default_temp" translatable="false">{"id": "23333","hitokoto": "小部件出现问题……","type": "e","from": "开发者","creator": "开发者","cearted_at": null}</string>
     <string name="network_error" translatable="false">{"id": "23333","hitokoto": "网络连接异常……","type": "e","from": "开发者","creator": "开发者","cearted_at": null}</string>
-    <string name="json_example" translatable="false">{\n  "id": "1148",\n  "hitokoto": "你说最开心的是你，我说最难过的是你……",\n  "type": "e",\n  "from": "原创",\n  "creator": "Mystery0",\n  "create_at": null\n}</string>
+    <string name="json_example" translatable="false">{\n\t"id": "1148",\n\t"hitokoto": "你说最开心的是你，我说最难过的是你……",\n\t"type": "e",\n\t"from": "原创",\n\t"creator": "Mystery0",\n\t"create_at": null\n}</string>
     <string name="e_mail_address" translatable="false">mystery0dyl520@gmail.com</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_custom_hitokoto">LocalHitokoto</string>
@@ -89,7 +89,9 @@
     <string name="hint_custom_source_from">From Key</string>
     <string name="hint_invalid_source">Invalid Source! </string>
     <string name="hint_custom_add_source_done">The Source Saved!</string>
-    <string name="hint_custom_add_source_error">Something Error!</string>
+    <string name="hint_custom_add_source_error">Something Error!&#62;_&#60;</string>
+    <string name="hint_custom_source_helper_text1">The Custom Source function requires the user to understand the basic json format. \nHere is a json data example, please make sure the source you provide to return the json data.</string>
+    <string name="hint_custom_source_helper_text2">It is necessary to provide APP with the main body of Hitokoto and the source key, and in this example is hitokoto and from.</string>
 
     <string name="ErrorRefreshTime">Please ensure the time is more than 0 </string>
     <string name="ErrorNull">Text Can\'t be Null! </string>
@@ -108,8 +110,6 @@
     <string name="Enable">Enable</string>
     <string name="Disable">Disable</string>
     <string name="Custom">Custom</string>
-    <string name="Content">Content</string>
-    <string name="From">From</string>
     <string name="Local">Local</string>
 
     <!--List Aligned-->

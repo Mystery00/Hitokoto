@@ -42,7 +42,6 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
     private Button button;
     private RecyclerView recyclerView;
     private CustomAdapter adapter;
-    private RelativeLayout layout;
     private List<HitokotoSource> list;
 
     @Override
@@ -60,7 +59,7 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         button = (Button) findViewById(R.id.test);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        layout = (RelativeLayout) findViewById(R.id.head);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.head);
         TextView null_data = (TextView) findViewById(R.id.null_data);
         TextView head_name = (TextView) layout.findViewById(R.id.source_name);
         TextView head_enable = (TextView) layout.findViewById(R.id.source_enable);
@@ -68,8 +67,8 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
         TextView head_from = (TextView) layout.findViewById(R.id.source_from);
         head_name.setText(getString(R.string.Name));
         head_enable.setText(getString(R.string.Enable));
-        head_content.setText(getString(R.string.Content));
-        head_from.setText(getString(R.string.From));
+        head_content.setText(getString(R.string.hint_custom_source_content));
+        head_from.setText(getString(R.string.hint_custom_source_from));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CustomAdapter(list, this);
         recyclerView.setAdapter(adapter);

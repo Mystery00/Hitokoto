@@ -82,4 +82,10 @@
     <string name="hint_custom_source_name">請輸入名稱</string>
     <string name="hint_custom_source_request_method">請求方式:</string>
     <string name="Custom">自定義</string>
+    <string name="hint_custom_source_helper_text2">需要向APP提供的是Hitokoto的主體以及來源的鍵，在本示例中是hitokoto以及from。</string>
+    <string name="hint_custom_source_helper_text1">自定義源需要懂的一定的json格式。\n這裡是一個json數據示範，請確保你提供的源返回的是json數據！</string>
+    <string name="hint_invalid_source">源無效！</string>
+    <string name="title_activity_custom_source">自定義源</string>
+    <string name="hint_custom_add_source_done">源已存儲！</string>
+    <string name="hint_custom_add_source_error">某些地方出現錯誤！ &#62;_&#60;</string>
 </resources>
