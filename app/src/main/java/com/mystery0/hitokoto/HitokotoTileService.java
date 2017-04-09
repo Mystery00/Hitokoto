@@ -1,17 +1,19 @@
 package com.mystery0.hitokoto;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
 import com.mystery0.hitokoto.widget.WidgetConfigure;
+import com.mystery0.hitokoto.widget.WidgetService;
 import com.mystery0.tools.Logs.Logs;
 
 @TargetApi(Build.VERSION_CODES.N)
-public class HitokotoTitleService extends TileService
+public class HitokotoTileService extends TileService
 {
-    private static final String TAG = "HitokotoTitleService";
+    private static final String TAG = "HitokotoTileService";
 
     @Override
     public void onTileAdded()
@@ -61,6 +63,7 @@ public class HitokotoTitleService extends TileService
         {
             tile.setState(Tile.STATE_INACTIVE);
             WidgetConfigure.setAutoRefresh(false);
+            stopService(new Intent(App.getContext(), WidgetService.class));
         } else
         {
             tile.setState(Tile.STATE_ACTIVE);

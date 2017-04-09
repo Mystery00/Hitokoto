@@ -66,10 +66,10 @@
             android:exported="true">
         </service>
         <service
-            android:name=".HitokotoTitleService"
+            android:name=".HitokotoTileService"
             android:icon="@drawable/ic_bubble"
             android:label="@string/text_auto_refresh"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TITLE">
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>

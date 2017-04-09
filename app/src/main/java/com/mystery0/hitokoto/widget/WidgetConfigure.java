@@ -295,63 +295,66 @@ public class WidgetConfigure
             List<HitokotoSource> list = DataSupport
                     .where("source = ?", context.getResources().getStringArray(R.array.list_source_type)[2])
                     .find(HitokotoSource.class);
-            final HitokotoSource hitokotoSource = list.get((int) (Math.random() * (list.size() - 1)));
-            Logs.i(TAG, "refreshText: " + hitokotoSource.getName());
-            Logs.i(TAG, "refreshText: " + hitokotoSource.getAddress());
-            final HttpUtil httpUtil = new HttpUtil(App.getContext());
-            switch (hitokotoSource.getMethod())
+            if (list.size() != 0)
             {
-                case 1://get
-                    httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET);
-                    break;
-                case 2://post
-                    httpUtil.setRequestMethod(HttpUtil.RequestMethod.POST);
-                    break;
-            }
-            httpUtil.setUrl(hitokotoSource.getAddress())
-                    .setResponseListener(new ResponseListener()
-                    {
-                        @Override
-                        public void onResponse(int i, String s)
+                final HitokotoSource hitokotoSource = list.get((int) (Math.random() * (list.size() - 1)));
+                Logs.i(TAG, "refreshText: " + hitokotoSource.getName());
+                Logs.i(TAG, "refreshText: " + hitokotoSource.getAddress());
+                final HttpUtil httpUtil = new HttpUtil(App.getContext());
+                switch (hitokotoSource.getMethod())
+                {
+                    case 1://get
+                        httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET);
+                        break;
+                    case 2://post
+                        httpUtil.setRequestMethod(HttpUtil.RequestMethod.POST);
+                        break;
+                }
+                httpUtil.setUrl(hitokotoSource.getAddress())
+                        .setResponseListener(new ResponseListener()
                         {
-                            Hitokoto hitokoto;
-                            if (i == 1)
+                            @Override
+                            public void onResponse(int i, String s)
                             {
-                                Logs.i(TAG, "onResponse: " + s);
-                                try
+                                Hitokoto hitokoto;
+                                if (i == 1)
                                 {
-                                    JSONObject jsonObject = new JSONObject(s);
-                                    String content = jsonObject.getString(hitokotoSource.getContent_key());
-                                    String from = jsonObject.getString(hitokotoSource.getFrom_key());
-                                    Logs.i(TAG, "onResponse: content: " + content);
-                                    Logs.i(TAG, "onResponse: from: " + from);
-                                    hitokoto = new Hitokoto();
-                                    hitokoto.setHitokoto(content);
-                                    hitokoto.setFrom(from);
-                                } catch (Exception e)
+                                    Logs.i(TAG, "onResponse: " + s);
+                                    try
+                                    {
+                                        JSONObject jsonObject = new JSONObject(s);
+                                        String content = jsonObject.getString(hitokotoSource.getContent_key());
+                                        String from = jsonObject.getString(hitokotoSource.getFrom_key());
+                                        Logs.i(TAG, "onResponse: content: " + content);
+                                        Logs.i(TAG, "onResponse: from: " + from);
+                                        hitokoto = new Hitokoto();
+                                        hitokoto.setHitokoto(content);
+                                        hitokoto.setFrom(from);
+                                    } catch (Exception e)
+                                    {
+                                        hitokoto = httpUtil.fromJson(context.getString(R.string.network_error), Hitokoto.class);
+                                        Logs.e(TAG, "onResponse: " + e.getMessage());
+                                        Toast.makeText(App.getContext(), context.getString(R.string.hint_network_error), Toast.LENGTH_SHORT)
+                                                .show();
+                                    }
+                                } else
                                 {
                                     hitokoto = httpUtil.fromJson(context.getString(R.string.network_error), Hitokoto.class);
-                                    Logs.e(TAG, "onResponse: " + e.getMessage());
                                     Toast.makeText(App.getContext(), context.getString(R.string.hint_network_error), Toast.LENGTH_SHORT)
                                             .show();
                                 }
-                            } else
-                            {
-                                hitokoto = httpUtil.fromJson(context.getString(R.string.network_error), Hitokoto.class);
-                                Toast.makeText(App.getContext(), context.getString(R.string.hint_network_error), Toast.LENGTH_SHORT)
-                                        .show();
+                                editor.putString(context.getString(R.string.hitokotoTemp), httpUtil.toJson(hitokoto));
+                                editor.apply();
+                                Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
+                                intent.putExtra(context.getString(R.string.hitokoto_object), hitokoto);
+                                context.sendBroadcast(intent);
                             }
-                            editor.putString(context.getString(R.string.hitokotoTemp), httpUtil.toJson(hitokoto));
-                            editor.apply();
-                            Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
-                            intent.putExtra(context.getString(R.string.hitokoto_object), hitokoto);
-                            context.sendBroadcast(intent);
-                        }
-                    })
-                    .open();
-            return;
+                        })
+                        .open();
+                return;
+            }
         }
-        map.put("c", temp.equals("h") ? "a" : temp);
+        map.put("c", temp.equals("h") || temp.equals("i") ? "a" : temp);
         final HttpUtil httpUtil = new HttpUtil(App.getContext());
         httpUtil.setRequestMethod(HttpUtil.RequestMethod.GET)
                 .setUrl(context.getString(R.string.request_url))
