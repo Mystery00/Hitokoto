@@ -13,6 +13,7 @@ import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
 import com.mystery0.hitokoto.local.LocalConfigure;
+import com.mystery0.hitokoto.util.NetWorkUtils;
 import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
@@ -262,7 +263,15 @@ public class WidgetConfigure
             integerList.add(Integer.valueOf(t));
         }
         String[] keys = new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i"};
-        String temp = keys[integerList.get((int) (Math.random() * stringSet.size()))];
+        String temp;
+        if (NetWorkUtils.isNetworkConnected())
+        {
+            temp = keys[integerList.get((int) (Math.random() * stringSet.size()))];
+        } else
+        {
+            Logs.i(TAG, "refreshText: 无网络连接");
+            temp = keys[7];
+        }
         Logs.i(TAG, "refreshText: " + temp);
         if (temp.equals("h"))
         {
