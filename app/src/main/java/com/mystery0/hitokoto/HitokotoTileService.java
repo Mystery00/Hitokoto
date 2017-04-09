@@ -68,6 +68,7 @@ public class HitokotoTileService extends TileService
         {
             tile.setState(Tile.STATE_ACTIVE);
             WidgetConfigure.setAutoRefresh(true);
+            startService(new Intent(App.getContext(), WidgetService.class));
         }
 
         tile.updateTile();
