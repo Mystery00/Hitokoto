@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.widget.Toast;
 
 import com.google.gson.JsonSyntaxException;
@@ -13,7 +15,6 @@ import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
 import com.mystery0.hitokoto.local.LocalConfigure;
-import com.mystery0.hitokoto.util.NetWorkUtils;
 import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
@@ -264,7 +265,9 @@ public class WidgetConfigure
         }
         String[] keys = new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i"};
         String temp;
-        if (NetWorkUtils.isNetworkConnected())
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isAvailable())
         {
             temp = keys[integerList.get((int) (Math.random() * stringSet.size()))];
         } else
