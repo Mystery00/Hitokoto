@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.class_class.Hitokoto;
@@ -34,6 +35,7 @@ public class WidgetConfigure
 {
     private static final String TAG = "WidgetConfigure";
     private static Context context = App.getContext();
+    private static Gson gson = new Gson();
     private static SharedPreferences sharedPreferences = context.getSharedPreferences(context
             .getString(R.string.sharedPreferencesName), Context.MODE_PRIVATE);
     private static SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -216,11 +218,11 @@ public class WidgetConfigure
         Hitokoto hitokoto;
         try
         {
-            hitokoto = new HttpUtil(App.getContext()).fromJson(text, Hitokoto.class);
+            hitokoto = gson.fromJson(text, Hitokoto.class);
         } catch (JsonSyntaxException e)
         {
             Logs.e(TAG, "getTemp: " + e.getMessage());
-            hitokoto = new HttpUtil(App.getContext()).fromJson(context.getString(R.string.default_temp), Hitokoto.class);
+            hitokoto = gson.fromJson(context.getString(R.string.default_temp), Hitokoto.class);
         }
         return new String[]{hitokoto.getHitokoto(), hitokoto.getFrom()};
     }
@@ -332,18 +334,18 @@ public class WidgetConfigure
                                         hitokoto.setFrom(from);
                                     } catch (Exception e)
                                     {
-                                        hitokoto = httpUtil.fromJson(context.getString(R.string.network_error), Hitokoto.class);
+                                        hitokoto = gson.fromJson(context.getString(R.string.network_error), Hitokoto.class);
                                         Logs.e(TAG, "onResponse: " + e.getMessage());
                                         Toast.makeText(App.getContext(), context.getString(R.string.hint_network_error), Toast.LENGTH_SHORT)
                                                 .show();
                                     }
                                 } else
                                 {
-                                    hitokoto = httpUtil.fromJson(context.getString(R.string.network_error), Hitokoto.class);
+                                    hitokoto = gson.fromJson(context.getString(R.string.network_error), Hitokoto.class);
                                     Toast.makeText(App.getContext(), context.getString(R.string.hint_network_error), Toast.LENGTH_SHORT)
                                             .show();
                                 }
-                                editor.putString(context.getString(R.string.hitokotoTemp), httpUtil.toJson(hitokoto));
+                                editor.putString(context.getString(R.string.hitokotoTemp), gson.toJson(hitokoto));
                                 editor.apply();
                                 Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
                                 intent.putExtra(context.getString(R.string.hitokoto_object), hitokoto);
@@ -369,17 +371,17 @@ public class WidgetConfigure
                             Logs.i(TAG, "onResponse: " + message);
                             try
                             {
-                                hitokoto = httpUtil.fromJson(message, Hitokoto.class);
+                                hitokoto = gson.fromJson(message, Hitokoto.class);
                             } catch (Exception e)
                             {
-                                hitokoto = httpUtil.fromJson(context.getString(R.string.network_error), Hitokoto.class);
+                                hitokoto = gson.fromJson(context.getString(R.string.network_error), Hitokoto.class);
                                 Logs.e(TAG, "onResponse: " + e.getMessage());
                                 Toast.makeText(App.getContext(), context.getString(R.string.hint_network_error), Toast.LENGTH_SHORT)
                                         .show();
                             }
                         } else
                         {
-                            hitokoto = httpUtil.fromJson(context.getString(R.string.network_error), Hitokoto.class);
+                            hitokoto = gson.fromJson(context.getString(R.string.network_error), Hitokoto.class);
                             Logs.e(TAG, "onResponse: " + message);
                             Toast.makeText(App.getContext(), context.getString(R.string.hint_network_error), Toast.LENGTH_SHORT)
                                     .show();

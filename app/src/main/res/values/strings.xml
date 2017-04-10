@@ -36,6 +36,8 @@
     <string name="text_custom_single_hitokoto">Add Single Hitokoto</string>
     <string name="text_custom_multiple_hitokoto">Add Multiple Hitokoto</string>
     <string name="text_custom_show_hitokoto">Show Custom Hitokoto</string>
+    <string name="text_custom_hitokoto_export">Export Hitokotos</string>
+    <string name="text_custom_hitokoto_import">Import Hitokotos</string>
 
     <string name="title_custom_source">Custom Source</string>
     <string name="text_custom_source_new">Add Source</string>

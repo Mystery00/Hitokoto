@@ -7,6 +7,7 @@ public class HitokotoLocal extends DataSupport
     private String content;
     private String source;
     private String date;
+    private String group;
 
     public HitokotoLocal()
     {
@@ -17,6 +18,14 @@ public class HitokotoLocal extends DataSupport
         this.content = content;
         this.source = source;
         this.date = date;
+    }
+
+    public HitokotoLocal(String content, String source, String date, String group)
+    {
+        this.content = content;
+        this.source = source;
+        this.date = date;
+        this.group = group;
     }
 
     public String getContent()
@@ -47,5 +56,15 @@ public class HitokotoLocal extends DataSupport
     public void setDate(String date)
     {
         this.date = date;
+    }
+
+    public String getGroup()
+    {
+        return group;
+    }
+
+    public void setGroup(String group)
+    {
+        this.group = group;
     }
 }

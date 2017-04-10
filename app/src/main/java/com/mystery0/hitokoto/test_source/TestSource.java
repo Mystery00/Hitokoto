@@ -1,5 +1,6 @@
 package com.mystery0.hitokoto.test_source;
 
+import com.google.gson.Gson;
 import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.Hitokoto;
@@ -40,7 +41,7 @@ public class TestSource
                             {
                                 try
                                 {
-                                    httpUtil.fromJson(s, Hitokoto.class);
+                                    new Gson().fromJson(s, Hitokoto.class);
                                     listener.result(true);
                                 } catch (Exception e)
                                 {

@@ -83,6 +83,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     private Preference customSingleHitokoto;
     private Preference customMultipleHitokoto;
     private Preference showCustomHitokoto;
+    private Preference exportHitokotos;
+    private Preference importHitokotos;
     private Preference customSourceNew;
     private Preference customSourceManager;
     private Preference customSourceHelper;
@@ -137,6 +139,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         customSingleHitokoto = findPreference(getString(R.string.key_local_single_hitokoto));
         customMultipleHitokoto = findPreference(getString(R.string.key_local_multiple_hitokoto));
         showCustomHitokoto = findPreference(getString(R.string.key_local_show_hitokoto));
+        exportHitokotos = findPreference(getString(R.string.key_local_export_hitokotos));
+        importHitokotos = findPreference(getString(R.string.key_local_import_hitokotos));
         customSourceNew = findPreference(getString(R.string.key_custom_source_new));
         customSourceManager = findPreference(getString(R.string.key_custom_source_manager));
         customSourceHelper = findPreference(getString(R.string.key_custom_source_helper));
@@ -332,6 +336,24 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 return false;
             }
         });
+        exportHitokotos.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                exportHitokotos();
+                return false;
+            }
+        });
+        importHitokotos.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                importHitokotos();
+                return false;
+            }
+        });
         customSourceNew.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
         {
             @Override
@@ -436,6 +458,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 }
             });
         }
+    }
+
+    private void importHitokotos()
+    {
+
+    }
+
+    private void exportHitokotos()
+    {
+
     }
 
     private void customSourceNewDialog()
