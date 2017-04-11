@@ -115,6 +115,7 @@
     <string name="Custom">Custom</string>
     <string name="Local">Local</string>
     <string name="Unclassified">Unclassified</string>
+    <string name="Search">Search</string>
 
     <!--List Aligned-->
     <string name="left">Left</string>

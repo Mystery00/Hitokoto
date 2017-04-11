@@ -41,11 +41,27 @@
             android:name=".local.LocalHitokotoActivity"
             android:label="@string/title_activity_custom_hitokoto"
             android:theme="@style/AppTheme.NoActionBar">
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".local.LocalHitokotoManagerActivity"
             android:label="@string/title_activity_manager_hitokoto"
             android:theme="@style/AppTheme.NoActionBar">
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
         </activity>
 
         <receiver android:name=".widget.HitokotoWidget">

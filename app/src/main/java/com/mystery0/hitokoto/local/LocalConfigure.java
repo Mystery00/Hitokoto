@@ -21,7 +21,7 @@ public class LocalConfigure
         hitokotoLocal.setContent(content);
         hitokotoLocal.setSource(source);
         hitokotoLocal.setDate(time);
-        hitokotoLocal.save();
+        hitokotoLocal.saveOrUpdate("content = ?", content);
     }
 
     public static void saveToDatabase(List<HitokotoLocal> contents)

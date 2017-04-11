@@ -1,6 +1,8 @@
 package com.mystery0.hitokoto.local;
 
 import android.annotation.SuppressLint;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -9,9 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -34,6 +39,7 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
     private static final String TAG = "LocalHitokotoActivity";
     private Toolbar toolbar;
     private RecyclerView recyclerView;
+    private TextView null_data;
     private ShowAdapter adapter;
     private List<HitokotoLocal> list;
 
@@ -48,11 +54,11 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
     private void initialize()
     {
         String group = getIntent().getStringExtra("group");
-        list = DataSupport.findAll(HitokotoLocal.class);
+        list = DataSupport.where("group = ?", group).find(HitokotoLocal.class);
         setContentView(R.layout.activity_custom_hitokoto);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        TextView null_data = (TextView) findViewById(R.id.null_data);
+        null_data = (TextView) findViewById(R.id.null_data);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ShowAdapter(list, this);
         recyclerView.setAdapter(adapter);
@@ -96,6 +102,55 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.hitokoto_local, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
+            @Override
+            public boolean onQueryTextSubmit(String query)
+            {
+                Logs.i(TAG, "onQueryTextSubmit: " + query);
+                if (query != null && !query.equals(""))
+                {
+                    list.clear();
+                    list.addAll(DataSupport.where("content like ? or source like ?", query, query).find(HitokotoLocal.class));
+                    adapter.notifyDataSetChanged();
+                } else
+                {
+                    list.clear();
+                    list.addAll(DataSupport.findAll(HitokotoLocal.class));
+                    adapter.notifyDataSetChanged();
+                }
+                if (list.size() == 0)
+                {
+                    null_data.setVisibility(View.VISIBLE);
+                }else
+                {
+                    null_data.setVisibility(View.GONE);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText)
+            {
+                return false;
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("ConstantConditions")

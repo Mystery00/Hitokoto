@@ -121,9 +121,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 .saveOrUpdate("address = ?", getString(R.string.request_url));
         new HitokotoSource("local", getString(R.string.Local), "Local", getString(R.string.Wait), 3)
                 .saveOrUpdate("address = ?", "Local");
-//        HitokotoLocal hitokotoLocal = new HitokotoLocal();
-//        hitokotoLocal.setGroup("unclassified");
-//        hitokotoLocal.updateAll("group = ?", "");
+        List<HitokotoLocal> list = DataSupport.findAll(HitokotoLocal.class);
+        for (HitokotoLocal temp : list)
+        {
+            if (temp.getGroup() == null || temp.getGroup().equals(""))
+            {
+                temp.setGroup("unclassified");
+                temp.saveOrUpdate("content = ?", temp.getContent());
+            }
+        }
 
         refreshNow = findPreference(getString(R.string.key_refresh_now));
         showCurrent = findPreference(getString(R.string.key_show_current));
