@@ -41,7 +41,7 @@ import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
 import com.mystery0.hitokoto.custom.CustomSourceActivity;
 import com.mystery0.hitokoto.local.LocalConfigure;
-import com.mystery0.hitokoto.local.LocalHitokotoActivity;
+import com.mystery0.hitokoto.local.LocalHitokotoManagerActivity;
 import com.mystery0.hitokoto.test_source.TestSource;
 import com.mystery0.hitokoto.test_source.TestSourceAdapter;
 import com.mystery0.hitokoto.test_source.TestSourceListener;
@@ -121,6 +121,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 .saveOrUpdate("address = ?", getString(R.string.request_url));
         new HitokotoSource("local", getString(R.string.Local), "Local", getString(R.string.Wait), 3)
                 .saveOrUpdate("address = ?", "Local");
+//        HitokotoLocal hitokotoLocal = new HitokotoLocal();
+//        hitokotoLocal.setGroup("unclassified");
+//        hitokotoLocal.updateAll("group = ?", "");
 
         refreshNow = findPreference(getString(R.string.key_refresh_now));
         showCurrent = findPreference(getString(R.string.key_show_current));
@@ -332,7 +335,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                startActivity(new Intent(App.getContext(), LocalHitokotoActivity.class));
+                startActivity(new Intent(App.getContext(), LocalHitokotoManagerActivity.class));
                 return false;
             }
         });

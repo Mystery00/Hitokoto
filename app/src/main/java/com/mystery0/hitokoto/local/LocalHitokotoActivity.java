@@ -47,6 +47,7 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
 
     private void initialize()
     {
+        String group = getIntent().getStringExtra("group");
         list = DataSupport.findAll(HitokotoLocal.class);
         setContentView(R.layout.activity_custom_hitokoto);
         toolbar = (Toolbar) findViewById(R.id.toolbar);

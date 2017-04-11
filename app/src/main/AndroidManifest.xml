@@ -42,6 +42,11 @@
             android:label="@string/title_activity_custom_hitokoto"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".local.LocalHitokotoManagerActivity"
+            android:label="@string/title_activity_manager_hitokoto"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
         <receiver android:name=".widget.HitokotoWidget">
             <intent-filter>
