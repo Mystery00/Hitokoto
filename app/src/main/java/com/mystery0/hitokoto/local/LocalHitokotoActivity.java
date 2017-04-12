@@ -120,8 +120,7 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
                 if (query != null && query.length() != 0)
                 {
                     list.clear();
-                    List<HitokotoLocal> localList = DataSupport.where("content like ? or source like ?", query, query).find(HitokotoLocal.class);
-                    list.addAll(localList);
+                    list.addAll(DataSupport.where("content like ? or source like ?", "%" + query + "%", "%" + query + "%").find(HitokotoLocal.class));
                     adapter.notifyDataSetChanged();
                 } else
                 {
