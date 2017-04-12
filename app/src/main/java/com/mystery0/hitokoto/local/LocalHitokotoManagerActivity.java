@@ -113,7 +113,7 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
                 if (query != null && !query.equals(""))
                 {
                     list.clear();
-                    list.addAll(DataSupport.where("name like ?", query).find(HitokotoGroup.class));
+                    list.addAll(DataSupport.where("name like ?", query+"%").find(HitokotoGroup.class));
                     adapter.notifyDataSetChanged();
                 } else
                 {

@@ -117,10 +117,11 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
             public boolean onQueryTextSubmit(String query)
             {
                 Logs.i(TAG, "onQueryTextSubmit: " + query);
-                if (query != null && !query.equals(""))
+                if (query != null && query.length() != 0)
                 {
                     list.clear();
-                    list.addAll(DataSupport.where("content like ? or source like ?", query, query).find(HitokotoLocal.class));
+                    List<HitokotoLocal> localList = DataSupport.where("content like ? or source like ?", query, query).find(HitokotoLocal.class);
+                    list.addAll(localList);
                     adapter.notifyDataSetChanged();
                 } else
                 {
@@ -131,7 +132,7 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
                 if (list.size() == 0)
                 {
                     null_data.setVisibility(View.VISIBLE);
-                }else
+                } else
                 {
                     null_data.setVisibility(View.GONE);
                 }
@@ -141,6 +142,13 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
             @Override
             public boolean onQueryTextChange(String newText)
             {
+                Logs.i(TAG, "onQueryTextChange: " + newText);
+                if (newText.length() == 0)
+                {
+                    list.clear();
+                    list.addAll(DataSupport.findAll(HitokotoLocal.class));
+                    adapter.notifyDataSetChanged();
+                }
                 return false;
             }
         });
