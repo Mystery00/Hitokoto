@@ -43,7 +43,7 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
     public void onBindViewHolder(ManagerAdapter.ViewHolder holder, int position)
     {
         String temp = list.get(position).getName();
-        holder.textView.setText(temp.equals("unclassified") ? App.getContext().getString(R.string.Unclassified) : temp);
+        holder.textView.setText(temp.equals(App.getContext().getString(R.string.unclassified)) ? App.getContext().getString(R.string.Unclassified) : temp);
     }
 
     @Override

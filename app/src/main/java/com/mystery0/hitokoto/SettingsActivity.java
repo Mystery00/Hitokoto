@@ -37,6 +37,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mystery0.hitokoto.class_class.HitokotoGroup;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
 import com.mystery0.hitokoto.custom.CustomSourceActivity;
@@ -399,6 +400,31 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_single, null);
         final TextInputLayout hitokotoContent = (TextInputLayout) view.findViewById(R.id.custom_content);
         final TextInputLayout hitokotoSource = (TextInputLayout) view.findViewById(R.id.custom_source);
+        final Spinner spinner = (Spinner) view.findViewById(R.id.group);
+        final String[] group = new String[1];
+        final List<HitokotoGroup> hitokotoGroups = DataSupport.findAll(HitokotoGroup.class);
+        final List<String> list = new ArrayList<>();
+        for (HitokotoGroup hitokotoGroup : hitokotoGroups)
+        {
+            list.add(hitokotoGroup.getName().equals(getString(R.string.unclassified)) ?
+                    getString(R.string.Unclassified) : hitokotoGroup.getName());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                group[0] = list.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
         check(hitokotoContent);
         check(hitokotoSource);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
@@ -419,7 +445,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                     {
                         LocalConfigure.saveToDatabase(
                                 hitokotoContent.getEditText().getText().toString(),
-                                hitokotoSource.getEditText().getText().toString());
+                                hitokotoSource.getEditText().getText().toString(),
+                                group[0]);
                         Logs.i(TAG, "onOptionsItemSelected: 存储");
                         Toast.makeText(App.getContext(), R.string.hint_save_custom_done, Toast.LENGTH_SHORT)
                                 .show();
@@ -439,6 +466,31 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
         @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_multiple, null);
         final TextInputLayout hitokotoContent = (TextInputLayout) view.findViewById(R.id.text);
+        final Spinner spinner = (Spinner) view.findViewById(R.id.group);
+        final String[] group = new String[1];
+        final List<HitokotoGroup> hitokotoGroups = DataSupport.findAll(HitokotoGroup.class);
+        final List<String> list = new ArrayList<>();
+        for (HitokotoGroup hitokotoGroup : hitokotoGroups)
+        {
+            list.add(hitokotoGroup.getName().equals(getString(R.string.unclassified)) ?
+                    getString(R.string.Unclassified) : hitokotoGroup.getName());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                group[0] = list.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+            }
+        });
         check(hitokotoContent);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
                 .setView(view)
@@ -456,7 +508,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 {
                     if (isFormat(hitokotoContent))
                     {
-                        LocalConfigure.saveToDatabase(Analysis(hitokotoContent.getEditText().getText().toString()));
+                        LocalConfigure.saveToDatabase(Analysis(hitokotoContent.getEditText().getText().toString()), group[0]);
                         Toast.makeText(App.getContext(), R.string.hint_save_custom_done, Toast.LENGTH_SHORT)
                                 .show();
                     } else

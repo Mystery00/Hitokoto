@@ -1,5 +1,6 @@
 package com.mystery0.hitokoto.local;
 
+import com.mystery0.hitokoto.class_class.HitokotoGroup;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.tools.Logs.Logs;
 
@@ -14,23 +15,27 @@ public class LocalConfigure
 {
     private static final String TAG = "LocalConfigure";
 
-    public static void saveToDatabase(String content, String source)
+    public static void saveToDatabase(String content, String source, String group)
     {
         String time = (new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA)).format(Calendar.getInstance().getTime());
         HitokotoLocal hitokotoLocal = new HitokotoLocal();
         hitokotoLocal.setContent(content);
         hitokotoLocal.setSource(source);
+        if (group.length() != 0)
+        {
+            hitokotoLocal.setGroup(group);
+        }
         hitokotoLocal.setDate(time);
         hitokotoLocal.saveOrUpdate("content = ?", content);
     }
 
-    public static void saveToDatabase(List<HitokotoLocal> contents)
+    public static void saveToDatabase(List<HitokotoLocal> contents, String group)
     {
         int number = contents.size();
         Logs.i(TAG, "saveToDatabase: 添加数量:" + number);
         for (HitokotoLocal hitokotoLocal : contents)
         {
-            saveToDatabase(hitokotoLocal.getContent(), hitokotoLocal.getSource());
+            saveToDatabase(hitokotoLocal.getContent(), hitokotoLocal.getSource(), group);
         }
     }
 

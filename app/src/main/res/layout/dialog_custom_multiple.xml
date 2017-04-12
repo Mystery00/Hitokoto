@@ -31,4 +31,23 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <TextView
+        android:id="@+id/hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:layout_marginEnd="@dimen/item_show_margin"
+        android:layout_marginStart="@dimen/item_show_margin"
+        android:layout_marginTop="@dimen/item_show_margin"
+        android:text="@string/hint_custom_group"/>
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hint"
+        android:layout_marginEnd="@dimen/item_show_margin"
+        android:layout_marginStart="@dimen/item_show_margin"
+        android:layout_marginTop="@dimen/item_show_margin"/>
+
 </RelativeLayout>

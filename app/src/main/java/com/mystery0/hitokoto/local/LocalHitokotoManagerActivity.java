@@ -1,15 +1,21 @@
 package com.mystery0.hitokoto.local;
 
+import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,23 +24,20 @@ import android.widget.TextView;
 import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoGroup;
-import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.tools.Logs.Logs;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
-import static android.support.v7.widget.helper.ItemTouchHelper.RIGHT;
-
 public class LocalHitokotoManagerActivity extends AppCompatActivity implements ManagerItemListener
 {
     private static final String TAG = "LocalHitokotoManagerAct";
     private Toolbar toolbar;
-    private RecyclerView recyclerView;
     private TextView null_data;
     private ManagerAdapter adapter;
     private List<HitokotoGroup> list;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,12 +49,13 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
 
     private void initialize()
     {
-        new HitokotoGroup("unclassified").saveOrUpdate("name = ?", "unclassified");
+        new HitokotoGroup(getString(R.string.unclassified)).saveOrUpdate("name = ?", getString(R.string.unclassified));
         list = DataSupport.findAll(HitokotoGroup.class);
         setContentView(R.layout.activity_custom_hitokoto);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         null_data = (TextView) findViewById(R.id.null_data);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ManagerAdapter(list, this);
         recyclerView.setAdapter(adapter);
@@ -75,26 +79,35 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
                 finish();
             }
         });
-        ItemTouchHelper.Callback callback = new ItemTouchHelper.SimpleCallback(0, RIGHT)
+        floatingActionButton.setOnClickListener(new View.OnClickListener()
         {
-
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)
+            public void onClick(View v)
             {
-                return false;
+                //noinspection RestrictedApi
+                ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+                @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_group, null);
+                final TextInputLayout hitokotoGroup = (TextInputLayout) view.findViewById(R.id.group);
+                new AlertDialog.Builder(LocalHitokotoManagerActivity.this, R.style.AlertDialogStyle)
+                        .setView(view)
+                        .setTitle(R.string.text_custom_multiple_hitokoto)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+                        {
+                            @SuppressWarnings("ConstantConditions")
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                String temp = hitokotoGroup.getEditText().getText().toString();
+                                if (temp.length() != 0)
+                                {
+                                    Logs.i(TAG, "onClick: "+new HitokotoGroup(temp).saveOrUpdate("name = ?", temp));
+                                }
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .show();
             }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
-            {
-                int position = viewHolder.getAdapterPosition();
-                list.remove(position).delete();
-                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-                Logs.i(TAG, "onSwiped: 滑动删除");
-            }
-        };
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+        });
     }
 
     @Override

@@ -24,4 +24,14 @@
 
     <include layout="@layout/content_custom_hitokoto"/>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/item_show_margin"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_add"/>
+
 </android.support.design.widget.CoordinatorLayout>

@@ -1,6 +1,5 @@
 package com.mystery0.hitokoto.class_class;
 
-import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
 public class HitokotoLocal extends DataSupport
@@ -8,8 +7,6 @@ public class HitokotoLocal extends DataSupport
     private String content;
     private String source;
     private String date;
-
-    @Column(defaultValue = "unclassified")
     private String group;
 
     public HitokotoLocal()
