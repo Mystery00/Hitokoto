@@ -49,13 +49,14 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
 
     private void initialize()
     {
-        new HitokotoGroup(getString(R.string.unclassified)).saveOrUpdate("name = ?", getString(R.string.unclassified));
         list = DataSupport.findAll(HitokotoGroup.class);
         setContentView(R.layout.activity_custom_hitokoto);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         null_data = (TextView) findViewById(R.id.null_data);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        TextView textView = (TextView) findViewById(R.id.hint);
+        textView.setVisibility(View.GONE);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ManagerAdapter(list, this);
         recyclerView.setAdapter(adapter);
@@ -100,7 +101,7 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
                                 String temp = hitokotoGroup.getEditText().getText().toString();
                                 if (temp.length() != 0)
                                 {
-                                    Logs.i(TAG, "onClick: "+new HitokotoGroup(temp).saveOrUpdate("name = ?", temp));
+                                    Logs.i(TAG, "onClick: " + new HitokotoGroup(temp).saveOrUpdate("name = ?", temp));
                                 }
                             }
                         })

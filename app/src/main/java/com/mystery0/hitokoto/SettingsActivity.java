@@ -37,6 +37,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.mystery0.hitokoto.class_class.HitokotoGroup;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
@@ -53,8 +54,12 @@ import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.BufferedWriter;
 import java.io.File;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -122,6 +127,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 .saveOrUpdate("address = ?", getString(R.string.request_url));
         new HitokotoSource("local", getString(R.string.Local), "Local", getString(R.string.Wait), 3)
                 .saveOrUpdate("address = ?", "Local");
+        new HitokotoGroup(getString(R.string.unclassified))
+                .saveOrUpdate("name = ?", getString(R.string.unclassified));
         List<HitokotoLocal> list = DataSupport.findAll(HitokotoLocal.class);
         for (HitokotoLocal temp : list)
         {
@@ -401,13 +408,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         final TextInputLayout hitokotoContent = (TextInputLayout) view.findViewById(R.id.custom_content);
         final TextInputLayout hitokotoSource = (TextInputLayout) view.findViewById(R.id.custom_source);
         final Spinner spinner = (Spinner) view.findViewById(R.id.group);
-        final String[] group = new String[1];
+        final String[] group = new String[]{getString(R.string.unclassified)};
         final List<HitokotoGroup> hitokotoGroups = DataSupport.findAll(HitokotoGroup.class);
         final List<String> list = new ArrayList<>();
         for (HitokotoGroup hitokotoGroup : hitokotoGroups)
         {
             list.add(hitokotoGroup.getName().equals(getString(R.string.unclassified)) ?
-                    getString(R.string.Unclassified) : hitokotoGroup.getName());
+                    getString(R.string.unclassified) : hitokotoGroup.getName());
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -521,14 +528,60 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         }
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void importHitokotos()
     {
 
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void exportHitokotos()
     {
-
+        String path = Environment.getExternalStorageDirectory().getPath() + "/hitokoto/";
+        Gson gson = new Gson();
+        List<HitokotoGroup> groupList = DataSupport.findAll(HitokotoGroup.class);
+        for (HitokotoGroup group : groupList)
+        {
+            Logs.i(TAG, "exportHitokotos: " + group.getName());
+            List<HitokotoLocal> localList = DataSupport.where("group = ?", group.getName()).find(HitokotoLocal.class);
+            File file = new File(path + group.getName() + ".txt");
+            Logs.i(TAG, "exportHitokotos: " + file.getAbsolutePath());
+            FileOutputStream fileOutputStream;
+            BufferedWriter bufferedWriter = null;
+            try
+            {
+                if (file.exists())
+                {
+                    file.delete();
+                }
+                file.createNewFile();
+                for (HitokotoLocal hitokotoLocal : localList)
+                {
+                    fileOutputStream = new FileOutputStream(file);
+                    bufferedWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
+                    Logs.i(TAG, "exportHitokotos: " + gson.toJson(hitokotoLocal));
+                    bufferedWriter.write(gson.toJson(hitokotoLocal) + "\n");
+                }
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            } finally
+            {
+                try
+                {
+                    if (bufferedWriter != null)
+                    {
+                        bufferedWriter.close();
+                    }
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        Logs.i(TAG, "exportHitokotos: 成功");
+        Toast.makeText(App.getContext(), getString(R.string.hint_export_success) + " " + path, Toast.LENGTH_SHORT)
+                .show();
     }
 
     private void customSourceNewDialog()

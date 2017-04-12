@@ -21,7 +21,7 @@ public class LocalConfigure
         HitokotoLocal hitokotoLocal = new HitokotoLocal();
         hitokotoLocal.setContent(content);
         hitokotoLocal.setSource(source);
-        if (group.length() != 0)
+        if (group!=null&&group.length() != 0)
         {
             hitokotoLocal.setGroup(group);
         }

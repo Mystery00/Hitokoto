@@ -9,10 +9,19 @@
     tools:context="com.mystery0.hitokoto.local.LocalHitokotoActivity"
     tools:showIn="@layout/activity_custom_hitokoto">
 
+    <TextView
+        android:id="@+id/hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_show_margin"
+        android:gravity="center"
+        android:text="@string/hint_show_hitokoto"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hint"
         android:layout_marginTop="@dimen/item_show_margin"/>
 
     <TextView

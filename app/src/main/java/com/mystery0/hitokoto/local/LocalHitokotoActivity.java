@@ -5,6 +5,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -59,6 +60,8 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         null_data = (TextView) findViewById(R.id.null_data);
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        floatingActionButton.setVisibility(View.GONE);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ShowAdapter(list, this);
         recyclerView.setAdapter(adapter);
