@@ -147,4 +147,6 @@
     <!--List Request Method-->
     <string name="list_request_method_get" translatable="false">GET</string>
     <string name="list_request_method_post" translatable="false">POST</string>
+    <string name="Delete">Delete</string>
+    <string name="SelectAll">Select All</string>
 </resources>

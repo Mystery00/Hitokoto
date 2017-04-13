@@ -58,7 +58,7 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
         TextView textView = (TextView) findViewById(R.id.hint);
         textView.setVisibility(View.GONE);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ManagerAdapter(list, this);
+        adapter = new ManagerAdapter(list, false, this);
         recyclerView.setAdapter(adapter);
         if (list.size() == 0)
         {
@@ -167,5 +167,18 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
         Intent intent = new Intent(App.getContext(), LocalHitokotoActivity.class);
         intent.putExtra("group", hitokotoGroup.getName());
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemSelect(HitokotoGroup hitokotoGroup, int position, boolean checked)
+    {
+
+    }
+
+    @Override
+    public void onLongClick()
+    {
+        adapter = new ManagerAdapter(list, true, this);
+        adapter.notifyDataSetChanged();
     }
 }
