@@ -72,6 +72,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 {
     private static final String TAG = "SettingsActivity";
     private static final int REQUEST_PERMISSION = 456;
+    private static final int REQUEST_IMPORT = 123;
     private Preference refreshNow;
     private Preference showCurrent;
     private Preference testSource;
@@ -94,6 +95,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     private Preference customSourceNew;
     private Preference customSourceManager;
     private Preference customSourceHelper;
+    private Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -529,16 +531,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void importHitokotos()
-    {
-
-    }
-
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void exportHitokotos()
     {
         String path = Environment.getExternalStorageDirectory().getPath() + "/hitokoto/";
-        Gson gson = new Gson();
         List<HitokotoGroup> groupList = DataSupport.findAll(HitokotoGroup.class);
         for (HitokotoGroup group : groupList)
         {
@@ -564,7 +559,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 }
             } catch (IOException e)
             {
-                e.printStackTrace();
+                Toast.makeText(App.getContext(), R.string.hint_export_error, Toast.LENGTH_SHORT)
+                        .show();
             } finally
             {
                 try
@@ -575,13 +571,23 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                     }
                 } catch (IOException e)
                 {
-                    e.printStackTrace();
+                    Toast.makeText(App.getContext(), R.string.hint_export_error, Toast.LENGTH_SHORT)
+                            .show();
                 }
             }
         }
         Logs.i(TAG, "exportHitokotos: 成功");
         Toast.makeText(App.getContext(), getString(R.string.hint_export_success) + " " + path, Toast.LENGTH_SHORT)
                 .show();
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private void importHitokotos()
+    {
+        Intent intent1 = new Intent(Intent.ACTION_GET_CONTENT);
+        intent1.setType("*/*");
+        intent1.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(intent1, REQUEST_IMPORT);
     }
 
     private void customSourceNewDialog()
@@ -756,6 +762,43 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_PERMISSION);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        switch (requestCode)
+        {
+            case REQUEST_IMPORT:
+                if (data != null)
+                {
+                    String path = FileDo.getPath(data.getData());
+                    String fileName = FileDo.getFileName(path);
+                    Logs.i(TAG, "onActivityResult: 选择的文件: " + path);
+                    try
+                    {
+                        Scanner scanner = new Scanner(new File(path));
+                        List<HitokotoLocal> list = new ArrayList<>();
+                        while (scanner.hasNext())
+                        {
+                            String temp = scanner.nextLine();
+                            HitokotoLocal hitokotoLocal = gson.fromJson(temp, HitokotoLocal.class);
+                            list.add(hitokotoLocal);
+                        }
+                        scanner.close();
+                        LocalConfigure.saveToDatabase(list, fileName);
+                        new HitokotoGroup(fileName).saveOrUpdate("name = ?", fileName);
+                        Toast.makeText(App.getContext(), R.string.hint_import_success, Toast.LENGTH_SHORT)
+                                .show();
+                    } catch (Exception e)
+                    {
+                        Logs.e(TAG, "onActivityResult: " + e.getMessage());
+                        Toast.makeText(App.getContext(), R.string.hint_import_error, Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                }
+                break;
         }
     }
 

@@ -96,7 +96,10 @@
     <string name="hint_custom_add_source_error">Something Error!&#62;_&#60;</string>
     <string name="hint_custom_source_helper_text1">The Custom Source function requires the user to understand the basic json format. \nHere is a json data example, please make sure the source you provide to return the json data.</string>
     <string name="hint_custom_source_helper_text2">It is necessary to provide APP with the \'content key\' and \'source key\' of Hitokoto, and in this example is \'hitokoto\' and \'from\'.</string>
+    <string name="hint_export_error">Unknown Error! </string>
     <string name="hint_export_success">The data has been exported! \nThe path is </string>
+    <string name="hint_import_error">Damaged file! Please check the file content! </string>
+    <string name="hint_import_success">The hitokotos has been imported! </string>
 
     <string name="ErrorRefreshTime">Please ensure the time is more than 0 </string>
     <string name="ErrorNull">Text Can\'t be Null! </string>
