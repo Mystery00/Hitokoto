@@ -58,6 +58,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
@@ -541,8 +542,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             List<HitokotoLocal> localList = DataSupport.where("group = ?", group.getName()).find(HitokotoLocal.class);
             File file = new File(path + group.getName() + ".txt");
             Logs.i(TAG, "exportHitokotos: " + file.getAbsolutePath());
-            FileOutputStream fileOutputStream;
-            BufferedWriter bufferedWriter = null;
             try
             {
                 if (file.exists())
@@ -550,30 +549,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                     file.delete();
                 }
                 file.createNewFile();
+                FileWriter fileWriter = new FileWriter(file);
                 for (HitokotoLocal hitokotoLocal : localList)
                 {
-                    fileOutputStream = new FileOutputStream(file);
-                    bufferedWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
                     Logs.i(TAG, "exportHitokotos: " + gson.toJson(hitokotoLocal));
-                    bufferedWriter.write(gson.toJson(hitokotoLocal) + "\n");
+                    fileWriter.write(gson.toJson(hitokotoLocal) + "\n");
                 }
+                fileWriter.close();
             } catch (IOException e)
             {
                 Toast.makeText(App.getContext(), R.string.hint_export_error, Toast.LENGTH_SHORT)
                         .show();
-            } finally
-            {
-                try
-                {
-                    if (bufferedWriter != null)
-                    {
-                        bufferedWriter.close();
-                    }
-                } catch (IOException e)
-                {
-                    Toast.makeText(App.getContext(), R.string.hint_export_error, Toast.LENGTH_SHORT)
-                            .show();
-                }
             }
         }
         Logs.i(TAG, "exportHitokotos: 成功");
