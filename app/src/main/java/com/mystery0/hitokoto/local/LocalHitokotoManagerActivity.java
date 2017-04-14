@@ -24,10 +24,12 @@ import android.widget.TextView;
 import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoGroup;
+import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.tools.Logs.Logs;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LocalHitokotoManagerActivity extends AppCompatActivity implements ManagerItemListener
@@ -35,9 +37,13 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
     private static final String TAG = "LocalHitokotoManagerAct";
     private Toolbar toolbar;
     private TextView null_data;
+    private RecyclerView recyclerView;
     private ManagerAdapter adapter;
     private List<HitokotoGroup> list;
     private FloatingActionButton floatingActionButton;
+    private Menu menu;
+    private boolean isShow = false;
+    private List<Integer> selectList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,7 +58,7 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
         list = DataSupport.findAll(HitokotoGroup.class);
         setContentView(R.layout.activity_custom_hitokoto);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         null_data = (TextView) findViewById(R.id.null_data);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         TextView textView = (TextView) findViewById(R.id.hint);
@@ -77,7 +83,19 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
             @Override
             public void onClick(View v)
             {
-                finish();
+                if (isShow)
+                {
+                    ManagerAdapter adapter = new ManagerAdapter(list, false, LocalHitokotoManagerActivity.this);
+                    recyclerView.setAdapter(adapter);
+                    LocalHitokotoManagerActivity.this.adapter = adapter;
+                    menu.findItem(R.id.action_edit).setVisible(true);
+                    menu.findItem(R.id.action_select_all).setVisible(false);
+                    menu.findItem(R.id.action_delete).setVisible(false);
+                    isShow = false;
+                } else
+                {
+                    finish();
+                }
             }
         });
         floatingActionButton.setOnClickListener(new View.OnClickListener()
@@ -88,20 +106,23 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
                 //noinspection RestrictedApi
                 ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
                 @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_group, null);
-                final TextInputLayout hitokotoGroup = (TextInputLayout) view.findViewById(R.id.group);
+                final TextInputLayout hitokotoGroupInput = (TextInputLayout) view.findViewById(R.id.group);
                 new AlertDialog.Builder(LocalHitokotoManagerActivity.this, R.style.AlertDialogStyle)
                         .setView(view)
-                        .setTitle(R.string.text_custom_multiple_hitokoto)
+                        .setTitle(R.string.text_custom_add_group)
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
                         {
                             @SuppressWarnings("ConstantConditions")
                             @Override
                             public void onClick(DialogInterface dialog, int which)
                             {
-                                String temp = hitokotoGroup.getEditText().getText().toString();
+                                String temp = hitokotoGroupInput.getEditText().getText().toString();
                                 if (temp.length() != 0)
                                 {
-                                    Logs.i(TAG, "onClick: " + new HitokotoGroup(temp).saveOrUpdate("name = ?", temp));
+                                    HitokotoGroup hitokotoGroup = new HitokotoGroup(temp);
+                                    Logs.i(TAG, "onClick: " + hitokotoGroup.saveOrUpdate("name = ?", temp));
+                                    list.add(hitokotoGroup);
+                                    adapter.notifyItemInserted(list.size() - 1);
                                 }
                             }
                         })
@@ -151,12 +172,37 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
                 return false;
             }
         });
+        this.menu = menu;
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
+        switch (item.getItemId())
+        {
+            case R.id.action_edit:
+                ManagerAdapter adapter = new ManagerAdapter(list, true, this);
+                recyclerView.setAdapter(adapter);
+                LocalHitokotoManagerActivity.this.adapter = adapter;
+                isShow = true;
+                menu.findItem(R.id.action_delete).setVisible(true);
+                menu.findItem(R.id.action_select_all).setVisible(true);
+                menu.findItem(R.id.action_edit).setVisible(false);
+                break;
+            case R.id.action_delete:
+                for (Integer temp : selectList)
+                {
+                    Logs.i(TAG, "onOptionsItemSelected: 删除: " + temp);
+                    HitokotoGroup group = list.remove((int) temp);
+                    group.delete();
+                    LocalHitokotoManagerActivity.this.adapter.notifyItemRemoved(temp);
+                    DataSupport.deleteAll(HitokotoLocal.class, "group = ?", group.getName());
+                }
+                break;
+            case R.id.action_select_all:
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -164,6 +210,7 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
     @Override
     public void onItemClick(final HitokotoGroup hitokotoGroup, final int position)
     {
+        Logs.i(TAG, "onItemClick: 单击: " + position);
         Intent intent = new Intent(App.getContext(), LocalHitokotoActivity.class);
         intent.putExtra("group", hitokotoGroup.getName());
         startActivity(intent);
@@ -172,13 +219,15 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
     @Override
     public void onItemSelect(HitokotoGroup hitokotoGroup, int position, boolean checked)
     {
-
-    }
-
-    @Override
-    public void onLongClick()
-    {
-        adapter = new ManagerAdapter(list, true, this);
-        adapter.notifyDataSetChanged();
+        Logs.i(TAG, "onItemSelect: 选中： " + position);
+        if (checked)
+        {
+            Logs.i(TAG, "onItemSelect: 添加");
+            selectList.add(position);
+        } else
+        {
+            Logs.i(TAG, "onItemSelect: 删除");
+            selectList.remove((Integer) position);
+        }
     }
 }

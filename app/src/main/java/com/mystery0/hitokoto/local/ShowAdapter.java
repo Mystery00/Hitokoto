@@ -8,11 +8,13 @@ import android.widget.TextView;
 
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
+import com.mystery0.tools.Logs.Logs;
 
 import java.util.List;
 
 public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>
 {
+    private static final String TAG = "ShowAdapter";
     private List<HitokotoLocal> list;
     private ShowItemListener listener;
 

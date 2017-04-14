@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -32,15 +34,6 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hitokoto_manager, parent, false);
         final ManagerAdapter.ViewHolder holder = new ManagerAdapter.ViewHolder(view);
-        holder.fullView.setOnLongClickListener(new View.OnLongClickListener()
-        {
-            @Override
-            public boolean onLongClick(View v)
-            {
-                listener.onLongClick();
-                return true;
-            }
-        });
         holder.textView.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -65,7 +58,7 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
     {
         String temp = list.get(position).getName();
         holder.textView.setText(temp.equals(App.getContext().getString(R.string.unclassified)) ? App.getContext().getString(R.string.Unclassified) : temp);
-        holder.checkBox.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        holder.checkBox.setVisibility(!isShow | temp.equals(App.getContext().getString(R.string.unclassified)) ? View.GONE : View.VISIBLE);
     }
 
     @Override
