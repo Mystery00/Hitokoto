@@ -4,7 +4,7 @@ apply plugin: 'com.nillith.autoversion'
 autoVersion {
     major 1
     minor 3
-    patch 1
+    patch 9
 }
 
 android {
@@ -45,7 +45,6 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:25.3.1'
     compile 'org.litepal.android:core:1.5.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'org.lucasr.twowayview:twowayview:0.1.4'
 
     compile 'cn.bmob.android:bmob-sdk:3.5.0'
     testCompile 'junit:junit:4.12'

@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.mystery0.hitokoto.App;
@@ -92,6 +93,7 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
                     menu.findItem(R.id.action_select_all).setVisible(false);
                     menu.findItem(R.id.action_delete).setVisible(false);
                     isShow = false;
+                    selectList.clear();
                 } else
                 {
                     finish();
@@ -169,6 +171,13 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
             @Override
             public boolean onQueryTextChange(String newText)
             {
+                Logs.i(TAG, "onQueryTextChange: " + newText);
+                if (newText.length() == 0)
+                {
+                    list.clear();
+                    list.addAll(DataSupport.findAll(HitokotoGroup.class));
+                    adapter.notifyDataSetChanged();
+                }
                 return false;
             }
         });
@@ -201,6 +210,19 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
                 }
                 break;
             case R.id.action_select_all:
+                List<CheckBox> checkBoxes = LocalHitokotoManagerActivity.this.adapter.getCheckBoxList();
+                for (CheckBox checkBox : checkBoxes)
+                {
+                    checkBox.setChecked(true);
+                }
+                for (int i = 0; i < list.size(); i++)
+                {
+                    if (list.get(i).getName().equals(getString(R.string.unclassified)))
+                    {
+                        selectList.remove((Integer) i);
+                        break;
+                    }
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);

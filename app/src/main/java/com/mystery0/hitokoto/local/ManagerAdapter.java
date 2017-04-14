@@ -4,8 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -14,12 +12,14 @@ import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHolder>
 {
     private List<HitokotoGroup> list;
     private ManagerItemListener listener;
+    private List<CheckBox> checkBoxList = new ArrayList<>();
     private boolean isShow;
 
     public ManagerAdapter(List<HitokotoGroup> list, boolean isShow, ManagerItemListener listener)
@@ -50,6 +50,7 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
                 listener.onItemSelect(list.get(holder.getAdapterPosition()), holder.getAdapterPosition(), isChecked);
             }
         });
+        checkBoxList.add(holder.checkBox);
         return holder;
     }
 
@@ -80,5 +81,10 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
             textView = (TextView) itemView.findViewById(R.id.text);
             checkBox = (CheckBox) itemView.findViewById(R.id.checkbox);
         }
+    }
+
+    public List<CheckBox> getCheckBoxList()
+    {
+        return checkBoxList;
     }
 }

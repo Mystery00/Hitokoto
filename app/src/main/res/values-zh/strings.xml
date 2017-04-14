@@ -89,4 +89,18 @@
     <string name="hint_invalid_source">源无效！</string>
     <string name="title_activity_custom_source">自定义源</string>
     <string name="list_source_i">自定义源</string>
+    <string name="Delete">删除</string>
+    <string name="Edit">编辑</string>
+    <string name="Search">搜索</string>
+    <string name="SelectAll">选择全部</string>
+    <string name="Unclassified">未分组</string>
+    <string name="hint_custom_group">请选择一个分组</string>
+    <string name="hint_export_error">未知错误！</string>
+    <string name="hint_export_success">数据已经导出，导出路径为：</string>
+    <string name="hint_import_error">文件损坏，请检查文件内容！</string>
+    <string name="hint_import_success">Hitokotos已经成功导入！</string>
+    <string name="text_custom_add_group">新建组</string>
+    <string name="text_custom_hitokoto_export">导出Hitokotos</string>
+    <string name="text_custom_hitokoto_import">导入Hitokotos</string>
+    <string name="title_activity_manager_hitokoto">本地组管理</string>
 </resources>

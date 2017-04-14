@@ -5,7 +5,7 @@
     <string name="json_example" translatable="false">{\n\t"id": "1148",\n\t"hitokoto": "你说最开心的是你，我说最难过的是你……",\n\t"type": "e",\n\t"from": "原创",\n\t"creator": "Mystery0",\n\t"create_at": null\n}</string>
     <string name="e_mail_address" translatable="false">mystery0dyl520@gmail.com</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="title_activity_manager_hitokoto">LocalHitokotoManager</string>
+    <string name="title_activity_manager_hitokoto">LocalGroupManager</string>
     <string name="title_activity_custom_hitokoto">LocalHitokoto</string>
     <string name="title_activity_custom_source">CustomSource</string>
 
