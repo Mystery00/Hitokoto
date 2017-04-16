@@ -103,4 +103,16 @@
     <string name="text_custom_hitokoto_export">導出Hitokotos</string>
     <string name="text_custom_hitokoto_import">導入Hitokotos</string>
     <string name="title_activity_manager_hitokoto">本地組管理</string>
+    <string name="hint_choose_group">請選擇要上傳的分組</string>
+    <string name="hint_download_done">下載完成！</string>
+    <string name="hint_download_progress_message">下載中……</string>
+    <string name="hint_download_progress_message_hint">當前網速：</string>
+    <string name="hint_error_network">網絡錯誤！</string>
+    <string name="hint_refresh_done">刷新完成！</string>
+    <string name="hint_upload_done">上傳完成！</string>
+    <string name="hint_upload_progress_message">正在上傳：</string>
+    <string name="hint_upload_progress_title">上傳中……</string>
+    <string name="text_custom_hitokoto_download">下載雲端數據</string>
+    <string name="text_custom_hitokoto_upload">上傳雲端數據</string>
+    <string name="title_activity_download">下載雲端數據</string>
 </resources>

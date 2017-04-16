@@ -8,6 +8,7 @@
     <string name="title_activity_manager_hitokoto">LocalGroupManager</string>
     <string name="title_activity_custom_hitokoto">LocalHitokoto</string>
     <string name="title_activity_custom_source">CustomSource</string>
+    <string name="title_activity_download">Download</string>
 
     <string name="sharedPreferencesName" translatable="false">Hitokoto</string>
     <string name="hitokotoTemp" translatable="false">temp</string>
@@ -105,8 +106,13 @@
     <string name="hint_import_success">The hitokotos has been imported! </string>
     <string name="hint_choose_group">Please choose groups to upload</string>
     <string name="hint_upload_progress_title">Uploading……</string>
-    <string name="hint_upload_progress_message">uploading</string>
+    <string name="hint_upload_progress_message">uploading：</string>
     <string name="hint_upload_done">Upload success! </string>
+    <string name="hint_refresh_done">Refresh Done! </string>
+    <string name="hint_download_progress_message">Downloading……</string>
+    <string name="hint_download_progress_message_hint">Current speed:</string>
+    <string name="hint_download_done">Download Success! </string>
+    <string name="hint_error_network">NetWork error! </string>
 
     <string name="ErrorRefreshTime">Please ensure the time is more than 0 </string>
     <string name="ErrorNull">Text Can\'t be Null! </string>
@@ -157,5 +163,4 @@
     <string name="Delete">Delete</string>
     <string name="SelectAll">Select All</string>
     <string name="Edit">Edit</string>
-    <string name="title_activity_download">DownloadActivity</string>
 </resources>

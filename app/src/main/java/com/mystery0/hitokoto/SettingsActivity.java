@@ -39,14 +39,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.mystery0.hitokoto.class_class.HitokotoGroup;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
 import com.mystery0.hitokoto.class_class.ShareFile;
 import com.mystery0.hitokoto.custom.CustomSourceActivity;
+import com.mystery0.hitokoto.local.DownloadActivity;
 import com.mystery0.hitokoto.local.LocalConfigure;
 import com.mystery0.hitokoto.local.LocalHitokotoManagerActivity;
+import com.mystery0.hitokoto.local.LocalListener;
 import com.mystery0.hitokoto.test_source.TestSource;
 import com.mystery0.hitokoto.test_source.TestSourceAdapter;
 import com.mystery0.hitokoto.test_source.TestSourceListener;
@@ -59,8 +60,6 @@ import org.litepal.crud.DataSupport;
 
 import java.io.File;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -103,7 +102,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     private Preference customSourceNew;
     private Preference customSourceManager;
     private Preference customSourceHelper;
-    private Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -397,7 +395,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
-                downloadHitokotos();
+                startActivity(new Intent(SettingsActivity.this, DownloadActivity.class));
                 return false;
             }
         });
@@ -563,10 +561,23 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         List<HitokotoGroup> groupList = DataSupport.findAll(HitokotoGroup.class);
         for (HitokotoGroup group : groupList)
         {
-            outputFile(group.getName());
+            LocalConfigure.outputFile(group.getName(), new LocalListener()
+            {
+                @Override
+                public void done()
+                {
+                }
+
+                @Override
+                public void error()
+                {
+                    Toast.makeText(App.getContext(), R.string.hint_export_error, Toast.LENGTH_SHORT)
+                            .show();
+                }
+            });
         }
         Logs.i(TAG, "exportHitokotos: 成功");
-        Toast.makeText(App.getContext(), getString(R.string.hint_export_success) + " " + Environment.getExternalStorageDirectory().getPath() + "/hitokoto/", Toast.LENGTH_SHORT)
+        Toast.makeText(App.getContext(), getString(R.string.hint_export_success) + "\n" + Environment.getExternalStorageDirectory().getPath() + "/hitokoto/", Toast.LENGTH_SHORT)
                 .show();
     }
 
@@ -577,35 +588,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         intent1.setType("*/*");
         intent1.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(intent1, REQUEST_IMPORT);
-    }
-
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void outputFile(String fileName)
-    {
-        String path = Environment.getExternalStorageDirectory().getPath() + "/hitokoto/";
-        Logs.i(TAG, "exportHitokotos: " + fileName);
-        List<HitokotoLocal> localList = DataSupport.where("group = ?", fileName).find(HitokotoLocal.class);
-        File file = new File(path + fileName + ".txt");
-        Logs.i(TAG, "exportHitokotos: " + file.getAbsolutePath());
-        try
-        {
-            if (file.exists())
-            {
-                file.delete();
-            }
-            file.createNewFile();
-            FileWriter fileWriter = new FileWriter(file);
-            for (HitokotoLocal hitokotoLocal : localList)
-            {
-                Logs.i(TAG, "exportHitokotos: " + gson.toJson(hitokotoLocal));
-                fileWriter.write(gson.toJson(hitokotoLocal) + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e)
-        {
-            Toast.makeText(App.getContext(), R.string.hint_export_error, Toast.LENGTH_SHORT)
-                    .show();
-        }
     }
 
     private void uploadHitokotos()
@@ -655,7 +637,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                             progressDialog.setMessage(getString(R.string.hint_upload_progress_message) + " " + fileName);
                             progressDialog.setMax(100);
                             progressDialog.show();
-                            outputFile(fileName);
+                            LocalConfigure.outputFile(fileName, new LocalListener()
+                            {
+                                @Override
+                                public void done()
+                                {
+                                }
+
+                                @Override
+                                public void error()
+                                {
+                                    Toast.makeText(App.getContext(), R.string.hint_export_error, Toast.LENGTH_SHORT)
+                                            .show();
+                                }
+                            });
                             final BmobFile bmobFile = new BmobFile(new File(path + fileName + ".txt"));
                             bmobFile.uploadblock(new UploadFileListener()
                             {
@@ -686,6 +681,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                                         });
                                     } else
                                     {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(App.getContext(), e.getErrorCode() == 9016 ? getString(R.string.hint_error_network) : e.getMessage(), Toast.LENGTH_SHORT)
+                                                .show();
                                         Logs.e(TAG, "done: " + e.getMessage());
                                     }
                                 }
@@ -693,6 +691,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                                 @Override
                                 public void onProgress(Integer value)
                                 {
+                                    Logs.i(TAG, "onProgress: " + value);
                                     progressDialog.setProgress(value);
                                 }
                             });
@@ -700,11 +699,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                     }
                 })
                 .show();
-    }
-
-    private void downloadHitokotos()
-    {
-
     }
 
     private void customSourceNewDialog()
@@ -891,29 +885,22 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 if (data != null)
                 {
                     String path = FileDo.getPath(data.getData());
-                    String fileName = FileDo.getFileName(path);
-                    Logs.i(TAG, "onActivityResult: 选择的文件: " + path);
-                    try
+                    LocalConfigure.inputFile(path, new LocalListener()
                     {
-                        Scanner scanner = new Scanner(new File(path));
-                        List<HitokotoLocal> list = new ArrayList<>();
-                        while (scanner.hasNext())
+                        @Override
+                        public void done()
                         {
-                            String temp = scanner.nextLine();
-                            HitokotoLocal hitokotoLocal = gson.fromJson(temp, HitokotoLocal.class);
-                            list.add(hitokotoLocal);
+                            Toast.makeText(App.getContext(), R.string.hint_import_success, Toast.LENGTH_SHORT)
+                                    .show();
                         }
-                        scanner.close();
-                        LocalConfigure.saveToDatabase(list, fileName);
-                        new HitokotoGroup(fileName).saveOrUpdate("name = ?", fileName);
-                        Toast.makeText(App.getContext(), R.string.hint_import_success, Toast.LENGTH_SHORT)
-                                .show();
-                    } catch (Exception e)
-                    {
-                        Logs.e(TAG, "onActivityResult: " + e.getMessage());
-                        Toast.makeText(App.getContext(), R.string.hint_import_error, Toast.LENGTH_SHORT)
-                                .show();
-                    }
+
+                        @Override
+                        public void error()
+                        {
+                            Toast.makeText(App.getContext(), R.string.hint_import_error, Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    });
                 }
                 break;
         }
