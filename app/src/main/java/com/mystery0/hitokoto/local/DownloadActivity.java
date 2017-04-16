@@ -116,7 +116,7 @@ public class DownloadActivity extends AppCompatActivity implements DownloadItemL
                 } else
                 {
                     Logs.e(TAG, "done: " + e.getMessage());
-                    Snackbar.make(coordinatorLayout, e.getErrorCode() == 9016 ? getString(R.string.hint_error_network) : e.getMessage(), Snackbar.LENGTH_SHORT)
+                    Snackbar.make(coordinatorLayout, e.getErrorCode() == 9016 || e.getErrorCode() == 404 ? getString(R.string.hint_error_network) : e.getMessage(), Snackbar.LENGTH_SHORT)
                             .show();
                 }
             }
@@ -130,8 +130,7 @@ public class DownloadActivity extends AppCompatActivity implements DownloadItemL
         final String filePath = path + shareFile.getGroup() + ".txt";
         Logs.i(TAG, "onItemClick: " + shareFile.getGroup());
         new AlertDialog.Builder(DownloadActivity.this)
-                .setTitle("?")
-                .setMessage("")
+                .setMessage(getString(R.string.hint_download_sure))
                 .setNegativeButton(android.R.string.cancel, null)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
                 {
@@ -173,7 +172,7 @@ public class DownloadActivity extends AppCompatActivity implements DownloadItemL
                                 {
                                     progressDialog.dismiss();
                                     Logs.e(TAG, "done: " + e.getMessage());
-                                    Snackbar.make(coordinatorLayout, e.getErrorCode() == 9016 ? getString(R.string.hint_error_network) : e.getMessage(), Snackbar.LENGTH_SHORT)
+                                    Snackbar.make(coordinatorLayout, e.getErrorCode() == 9016 || e.getErrorCode() == 404 ? getString(R.string.hint_error_network) : e.getMessage(), Snackbar.LENGTH_SHORT)
                                             .show();
                                 }
                             }

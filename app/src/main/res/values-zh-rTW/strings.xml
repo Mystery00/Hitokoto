@@ -115,4 +115,5 @@
     <string name="text_custom_hitokoto_download">下載雲端數據</string>
     <string name="text_custom_hitokoto_upload">上傳雲端數據</string>
     <string name="title_activity_download">下載雲端數據</string>
+    <string name="hint_download_sure">你確定要下載這個文件嗎？</string>
 </resources>

@@ -682,7 +682,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                                     } else
                                     {
                                         progressDialog.dismiss();
-                                        Toast.makeText(App.getContext(), e.getErrorCode() == 9016 ? getString(R.string.hint_error_network) : e.getMessage(), Toast.LENGTH_SHORT)
+                                        Toast.makeText(App.getContext(), e.getErrorCode() == 9016 || e.getErrorCode() == 404 ? getString(R.string.hint_error_network) : e.getMessage(), Toast.LENGTH_SHORT)
                                                 .show();
                                         Logs.e(TAG, "done: " + e.getMessage());
                                     }
