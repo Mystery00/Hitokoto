@@ -18,6 +18,8 @@
     <string name="key_local_multiple_hitokoto" translatable="false">key_local_multiple_hitokoto</string>
     <string name="key_local_export_hitokotos" translatable="false">key_local_export_hitokotos</string>
     <string name="key_local_import_hitokotos" translatable="false">key_local_import_hitokotos</string>
+    <string name="key_local_upload_hitokotos" translatable="false">key_local_upload_hitokotos</string>
+    <string name="key_local_download_hitokotos" translatable="false">key_local_download_hitokotos</string>
     <string name="key_local_show_hitokoto" translatable="false">key_local_show_hitokoto</string>
     <string name="key_custom_source" translatable="false">key_custom_source</string>
     <string name="key_custom_source_new" translatable="false">key_custom_source_new</string>

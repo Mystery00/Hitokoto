@@ -2,7 +2,9 @@ package com.mystery0.hitokoto;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.ClipboardManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -41,6 +43,7 @@ import com.google.gson.Gson;
 import com.mystery0.hitokoto.class_class.HitokotoGroup;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
+import com.mystery0.hitokoto.class_class.ShareFile;
 import com.mystery0.hitokoto.custom.CustomSourceActivity;
 import com.mystery0.hitokoto.local.LocalConfigure;
 import com.mystery0.hitokoto.local.LocalHitokotoManagerActivity;
@@ -64,6 +67,11 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UploadFileListener;
 
 @SuppressWarnings({"deprecation", "ConstantConditions"})
 public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -90,6 +98,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     private Preference showCustomHitokoto;
     private Preference exportHitokotos;
     private Preference importHitokotos;
+    private Preference uploadHitokotos;
+    private Preference downloadHitokotos;
     private Preference customSourceNew;
     private Preference customSourceManager;
     private Preference customSourceHelper;
@@ -158,6 +168,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         showCustomHitokoto = findPreference(getString(R.string.key_local_show_hitokoto));
         exportHitokotos = findPreference(getString(R.string.key_local_export_hitokotos));
         importHitokotos = findPreference(getString(R.string.key_local_import_hitokotos));
+        uploadHitokotos = findPreference(getString(R.string.key_local_upload_hitokotos));
+        downloadHitokotos = findPreference(getString(R.string.key_local_download_hitokotos));
         customSourceNew = findPreference(getString(R.string.key_custom_source_new));
         customSourceManager = findPreference(getString(R.string.key_custom_source_manager));
         customSourceHelper = findPreference(getString(R.string.key_custom_source_helper));
@@ -371,6 +383,24 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 return false;
             }
         });
+        uploadHitokotos.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                uploadHitokotos();
+                return false;
+            }
+        });
+        downloadHitokotos.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                downloadHitokotos();
+                return false;
+            }
+        });
         customSourceNew.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
         {
             @Override
@@ -528,39 +558,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         }
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void exportHitokotos()
     {
-        String path = Environment.getExternalStorageDirectory().getPath() + "/hitokoto/";
         List<HitokotoGroup> groupList = DataSupport.findAll(HitokotoGroup.class);
         for (HitokotoGroup group : groupList)
         {
-            Logs.i(TAG, "exportHitokotos: " + group.getName());
-            List<HitokotoLocal> localList = DataSupport.where("group = ?", group.getName()).find(HitokotoLocal.class);
-            File file = new File(path + group.getName() + ".txt");
-            Logs.i(TAG, "exportHitokotos: " + file.getAbsolutePath());
-            try
-            {
-                if (file.exists())
-                {
-                    file.delete();
-                }
-                file.createNewFile();
-                FileWriter fileWriter = new FileWriter(file);
-                for (HitokotoLocal hitokotoLocal : localList)
-                {
-                    Logs.i(TAG, "exportHitokotos: " + gson.toJson(hitokotoLocal));
-                    fileWriter.write(gson.toJson(hitokotoLocal) + "\n");
-                }
-                fileWriter.close();
-            } catch (IOException e)
-            {
-                Toast.makeText(App.getContext(), R.string.hint_export_error, Toast.LENGTH_SHORT)
-                        .show();
-            }
+            outputFile(group.getName());
         }
         Logs.i(TAG, "exportHitokotos: 成功");
-        Toast.makeText(App.getContext(), getString(R.string.hint_export_success) + " " + path, Toast.LENGTH_SHORT)
+        Toast.makeText(App.getContext(), getString(R.string.hint_export_success) + " " + Environment.getExternalStorageDirectory().getPath() + "/hitokoto/", Toast.LENGTH_SHORT)
                 .show();
     }
 
@@ -571,6 +577,134 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         intent1.setType("*/*");
         intent1.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(intent1, REQUEST_IMPORT);
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private void outputFile(String fileName)
+    {
+        String path = Environment.getExternalStorageDirectory().getPath() + "/hitokoto/";
+        Logs.i(TAG, "exportHitokotos: " + fileName);
+        List<HitokotoLocal> localList = DataSupport.where("group = ?", fileName).find(HitokotoLocal.class);
+        File file = new File(path + fileName + ".txt");
+        Logs.i(TAG, "exportHitokotos: " + file.getAbsolutePath());
+        try
+        {
+            if (file.exists())
+            {
+                file.delete();
+            }
+            file.createNewFile();
+            FileWriter fileWriter = new FileWriter(file);
+            for (HitokotoLocal hitokotoLocal : localList)
+            {
+                Logs.i(TAG, "exportHitokotos: " + gson.toJson(hitokotoLocal));
+                fileWriter.write(gson.toJson(hitokotoLocal) + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e)
+        {
+            Toast.makeText(App.getContext(), R.string.hint_export_error, Toast.LENGTH_SHORT)
+                    .show();
+        }
+    }
+
+    private void uploadHitokotos()
+    {
+        final String path = Environment.getExternalStorageDirectory().getPath() + "/hitokoto/";
+        final List<HitokotoGroup> groupList = DataSupport.findAll(HitokotoGroup.class);
+        final List<String> selectList = new ArrayList<>();
+        final String[] strings = new String[groupList.size() - 1];
+        boolean[] booleans = new boolean[groupList.size() - 1];
+        int index = 0;
+        for (int i = 0; i < groupList.size(); i++)
+        {
+            if (groupList.get(i).getName().equals(getString(R.string.unclassified)))
+            {
+                continue;
+            }
+            strings[index] = groupList.get(i).getName();
+            booleans[index] = false;
+            index++;
+        }
+        new AlertDialog.Builder(SettingsActivity.this)
+                .setTitle(getString(R.string.hint_choose_group))
+                .setMultiChoiceItems(strings, booleans, new DialogInterface.OnMultiChoiceClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked)
+                    {
+                        if (isChecked)
+                        {
+                            selectList.add(strings[which]);
+                        } else
+                        {
+                            selectList.remove(strings[which]);
+                        }
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        for (final String fileName : selectList)
+                        {
+                            final ProgressDialog progressDialog = new ProgressDialog(SettingsActivity.this);
+                            progressDialog.setTitle(getString(R.string.hint_upload_progress_title));
+                            progressDialog.setMessage(getString(R.string.hint_upload_progress_message) + " " + fileName);
+                            progressDialog.setMax(100);
+                            progressDialog.show();
+                            outputFile(fileName);
+                            final BmobFile bmobFile = new BmobFile(new File(path + fileName + ".txt"));
+                            bmobFile.uploadblock(new UploadFileListener()
+                            {
+                                @Override
+                                public void done(BmobException e)
+                                {
+                                    if (e == null)
+                                    {
+                                        Logs.i(TAG, "done: " + bmobFile.getFileUrl());
+                                        ShareFile shareFile = new ShareFile();
+                                        shareFile.setBmobFile(bmobFile);
+                                        shareFile.setGroup(fileName);
+                                        shareFile.setModel(Build.MODEL);
+                                        shareFile.setVendor(Build.MANUFACTURER);
+                                        shareFile.setOS_Version(Build.VERSION.RELEASE + "_" + Build.VERSION.SDK_INT);
+                                        shareFile.save(new SaveListener<String>()
+                                        {
+                                            @Override
+                                            public void done(String s, BmobException e)
+                                            {
+                                                if (e == null)
+                                                {
+                                                    progressDialog.dismiss();
+                                                    Toast.makeText(App.getContext(), R.string.hint_upload_done, Toast.LENGTH_SHORT)
+                                                            .show();
+                                                }
+                                            }
+                                        });
+                                    } else
+                                    {
+                                        Logs.e(TAG, "done: " + e.getMessage());
+                                    }
+                                }
+
+                                @Override
+                                public void onProgress(Integer value)
+                                {
+                                    progressDialog.setProgress(value);
+                                }
+                            });
+                        }
+                    }
+                })
+                .show();
+    }
+
+    private void downloadHitokotos()
+    {
+
     }
 
     private void customSourceNewDialog()

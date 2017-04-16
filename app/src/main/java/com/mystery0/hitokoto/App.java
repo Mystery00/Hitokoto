@@ -8,6 +8,8 @@ import com.mystery0.tools.Logs.Logs;
 
 import org.litepal.LitePal;
 
+import cn.bmob.v3.Bmob;
+
 public class App extends Application
 {
     private static Context context;
@@ -22,6 +24,7 @@ public class App extends Application
         CrashHandler.getInstance()
                 .setDirectory("hitokoto/log")
                 .init(this);
+        Bmob.initialize(context, "4d1df6dda88d30cc086908471a6664c8");
     }
 
     public static Context getContext()

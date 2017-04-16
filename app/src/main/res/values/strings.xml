@@ -40,6 +40,8 @@
     <string name="text_custom_add_group">Add new group</string>
     <string name="text_custom_hitokoto_export">Export Hitokotos</string>
     <string name="text_custom_hitokoto_import">Import Hitokotos</string>
+    <string name="text_custom_hitokoto_upload">Upload Hitokotos</string>
+    <string name="text_custom_hitokoto_download">Download Hitokotos</string>
 
     <string name="title_custom_source">Custom Source</string>
     <string name="text_custom_source_new">Add Source</string>
@@ -101,6 +103,10 @@
     <string name="hint_export_success">The data has been exported! \nThe path is </string>
     <string name="hint_import_error">Damaged file! Please check the file content! </string>
     <string name="hint_import_success">The hitokotos has been imported! </string>
+    <string name="hint_choose_group">Please choose groups to upload</string>
+    <string name="hint_upload_progress_title">Uploading……</string>
+    <string name="hint_upload_progress_message">uploading</string>
+    <string name="hint_upload_done">Upload success! </string>
 
     <string name="ErrorRefreshTime">Please ensure the time is more than 0 </string>
     <string name="ErrorNull">Text Can\'t be Null! </string>
@@ -151,4 +157,5 @@
     <string name="Delete">Delete</string>
     <string name="SelectAll">Select All</string>
     <string name="Edit">Edit</string>
+    <string name="title_activity_download">DownloadActivity</string>
 </resources>
