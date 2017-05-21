@@ -22,12 +22,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.DownloadFileListener;
-import cn.bmob.v3.listener.FindListener;
-
 public class DownloadActivity extends AppCompatActivity implements DownloadItemListener
 {
     private static final String TAG = "DownloadActivity";
@@ -95,40 +89,40 @@ public class DownloadActivity extends AppCompatActivity implements DownloadItemL
 
     private void refresh()
     {
-        Logs.i(TAG, "onRefresh: 刷新");
-        BmobQuery<ShareFile> query = new BmobQuery<>();
-        query.setLimit(50);
-        query.findObjects(new FindListener<ShareFile>()
-        {
-            @Override
-            public void done(List<ShareFile> list, BmobException e)
-            {
-                swipeRefreshLayout.setRefreshing(false);
-                if (e == null)
-                {
-                    Logs.i(TAG, "done: 获取到列表");
-                    DownloadActivity.this.list.clear();
-                    DownloadActivity.this.list.addAll(list);
-                    adapter.notifyDataSetChanged();
-                    null_data.setVisibility(list.size() == 0 ? View.VISIBLE : View.GONE);
-                    Snackbar.make(coordinatorLayout, R.string.hint_refresh_done, Snackbar.LENGTH_SHORT)
-                            .show();
-                } else
-                {
-                    Logs.e(TAG, "done: " + e.getMessage());
-                    Snackbar.make(coordinatorLayout, e.getErrorCode() == 9016 || e.getErrorCode() == 404 ? getString(R.string.hint_error_network) : e.getMessage(), Snackbar.LENGTH_SHORT)
-                            .show();
-                }
-            }
-        });
+//        Logs.i(TAG, "onRefresh: 刷新");
+//        BmobQuery<ShareFile> query = new BmobQuery<>();
+//        query.setLimit(50);
+//        query.findObjects(new FindListener<ShareFile>()
+//        {
+//            @Override
+//            public void done(List<ShareFile> list, BmobException e)
+//            {
+//                swipeRefreshLayout.setRefreshing(false);
+//                if (e == null)
+//                {
+//                    Logs.i(TAG, "done: 获取到列表");
+//                    DownloadActivity.this.list.clear();
+//                    DownloadActivity.this.list.addAll(list);
+//                    adapter.notifyDataSetChanged();
+//                    null_data.setVisibility(list.size() == 0 ? View.VISIBLE : View.GONE);
+//                    Snackbar.make(coordinatorLayout, R.string.hint_refresh_done, Snackbar.LENGTH_SHORT)
+//                            .show();
+//                } else
+//                {
+//                    Logs.e(TAG, "done: " + e.getMessage());
+//                    Snackbar.make(coordinatorLayout, e.getErrorCode() == 9016 || e.getErrorCode() == 404 ? getString(R.string.hint_error_network) : e.getMessage(), Snackbar.LENGTH_SHORT)
+//                            .show();
+//                }
+//            }
+//        });
     }
 
     @Override
     public void onItemClick(final ShareFile shareFile, int position)
     {
         final String path = Environment.getExternalStorageDirectory().getPath() + "/hitokoto/";
-        final String filePath = path + shareFile.getGroup() + ".txt";
-        Logs.i(TAG, "onItemClick: " + shareFile.getGroup());
+//        final String filePath = path + shareFile.getGroup() + ".txt";
+//        Logs.i(TAG, "onItemClick: " + shareFile.getGroup());
         new AlertDialog.Builder(DownloadActivity.this)
                 .setMessage(getString(R.string.hint_download_sure))
                 .setNegativeButton(android.R.string.cancel, null)
@@ -142,49 +136,49 @@ public class DownloadActivity extends AppCompatActivity implements DownloadItemL
                         progressDialog.setMessage(getString(R.string.hint_download_progress_message));
                         progressDialog.setMax(100);
                         progressDialog.show();
-                        BmobFile bmobFile = new BmobFile(shareFile.getGroup(), null, shareFile.getBmobFile().getUrl());
-                        bmobFile.download(new File(filePath), new DownloadFileListener()
-                        {
-                            @Override
-                            public void done(String s, BmobException e)
-                            {
-                                if (e == null)
-                                {
-                                    LocalConfigure.inputFile(filePath, new LocalListener()
-                                    {
-                                        @Override
-                                        public void done()
-                                        {
-                                            progressDialog.dismiss();
-                                            Snackbar.make(coordinatorLayout, R.string.hint_download_done, Snackbar.LENGTH_SHORT)
-                                                    .show();
-                                        }
-
-                                        @Override
-                                        public void error()
-                                        {
-                                            progressDialog.dismiss();
-                                            Snackbar.make(coordinatorLayout, R.string.hint_import_error, Snackbar.LENGTH_SHORT)
-                                                    .show();
-                                        }
-                                    });
-                                } else
-                                {
-                                    progressDialog.dismiss();
-                                    Logs.e(TAG, "done: " + e.getMessage());
-                                    Snackbar.make(coordinatorLayout, e.getErrorCode() == 9016 || e.getErrorCode() == 404 ? getString(R.string.hint_error_network) : e.getMessage(), Snackbar.LENGTH_SHORT)
-                                            .show();
-                                }
-                            }
-
-                            @Override
-                            public void onProgress(Integer integer, long l)
-                            {
-                                Logs.i(TAG, "onProgress: " + integer + "," + l);
-                                progressDialog.setProgress(integer);
-                                progressDialog.setMessage(integer + "%\n" + getString(R.string.hint_download_progress_message_hint) + l);
-                            }
-                        });
+//                        BmobFile bmobFile = new BmobFile(shareFile.getGroup(), null, shareFile.getBmobFile().getUrl());
+//                        bmobFile.download(new File(filePath), new DownloadFileListener()
+//                        {
+//                            @Override
+//                            public void done(String s, BmobException e)
+//                            {
+//                                if (e == null)
+//                                {
+//                                    LocalConfigure.inputFile(filePath, new LocalListener()
+//                                    {
+//                                        @Override
+//                                        public void done()
+//                                        {
+//                                            progressDialog.dismiss();
+//                                            Snackbar.make(coordinatorLayout, R.string.hint_download_done, Snackbar.LENGTH_SHORT)
+//                                                    .show();
+//                                        }
+//
+//                                        @Override
+//                                        public void error()
+//                                        {
+//                                            progressDialog.dismiss();
+//                                            Snackbar.make(coordinatorLayout, R.string.hint_import_error, Snackbar.LENGTH_SHORT)
+//                                                    .show();
+//                                        }
+//                                    });
+//                                } else
+//                                {
+//                                    progressDialog.dismiss();
+//                                    Logs.e(TAG, "done: " + e.getMessage());
+//                                    Snackbar.make(coordinatorLayout, e.getErrorCode() == 9016 || e.getErrorCode() == 404 ? getString(R.string.hint_error_network) : e.getMessage(), Snackbar.LENGTH_SHORT)
+//                                            .show();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onProgress(Integer integer, long l)
+//                            {
+//                                Logs.i(TAG, "onProgress: " + integer + "," + l);
+//                                progressDialog.setProgress(integer);
+//                                progressDialog.setMessage(integer + "%\n" + getString(R.string.hint_download_progress_message_hint) + l);
+//                            }
+//                        });
                     }
                 })
                 .show();

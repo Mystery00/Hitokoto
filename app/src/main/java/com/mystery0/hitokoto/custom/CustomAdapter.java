@@ -18,7 +18,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     private List<HitokotoSource> list;
     private CustomItemListener listener;
 
-    public CustomAdapter(List<HitokotoSource> list, CustomItemListener listener)
+    CustomAdapter(List<HitokotoSource> list, CustomItemListener listener)
     {
         this.list = list;
         this.listener = listener;
@@ -32,14 +32,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         TextView from;
         TextView enable;
 
-        public ViewHolder(View itemView)
+        ViewHolder(View itemView)
         {
             super(itemView);
             fullView = itemView;
-            name = (TextView) itemView.findViewById(R.id.source_name);
-            content = (TextView) itemView.findViewById(R.id.source_content);
-            from = (TextView) itemView.findViewById(R.id.source_from);
-            enable = (TextView) itemView.findViewById(R.id.source_enable);
+            name = itemView.findViewById(R.id.source_name);
+            content = itemView.findViewById(R.id.source_content);
+            from = itemView.findViewById(R.id.source_from);
+            enable = itemView.findViewById(R.id.source_enable);
         }
     }
 

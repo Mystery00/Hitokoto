@@ -1,15 +1,11 @@
 package com.mystery0.hitokoto.local;
 
 import android.os.Environment;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.FileDo;
-import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoGroup;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
-import com.mystery0.hitokoto.class_class.ShareFile;
 import com.mystery0.tools.Logs.Logs;
 
 import org.litepal.crud.DataSupport;
@@ -23,10 +19,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
-
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 
 public class LocalConfigure
 {

@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
-import com.mystery0.tools.Logs.Logs;
 
 import java.util.List;
 

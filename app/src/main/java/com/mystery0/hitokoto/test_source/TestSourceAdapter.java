@@ -22,13 +22,13 @@ public class TestSourceAdapter extends RecyclerView.Adapter<TestSourceAdapter.Vi
         TextView address;
         TextView enable;
 
-        public ViewHolder(View itemView)
+        ViewHolder(View itemView)
         {
             super(itemView);
             fullView = itemView;
-            name = (TextView) itemView.findViewById(R.id.source_name);
-            address = (TextView) itemView.findViewById(R.id.source_address);
-            enable = (TextView) itemView.findViewById(R.id.source_enable);
+            name = itemView.findViewById(R.id.source_name);
+            address = itemView.findViewById(R.id.source_address);
+            enable = itemView.findViewById(R.id.source_enable);
         }
     }
 

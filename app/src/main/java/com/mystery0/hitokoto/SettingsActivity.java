@@ -42,7 +42,6 @@ import android.widget.Toast;
 import com.mystery0.hitokoto.class_class.HitokotoGroup;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
-import com.mystery0.hitokoto.class_class.ShareFile;
 import com.mystery0.hitokoto.custom.CustomSourceActivity;
 import com.mystery0.hitokoto.local.DownloadActivity;
 import com.mystery0.hitokoto.local.LocalConfigure;
@@ -66,11 +65,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
-
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UploadFileListener;
 
 @SuppressWarnings({"deprecation", "ConstantConditions"})
 public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -231,7 +225,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             public boolean onPreferenceClick(Preference preference)
             {
                 //noinspection RestrictedApi
-                ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+                @SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
                 @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_show_currect, null);
                 TextView content = (TextView) view.findViewById(R.id.content);
                 TextView source = (TextView) view.findViewById(R.id.source);
@@ -256,7 +250,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
             {
                 final List<HitokotoSource> list = DataSupport.findAll(HitokotoSource.class);
                 //noinspection RestrictedApi
-                ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+                @SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
                 @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_test_source, null);
                 RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
                 Button button = (Button) view.findViewById(R.id.test);
@@ -431,7 +425,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     private void customSingleHitokotoDialog()
     {
         //noinspection RestrictedApi
-        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+        @SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
         @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_single, null);
         final TextInputLayout hitokotoContent = (TextInputLayout) view.findViewById(R.id.custom_content);
         final TextInputLayout hitokotoSource = (TextInputLayout) view.findViewById(R.id.custom_source);
@@ -498,7 +492,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     private void customMultipleHitokotoDialog()
     {
         //noinspection RestrictedApi
-        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+        @SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
         @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_multiple, null);
         final TextInputLayout hitokotoContent = (TextInputLayout) view.findViewById(R.id.text);
         final Spinner spinner = (Spinner) view.findViewById(R.id.group);
@@ -651,50 +645,50 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                                             .show();
                                 }
                             });
-                            final BmobFile bmobFile = new BmobFile(new File(path + fileName + ".txt"));
-                            bmobFile.uploadblock(new UploadFileListener()
-                            {
-                                @Override
-                                public void done(BmobException e)
-                                {
-                                    if (e == null)
-                                    {
-                                        Logs.i(TAG, "done: " + bmobFile.getFileUrl());
-                                        ShareFile shareFile = new ShareFile();
-                                        shareFile.setBmobFile(bmobFile);
-                                        shareFile.setGroup(fileName);
-                                        shareFile.setModel(Build.MODEL);
-                                        shareFile.setVendor(Build.MANUFACTURER);
-                                        shareFile.setOS_Version(Build.VERSION.RELEASE + "_" + Build.VERSION.SDK_INT);
-                                        shareFile.save(new SaveListener<String>()
-                                        {
-                                            @Override
-                                            public void done(String s, BmobException e)
-                                            {
-                                                if (e == null)
-                                                {
-                                                    progressDialog.dismiss();
-                                                    Toast.makeText(App.getContext(), R.string.hint_upload_done, Toast.LENGTH_SHORT)
-                                                            .show();
-                                                }
-                                            }
-                                        });
-                                    } else
-                                    {
-                                        progressDialog.dismiss();
-                                        Toast.makeText(App.getContext(), e.getErrorCode() == 9016 || e.getErrorCode() == 404 ? getString(R.string.hint_error_network) : e.getMessage(), Toast.LENGTH_SHORT)
-                                                .show();
-                                        Logs.e(TAG, "done: " + e.getMessage());
-                                    }
-                                }
-
-                                @Override
-                                public void onProgress(Integer value)
-                                {
-                                    Logs.i(TAG, "onProgress: " + value);
-                                    progressDialog.setProgress(value);
-                                }
-                            });
+//                            final BmobFile bmobFile = new BmobFile(new File(path + fileName + ".txt"));
+//                            bmobFile.uploadblock(new UploadFileListener()
+//                            {
+//                                @Override
+//                                public void done(BmobException e)
+//                                {
+//                                    if (e == null)
+//                                    {
+//                                        Logs.i(TAG, "done: " + bmobFile.getFileUrl());
+//                                        ShareFile shareFile = new ShareFile();
+//                                        shareFile.setBmobFile(bmobFile);
+//                                        shareFile.setGroup(fileName);
+//                                        shareFile.setModel(Build.MODEL);
+//                                        shareFile.setVendor(Build.MANUFACTURER);
+//                                        shareFile.setOS_Version(Build.VERSION.RELEASE + "_" + Build.VERSION.SDK_INT);
+//                                        shareFile.save(new SaveListener<String>()
+//                                        {
+//                                            @Override
+//                                            public void done(String s, BmobException e)
+//                                            {
+//                                                if (e == null)
+//                                                {
+//                                                    progressDialog.dismiss();
+//                                                    Toast.makeText(App.getContext(), R.string.hint_upload_done, Toast.LENGTH_SHORT)
+//                                                            .show();
+//                                                }
+//                                            }
+//                                        });
+//                                    } else
+//                                    {
+//                                        progressDialog.dismiss();
+//                                        Toast.makeText(App.getContext(), e.getErrorCode() == 9016 || e.getErrorCode() == 404 ? getString(R.string.hint_error_network) : e.getMessage(), Toast.LENGTH_SHORT)
+//                                                .show();
+//                                        Logs.e(TAG, "done: " + e.getMessage());
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onProgress(Integer value)
+//                                {
+//                                    Logs.i(TAG, "onProgress: " + value);
+//                                    progressDialog.setProgress(value);
+//                                }
+//                            });
                         }
                     }
                 })
@@ -705,7 +699,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
     {
         final int[] method = new int[1];
         //noinspection RestrictedApi
-        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+        @SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
         @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_source_new, null);
         final TextInputLayout source_name = (TextInputLayout) view.findViewById(R.id.custom_source_name);
         final TextInputLayout source_address = (TextInputLayout) view.findViewById(R.id.custom_source_address);
@@ -807,7 +801,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 
     private void customSourceHelperDialog()
     {//noinspection RestrictedApi
-        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+        @SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
         @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_source_helper, null);
         new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
                 .setView(view)

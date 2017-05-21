@@ -168,11 +168,11 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
     public void onItemClick(final HitokotoLocal hitokotoLocal, final int position)
     {
         //noinspection RestrictedApi
-        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+        @SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
         @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_edit_hitokoto, null);
-        final TextInputLayout content_layout = (TextInputLayout) view.findViewById(R.id.custom_content);
-        final TextInputLayout source_layout = (TextInputLayout) view.findViewById(R.id.custom_source);
-        TextView text_date = (TextView) view.findViewById(R.id.custom_date);
+        final TextInputLayout content_layout = view.findViewById(R.id.custom_content);
+        final TextInputLayout source_layout = view.findViewById(R.id.custom_source);
+        TextView text_date = view.findViewById(R.id.custom_date);
         content_layout.getEditText().setText(hitokotoLocal.getContent());
         source_layout.getEditText().setText(hitokotoLocal.getSource());
         text_date.setText(hitokotoLocal.getDate());

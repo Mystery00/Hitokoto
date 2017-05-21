@@ -42,7 +42,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position)
     {
-        holder.textView.setText(list.get(position).getGroup());
+//        holder.textView.setText(list.get(position).getGroup());
         if (position == list.size() - 1)
         {
             holder.line.setVisibility(View.GONE);
