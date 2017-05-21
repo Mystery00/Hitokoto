@@ -39,9 +39,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.mystery0.hitokoto.class_class.HitokotoGroup;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
+import com.mystery0.hitokoto.class_class.Response;
 import com.mystery0.hitokoto.custom.CustomSourceActivity;
 import com.mystery0.hitokoto.local.DownloadActivity;
 import com.mystery0.hitokoto.local.LocalConfigure;
@@ -52,6 +54,8 @@ import com.mystery0.hitokoto.test_source.TestSourceAdapter;
 import com.mystery0.hitokoto.test_source.TestSourceListener;
 import com.mystery0.hitokoto.widget.WidgetConfigure;
 import com.mystery0.tools.Logs.Logs;
+import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
+import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
@@ -59,12 +63,23 @@ import org.litepal.crud.DataSupport;
 
 import java.io.File;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 @SuppressWarnings({"deprecation", "ConstantConditions"})
 public class SettingsActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -227,8 +242,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 //noinspection RestrictedApi
                 @SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
                 @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_show_currect, null);
-                TextView content = (TextView) view.findViewById(R.id.content);
-                TextView source = (TextView) view.findViewById(R.id.source);
+                TextView content = view.findViewById(R.id.content);
+                TextView source = view.findViewById(R.id.source);
                 setOnClick(content);
                 setOnClick(source);
                 String[] temp = WidgetConfigure.getTemp();
@@ -252,8 +267,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                 //noinspection RestrictedApi
                 @SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
                 @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_test_source, null);
-                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-                Button button = (Button) view.findViewById(R.id.test);
+                RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+                Button button = view.findViewById(R.id.test);
                 recyclerView.setLayoutManager(new LinearLayoutManager(App.getContext()));
                 final TestSourceAdapter adapter = new TestSourceAdapter(list);
                 button.setOnClickListener(new View.OnClickListener()
@@ -427,9 +442,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         //noinspection RestrictedApi
         @SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
         @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_single, null);
-        final TextInputLayout hitokotoContent = (TextInputLayout) view.findViewById(R.id.custom_content);
-        final TextInputLayout hitokotoSource = (TextInputLayout) view.findViewById(R.id.custom_source);
-        final Spinner spinner = (Spinner) view.findViewById(R.id.group);
+        final TextInputLayout hitokotoContent = view.findViewById(R.id.custom_content);
+        final TextInputLayout hitokotoSource = view.findViewById(R.id.custom_source);
+        final Spinner spinner = view.findViewById(R.id.group);
         final String[] group = new String[]{getString(R.string.unclassified)};
         final List<HitokotoGroup> hitokotoGroups = DataSupport.findAll(HitokotoGroup.class);
         final List<String> list = new ArrayList<>();
@@ -494,8 +509,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         //noinspection RestrictedApi
         @SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
         @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_multiple, null);
-        final TextInputLayout hitokotoContent = (TextInputLayout) view.findViewById(R.id.text);
-        final Spinner spinner = (Spinner) view.findViewById(R.id.group);
+        final TextInputLayout hitokotoContent = view.findViewById(R.id.text);
+        final Spinner spinner = view.findViewById(R.id.group);
         final String[] group = new String[1];
         final List<HitokotoGroup> hitokotoGroups = DataSupport.findAll(HitokotoGroup.class);
         final List<String> list = new ArrayList<>();
@@ -641,58 +656,94 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                                 @Override
                                 public void error()
                                 {
+                                    progressDialog.dismiss();
                                     Toast.makeText(App.getContext(), R.string.hint_export_error, Toast.LENGTH_SHORT)
                                             .show();
                                 }
                             });
-//                            final BmobFile bmobFile = new BmobFile(new File(path + fileName + ".txt"));
-//                            bmobFile.uploadblock(new UploadFileListener()
-//                            {
-//                                @Override
-//                                public void done(BmobException e)
-//                                {
-//                                    if (e == null)
-//                                    {
-//                                        Logs.i(TAG, "done: " + bmobFile.getFileUrl());
-//                                        ShareFile shareFile = new ShareFile();
-//                                        shareFile.setBmobFile(bmobFile);
-//                                        shareFile.setGroup(fileName);
-//                                        shareFile.setModel(Build.MODEL);
-//                                        shareFile.setVendor(Build.MANUFACTURER);
-//                                        shareFile.setOS_Version(Build.VERSION.RELEASE + "_" + Build.VERSION.SDK_INT);
-//                                        shareFile.save(new SaveListener<String>()
-//                                        {
-//                                            @Override
-//                                            public void done(String s, BmobException e)
-//                                            {
-//                                                if (e == null)
-//                                                {
-//                                                    progressDialog.dismiss();
-//                                                    Toast.makeText(App.getContext(), R.string.hint_upload_done, Toast.LENGTH_SHORT)
-//                                                            .show();
-//                                                }
-//                                            }
-//                                        });
-//                                    } else
-//                                    {
-//                                        progressDialog.dismiss();
-//                                        Toast.makeText(App.getContext(), e.getErrorCode() == 9016 || e.getErrorCode() == 404 ? getString(R.string.hint_error_network) : e.getMessage(), Toast.LENGTH_SHORT)
-//                                                .show();
-//                                        Logs.e(TAG, "done: " + e.getMessage());
-//                                    }
-//                                }
-//
-//                                @Override
-//                                public void onProgress(Integer value)
-//                                {
-//                                    Logs.i(TAG, "onProgress: " + value);
-//                                    progressDialog.setProgress(value);
-//                                }
-//                            });
+                            File file = new File(path + fileName + ".txt");
+                            if (file.exists())
+                            {
+                                RequestBody fileBody = RequestBody.create(MediaType.parse("*/*"), file);
+                                RequestBody requestBody = new MultipartBody.Builder()
+                                        .setType(MultipartBody.FORM)
+                                        .addFormDataPart("method", "uploadFile")
+                                        .addFormDataPart("group", fileName)
+                                        .addFormDataPart("upload_file", fileName, fileBody)
+                                        .build();
+                                Request request = new Request.Builder()
+                                        .url("http://123.206.186.70/hitokoto.php")
+                                        .post(requestBody)
+                                        .build();
+                                OkHttpClient okHttpClient = new OkHttpClient();
+                                Call call = okHttpClient.newCall(request);
+                                call.enqueue(new Callback()
+                                {
+                                    @Override
+                                    public void onFailure(Call call, IOException e)
+                                    {
+                                        Logs.e(TAG, "onFailure: error");
+                                    }
+
+                                    @Override
+                                    public void onResponse(Call call, okhttp3.Response response) throws IOException
+                                    {
+                                        String s = response.body().string();
+                                        Logs.i(TAG, "onResponse: " + s);
+                                        final Gson gson = new Gson();
+                                        Response response1 = gson.fromJson(s, Response.class);
+                                        if (response1.getCode() == 0)
+                                        {
+                                            Map<String, String> map = new HashMap<>();
+                                            map.put("fileUrl", fileName + ".txt");
+                                            map.put("method", "insert");
+                                            map.put("group", fileName);
+                                            map.put("model", Build.MODEL);
+                                            map.put("vendor", Build.MANUFACTURER);
+                                            map.put("OS_Version", Build.VERSION.RELEASE + "_" + Build.VERSION.SDK_INT);
+                                            new HttpUtil(App.getContext())
+                                                    .setRequestMethod(HttpUtil.RequestMethod.POST)
+                                                    .setMap(map)
+                                                    .setUrl("http://123.206.186.70/hitokoto.php")
+                                                    .setResponseListener(new ResponseListener()
+                                                    {
+                                                        @Override
+                                                        public void onResponse(int i, String s)
+                                                        {
+                                                            progressDialog.dismiss();
+                                                            Logs.i(TAG, "onResponse: " + s);
+                                                            Response response2 = gson.fromJson(s, Response.class);
+                                                            if (response2.getCode() == 0)
+                                                            {
+                                                                Toast.makeText(App.getContext(), R.string.hint_upload_done, Toast.LENGTH_SHORT)
+                                                                        .show();
+                                                            } else
+                                                            {
+                                                                Toast.makeText(App.getContext(), response2.getContent(), Toast.LENGTH_SHORT)
+                                                                        .show();
+                                                            }
+                                                        }
+                                                    })
+                                                    .open();
+                                        } else
+                                        {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(App.getContext(), response1.getContent(), Toast.LENGTH_SHORT)
+                                                    .show();
+                                        }
+                                    }
+                                });
+                            } else
+                            {
+                                progressDialog.dismiss();
+                                Logs.e(TAG, "onClick: 文件不存在");
+                                Toast.makeText(App.getContext(), R.string.hint_export_error, Toast.LENGTH_SHORT)
+                                        .show();
+                            }
                         }
                     }
-                })
-                .show();
+                }).show();
+
     }
 
     private void customSourceNewDialog()
@@ -701,12 +752,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
         //noinspection RestrictedApi
         @SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
         @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_source_new, null);
-        final TextInputLayout source_name = (TextInputLayout) view.findViewById(R.id.custom_source_name);
-        final TextInputLayout source_address = (TextInputLayout) view.findViewById(R.id.custom_source_address);
-        final TextInputLayout source_content = (TextInputLayout) view.findViewById(R.id.custom_source_content);
-        final TextInputLayout source_from = (TextInputLayout) view.findViewById(R.id.custom_source_from);
-        Button button = (Button) view.findViewById(R.id.test);
-        Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
+        final TextInputLayout source_name = view.findViewById(R.id.custom_source_name);
+        final TextInputLayout source_address = view.findViewById(R.id.custom_source_address);
+        final TextInputLayout source_content = view.findViewById(R.id.custom_source_content);
+        final TextInputLayout source_from = view.findViewById(R.id.custom_source_from);
+        Button button = view.findViewById(R.id.test);
+        Spinner spinner = view.findViewById(R.id.spinner);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.list_request_method));
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
