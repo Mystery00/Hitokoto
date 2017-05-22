@@ -672,7 +672,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                                         .addFormDataPart("upload_file", fileName, fileBody)
                                         .build();
                                 Request request = new Request.Builder()
-                                        .url("http://123.206.186.70/hitokoto.php")
+                                        .url(getString(R.string.file_request_url))
                                         .post(requestBody)
                                         .build();
                                 OkHttpClient okHttpClient = new OkHttpClient();
@@ -704,7 +704,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
                                             new HttpUtil(App.getContext())
                                                     .setRequestMethod(HttpUtil.RequestMethod.POST)
                                                     .setMap(map)
-                                                    .setUrl("http://123.206.186.70/hitokoto.php")
+                                                    .setUrl(getString(R.string.file_request_url))
                                                     .setResponseListener(new ResponseListener()
                                                     {
                                                         @Override

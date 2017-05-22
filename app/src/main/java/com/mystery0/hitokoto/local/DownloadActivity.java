@@ -89,7 +89,7 @@ public class DownloadActivity extends AppCompatActivity implements DownloadItemL
 
     private void refresh()
     {
-//        Logs.i(TAG, "onRefresh: 刷新");
+        Logs.i(TAG, "onRefresh: 刷新");
 //        BmobQuery<ShareFile> query = new BmobQuery<>();
 //        query.setLimit(50);
 //        query.findObjects(new FindListener<ShareFile>()

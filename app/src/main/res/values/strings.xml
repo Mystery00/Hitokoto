@@ -27,6 +27,7 @@
     <string name="hitokoto_object" translatable="false">hitokoto_object</string>
 
     <string name="request_url" translatable="false">https://sslapi.hitokoto.cn/</string>
+    <string name="file_request_url" translatable="false">http://123.206.186.70/hitokoto.php</string>
 
     <string name="title_data_source">Data Source</string>
     <string name="text_refresh_now">Refresh Now</string>
