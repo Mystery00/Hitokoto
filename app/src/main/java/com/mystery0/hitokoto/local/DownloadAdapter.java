@@ -63,7 +63,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         public ViewHolder(View itemView)
         {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.text);
+            textView = itemView.findViewById(R.id.text);
             line = itemView.findViewById(R.id.divider);
         }
     }
