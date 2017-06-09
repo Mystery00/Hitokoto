@@ -9,8 +9,8 @@ autoVersion {
 }
 
 android {
-    compileSdkVersion 'android-O'
-    buildToolsVersion '26.0.0 rc2'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.0'
 
     useLibrary 'org.apache.http.legacy'
 
