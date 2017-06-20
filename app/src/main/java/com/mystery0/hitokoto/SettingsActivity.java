@@ -215,11 +215,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 				if (WidgetConfigure.getEnable())
 				{
 					WidgetConfigure.refreshText();
-					Toast.makeText(App.getContext(), R.string.hint_broadcast, Toast.LENGTH_SHORT)
+					Toast.makeText(SettingsActivity.this, R.string.hint_broadcast, Toast.LENGTH_SHORT)
 							.show();
 				} else
 				{
-					Toast.makeText(App.getContext(), R.string.hint_add_widget, Toast.LENGTH_SHORT)
+					Toast.makeText(SettingsActivity.this, R.string.hint_add_widget, Toast.LENGTH_SHORT)
 							.show();
 				}
 				return false;
@@ -231,7 +231,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 			public boolean onPreferenceClick(Preference preference)
 			{
 				//noinspection RestrictedApi
-				@SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+				@SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(SettingsActivity.this, R.style.AlertDialogStyle);
 				@SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_show_currect, null);
 				TextView content = view.findViewById(R.id.content);
 				TextView source = view.findViewById(R.id.source);
@@ -256,11 +256,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 			{
 				final List<HitokotoSource> list = DataSupport.findAll(HitokotoSource.class);
 				//noinspection RestrictedApi
-				@SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+				@SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(SettingsActivity.this, R.style.AlertDialogStyle);
 				@SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_test_source, null);
 				RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 				Button button = view.findViewById(R.id.test);
-				recyclerView.setLayoutManager(new LinearLayoutManager(App.getContext()));
+				recyclerView.setLayoutManager(new LinearLayoutManager(SettingsActivity.this));
 				final TestSourceAdapter adapter = new TestSourceAdapter(list);
 				button.setOnClickListener(new View.OnClickListener()
 				{
@@ -310,7 +310,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
 				{
 					Uri contentUri = FileProvider.getUriForFile(
-							App.getContext(), "com.mystery0.hitokoto.fileProvider", log);
+							SettingsActivity.this, "com.mystery0.hitokoto.fileProvider", log);
 					Logs.i(TAG, "onPreferenceClick: " + contentUri.getPath());
 					intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 					intent.setDataAndType(contentUri, "text/*");
@@ -331,7 +331,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 				Logs.i(TAG, "onPreferenceClick: 拷贝到剪切板");
 				ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 				clipboardManager.setText(getString(R.string.e_mail_address));
-				Toast.makeText(App.getContext(), R.string.hint_copy_address, Toast.LENGTH_SHORT)
+				Toast.makeText(SettingsActivity.this, R.string.hint_copy_address, Toast.LENGTH_SHORT)
 						.show();
 				return false;
 			}
@@ -359,7 +359,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 			@Override
 			public boolean onPreferenceClick(Preference preference)
 			{
-				startActivity(new Intent(App.getContext(), LocalHitokotoManagerActivity.class));
+				startActivity(new Intent(SettingsActivity.this, LocalHitokotoManagerActivity.class));
 				return false;
 			}
 		});
@@ -413,7 +413,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 			@Override
 			public boolean onPreferenceClick(Preference preference)
 			{
-				startActivity(new Intent(App.getContext(), CustomSourceActivity.class));
+				startActivity(new Intent(SettingsActivity.this, CustomSourceActivity.class));
 				return false;
 			}
 		});
@@ -431,7 +431,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 	private void customSingleHitokotoDialog()
 	{
 		//noinspection RestrictedApi
-		@SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+		@SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(SettingsActivity.this, R.style.AlertDialogStyle);
 		@SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_single, null);
 		final TextInputLayout hitokotoContent = view.findViewById(R.id.custom_content);
 		final TextInputLayout hitokotoSource = view.findViewById(R.id.custom_source);
@@ -483,11 +483,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 								hitokotoSource.getEditText().getText().toString(),
 								group[0]);
 						Logs.i(TAG, "onOptionsItemSelected: 存储");
-						Toast.makeText(App.getContext(), R.string.hint_save_custom_done, Toast.LENGTH_SHORT)
+						Toast.makeText(SettingsActivity.this, R.string.hint_save_custom_done, Toast.LENGTH_SHORT)
 								.show();
 					} else
 					{
-						Toast.makeText(App.getContext(), R.string.ErrorFormat, Toast.LENGTH_SHORT)
+						Toast.makeText(SettingsActivity.this, R.string.ErrorFormat, Toast.LENGTH_SHORT)
 								.show();
 					}
 				}
@@ -498,7 +498,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 	private void customMultipleHitokotoDialog()
 	{
 		//noinspection RestrictedApi
-		@SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+		@SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(SettingsActivity.this, R.style.AlertDialogStyle);
 		@SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_multiple, null);
 		final TextInputLayout hitokotoContent = view.findViewById(R.id.text);
 		final Spinner spinner = view.findViewById(R.id.group);
@@ -544,11 +544,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 					if (isFormat(hitokotoContent))
 					{
 						LocalConfigure.saveToDatabase(Analysis(hitokotoContent.getEditText().getText().toString()), group[0]);
-						Toast.makeText(App.getContext(), R.string.hint_save_custom_done, Toast.LENGTH_SHORT)
+						Toast.makeText(SettingsActivity.this, R.string.hint_save_custom_done, Toast.LENGTH_SHORT)
 								.show();
 					} else
 					{
-						Toast.makeText(App.getContext(), R.string.ErrorFormat, Toast.LENGTH_SHORT)
+						Toast.makeText(SettingsActivity.this, R.string.ErrorFormat, Toast.LENGTH_SHORT)
 								.show();
 					}
 				}
@@ -571,13 +571,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 				@Override
 				public void error()
 				{
-					Toast.makeText(App.getContext(), R.string.hint_export_error, Toast.LENGTH_SHORT)
+					Toast.makeText(SettingsActivity.this, R.string.hint_export_error, Toast.LENGTH_SHORT)
 							.show();
 				}
 			});
 		}
 		Logs.i(TAG, "exportHitokotos: 成功");
-		Toast.makeText(App.getContext(), getString(R.string.hint_export_success) + "\n" + Environment.getExternalStorageDirectory().getPath() + "/hitokoto/", Toast.LENGTH_SHORT)
+		Toast.makeText(SettingsActivity.this, getString(R.string.hint_export_success) + "\n" + Environment.getExternalStorageDirectory().getPath() + "/hitokoto/", Toast.LENGTH_SHORT)
 				.show();
 	}
 
@@ -648,7 +648,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 								public void error()
 								{
 									progressDialog.dismiss();
-									Toast.makeText(App.getContext(), R.string.hint_export_error, Toast.LENGTH_SHORT)
+									Toast.makeText(SettingsActivity.this, R.string.hint_export_error, Toast.LENGTH_SHORT)
 											.show();
 								}
 							});
@@ -660,7 +660,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 								fileMap.put("upload_file", file);
 								stringMap.put("method", "uploadFile");
 								stringMap.put("group", fileName);
-								new HttpUtil(App.getContext())
+								new HttpUtil(SettingsActivity.this)
 										.setUrl(getString(R.string.file_request_url))
 										.setRequestMethod(HttpUtil.RequestMethod.POST)
 										.setFileRequest(HttpUtil.FileRequest.UPLOAD)
@@ -683,7 +683,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 													map.put("model", Build.MODEL);
 													map.put("vendor", Build.MANUFACTURER);
 													map.put("OS_Version", Build.VERSION.RELEASE + "_" + Build.VERSION.SDK_INT);
-													new HttpUtil(App.getContext())
+													new HttpUtil(SettingsActivity.this)
 															.setRequestMethod(HttpUtil.RequestMethod.POST)
 															.setMap(map)
 															.setUrl(getString(R.string.file_request_url))
@@ -697,11 +697,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 																	Response response2 = gson.fromJson(s, Response.class);
 																	if (response2.getCode() == 0)
 																	{
-																		Toast.makeText(App.getContext(), R.string.hint_upload_done, Toast.LENGTH_SHORT)
+																		Toast.makeText(SettingsActivity.this, R.string.hint_upload_done, Toast.LENGTH_SHORT)
 																				.show();
 																	} else
 																	{
-																		Toast.makeText(App.getContext(), response2.getContent(), Toast.LENGTH_SHORT)
+																		Toast.makeText(SettingsActivity.this, response2.getContent(), Toast.LENGTH_SHORT)
 																				.show();
 																	}
 																}
@@ -710,7 +710,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 												} else
 												{
 													progressDialog.dismiss();
-													Toast.makeText(App.getContext(), response.getContent(), Toast.LENGTH_SHORT)
+													Toast.makeText(SettingsActivity.this, response.getContent(), Toast.LENGTH_SHORT)
 															.show();
 												}
 											}
@@ -727,7 +727,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 	{
 		final int[] method = new int[1];
 		//noinspection RestrictedApi
-		@SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+		@SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(SettingsActivity.this, R.style.AlertDialogStyle);
 		@SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_source_new, null);
 		final TextInputLayout source_name = view.findViewById(R.id.custom_source_name);
 		final TextInputLayout source_address = view.findViewById(R.id.custom_source_address);
@@ -807,7 +807,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 							public void result(boolean result)
 							{
 								source_address.setError(result ? getString(R.string.Enable) : getString(R.string.Disable));
-								Toast.makeText(App.getContext(),
+								Toast.makeText(SettingsActivity.this,
 										result ?
 												(hitokotoSource.saveOrUpdate("address = ?", hitokotoSource.getAddress()) ?
 														getString(R.string.hint_custom_add_source_done) :
@@ -819,7 +819,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 						});
 					} else
 					{
-						Toast.makeText(App.getContext(), getString(R.string.ErrorFormat), Toast.LENGTH_SHORT)
+						Toast.makeText(SettingsActivity.this, getString(R.string.ErrorFormat), Toast.LENGTH_SHORT)
 								.show();
 					}
 				}
@@ -829,7 +829,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 
 	private void customSourceHelperDialog()
 	{//noinspection RestrictedApi
-		@SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
+		@SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(SettingsActivity.this, R.style.AlertDialogStyle);
 		@SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_source_helper, null);
 		new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
 				.setView(view)
@@ -881,7 +881,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 		} catch (ArrayIndexOutOfBoundsException e)
 		{
 			Logs.e(TAG, "Analysis: " + e.getMessage());
-			Toast.makeText(App.getContext(), R.string.ErrorData, Toast.LENGTH_LONG)
+			Toast.makeText(SettingsActivity.this, R.string.ErrorData, Toast.LENGTH_LONG)
 					.show();
 		}
 		scanner.close();
@@ -912,14 +912,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 						@Override
 						public void done()
 						{
-							Toast.makeText(App.getContext(), R.string.hint_import_success, Toast.LENGTH_SHORT)
+							Toast.makeText(SettingsActivity.this, R.string.hint_import_success, Toast.LENGTH_SHORT)
 									.show();
 						}
 
 						@Override
 						public void error()
 						{
-							Toast.makeText(App.getContext(), R.string.hint_import_error, Toast.LENGTH_SHORT)
+							Toast.makeText(SettingsActivity.this, R.string.hint_import_error, Toast.LENGTH_SHORT)
 									.show();
 						}
 					});
@@ -936,7 +936,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 		{
 			if (grantResults[0] != PackageManager.PERMISSION_GRANTED)
 			{
-				Toast.makeText(App.getContext(), R.string.hint_permission, Toast.LENGTH_SHORT)
+				Toast.makeText(SettingsActivity.this, R.string.hint_permission, Toast.LENGTH_SHORT)
 						.show();
 				finish();
 			}
@@ -992,7 +992,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 				Logs.i(TAG, "onClick: 拷贝到剪切板");
 				ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 				clipboardManager.setText(view.getText().toString());
-				Toast.makeText(App.getContext(), R.string.hint_copy_text, Toast.LENGTH_SHORT)
+				Toast.makeText(SettingsActivity.this, R.string.hint_copy_text, Toast.LENGTH_SHORT)
 						.show();
 			}
 		});

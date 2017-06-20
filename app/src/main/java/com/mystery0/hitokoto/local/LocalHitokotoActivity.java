@@ -1,6 +1,5 @@
 package com.mystery0.hitokoto.local;
 
-import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -21,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.tools.Logs.Logs;
@@ -167,9 +164,7 @@ public class LocalHitokotoActivity extends AppCompatActivity implements ShowItem
     @Override
     public void onItemClick(final HitokotoLocal hitokotoLocal, final int position)
     {
-        //noinspection RestrictedApi
-        @SuppressLint("RestrictedApi") ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
-        @SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_edit_hitokoto, null);
+        View view = LayoutInflater.from(LocalHitokotoActivity.this).inflate(R.layout.dialog_edit_hitokoto, null);
         final TextInputLayout content_layout = view.findViewById(R.id.custom_content);
         final TextInputLayout source_layout = view.findViewById(R.id.custom_source);
         TextView text_date = view.findViewById(R.id.custom_date);
