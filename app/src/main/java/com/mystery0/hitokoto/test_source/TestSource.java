@@ -19,6 +19,7 @@ public class TestSource
 	public static void test(final HitokotoSource hitokotoSource, final TestSourceListener listener)
 	{
 		final HttpUtil httpUtil = new HttpUtil(App.getContext());
+		httpUtil.setRequestQueue(App.getRequestQueue());
 		String[] types = App.getContext().getResources().getStringArray(R.array.list_source_type);
 		if (hitokotoSource.getSource().equals(types[0]))
 		{

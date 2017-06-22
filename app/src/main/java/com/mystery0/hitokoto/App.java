@@ -59,14 +59,23 @@ public class App extends Application
 		SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), MODE_PRIVATE);
 		StringBuilder string = new StringBuilder();
 		SharedPreferences.Editor editor = sharedPreferences.edit();
+		Integer id = null;
 		for (Integer integer : idsSet)
 		{
 			editor.putString("id", String.valueOf(integer));
 			string.append(String.valueOf(integer));
+			id = integer;
 		}
 		editor.apply();
 
-		String message = "存储的id：" + sharedPreferences.getString("id", "null") + "\n" + "想要更新的id：" + string.toString();
+		String message = "\n存储的id：" + sharedPreferences.getString("id", "null") + "\n" + "想要更新的id：" + string.toString();
+		if (!sharedPreferences.getString("id", "null").equals(String.valueOf(id)))
+		{
+			message += "\nid不同，尝试修正。";
+			idsSet.clear();
+			idsSet.add(Integer.parseInt(sharedPreferences.getString("id", "0")));
+			message+="\n修复完成！";
+		}
 		FileTest.writeLog(message);
 		return idsSet;
 	}
