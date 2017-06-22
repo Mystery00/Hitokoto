@@ -1,6 +1,5 @@
 package com.mystery0.hitokoto.local;
 
-import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,7 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -22,7 +20,6 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoGroup;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
@@ -107,9 +104,7 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
 			@Override
 			public void onClick(View v)
 			{
-				//noinspection RestrictedApi
-				ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(App.getContext(), R.style.AlertDialogStyle);
-				@SuppressLint("InflateParams") View view = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.dialog_custom_group, null);
+				View view = LayoutInflater.from(LocalHitokotoManagerActivity.this).inflate(R.layout.dialog_custom_group, null);
 				final TextInputLayout hitokotoGroupInput = view.findViewById(R.id.group);
 				new AlertDialog.Builder(LocalHitokotoManagerActivity.this, R.style.AlertDialogStyle)
 						.setView(view)
@@ -244,7 +239,7 @@ public class LocalHitokotoManagerActivity extends AppCompatActivity implements M
 	public void onItemClick(final HitokotoGroup hitokotoGroup, final int position)
 	{
 		Logs.i(TAG, "onItemClick: 单击: " + position);
-		Intent intent = new Intent(App.getContext(), LocalHitokotoActivity.class);
+		Intent intent = new Intent(LocalHitokotoManagerActivity.this, LocalHitokotoActivity.class);
 		intent.putExtra("group", hitokotoGroup.getName());
 		startActivity(intent);
 	}
