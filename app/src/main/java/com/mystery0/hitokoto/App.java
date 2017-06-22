@@ -29,9 +29,11 @@ public class App extends Application
 		requestQueue = Volley.newRequestQueue(getApplicationContext());
 		Logs.setLevel(Logs.LogLevel.Release);
 		LitePal.initialize(this);
-		CrashHandler.getInstance()
+		CrashHandler.getInstance(this)
+				.isAutoClean(true)
+				.setExtensionName("log")
 				.setDirectory("hitokoto/log")
-				.init(this);
+				.init();
 	}
 
 	public static Context getContext()
