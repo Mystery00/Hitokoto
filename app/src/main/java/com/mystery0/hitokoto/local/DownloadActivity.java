@@ -106,6 +106,7 @@ public class DownloadActivity extends AppCompatActivity implements DownloadItemL
 		Map<String, String> stringMap = new HashMap<>();
 		stringMap.put("method", "getList");
 		new HttpUtil(App.getContext())
+				.setRequestQueue(App.getRequestQueue())
 				.setUrl(getString(R.string.file_request_url))
 				.setRequestMethod(HttpUtil.RequestMethod.POST)
 				.setMap(stringMap)
@@ -157,6 +158,7 @@ public class DownloadActivity extends AppCompatActivity implements DownloadItemL
 						progressDialog.show();
 						String url = Uri.encode(("http://123.206.186.70/uploads/" + shareFile.getFileUrl()), "-![.:/,%?&=]");
 						new HttpUtil(App.getContext())
+								.setRequestQueue(App.getRequestQueue())
 								.setUrl(url)
 								.isFileRequest(true)
 								.setFileRequest(HttpUtil.FileRequest.DOWNLOAD)

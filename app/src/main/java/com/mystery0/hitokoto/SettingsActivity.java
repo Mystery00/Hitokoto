@@ -661,6 +661,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 								stringMap.put("method", "uploadFile");
 								stringMap.put("group", fileName);
 								new HttpUtil(App.getContext())
+										.setRequestQueue(App.getRequestQueue())
 										.setUrl(getString(R.string.file_request_url))
 										.setRequestMethod(HttpUtil.RequestMethod.POST)
 										.setFileRequest(HttpUtil.FileRequest.UPLOAD)
@@ -684,6 +685,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 													map.put("vendor", Build.MANUFACTURER);
 													map.put("OS_Version", Build.VERSION.RELEASE + "_" + Build.VERSION.SDK_INT);
 													new HttpUtil(App.getContext())
+															.setRequestQueue(App.getRequestQueue())
 															.setRequestMethod(HttpUtil.RequestMethod.POST)
 															.setMap(map)
 															.setUrl(getString(R.string.file_request_url))
