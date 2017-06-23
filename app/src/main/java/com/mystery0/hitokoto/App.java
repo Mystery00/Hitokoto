@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.mystery0.hitokoto.widget.WidgetConfigure;
 import com.mystery0.tools.CrashHandler.CrashHandler;
 import com.mystery0.tools.Logs.Logs;
 
@@ -72,29 +73,32 @@ public class App extends Application
 
 	public static Set<Integer> getIdsSet()
 	{
-		Set<String> saveList=sharedPreferences.getStringSet("ids",new HashSet<String>());
-		Set<Integer> newIdList=new HashSet<>();
-		for (Integer integer : idsSet)
+		StringBuilder message = new StringBuilder("存储的id：");
+		Set<String> saveListTemp = sharedPreferences.getStringSet("ids", new HashSet<String>());
+		Set<Integer> saveList = new HashSet<>();
+		for (String temp : saveListTemp)
 		{
-			for (String temp:saveList)
-			{
-				if (temp.equals(String.valueOf(integer)))
-				{
-					newIdList.add(integer);
-					break;
-				}
-			}
+			message.append(temp).append(" ");
+			saveList.add(Integer.parseInt(temp));
+		}//将StringSet转换成IntegerSet
+
+		message.append("\n想要更新的id：");
+		for (Integer temp : idsSet)
+		{
+			message.append(temp).append(" ");
 		}
 
-		String message = "\n存储的id：" + sharedPreferences.getString("id", "null") + "\n" + "想要更新的id：" + string.toString();
-		if (!sharedPreferences.getString("id", "null").equals(String.valueOf(id)))
+		if (!idsSet.containsAll(saveList))
 		{
-			message += "\nid不同，尝试修正。";
+			message.append("\nid不匹配，尝试修复。");
 			idsSet.clear();
-			idsSet.add(Integer.parseInt(sharedPreferences.getString("id", "0")));
-			message += "\n修复完成！";
+			idsSet.addAll(saveList);
 		}
-		FileTest.writeLog(message);
+
+		if (WidgetConfigure.getDebuggable())
+		{
+			FileTest.writeLog(message.toString());
+		}
 		return idsSet;
 	}
 }

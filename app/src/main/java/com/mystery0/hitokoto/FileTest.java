@@ -17,11 +17,11 @@ public class FileTest
 	{
 		String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA)
 				.format(Calendar.getInstance().getTime());
-		File file = new File(Environment.getExternalStorageDirectory().getPath() + "/hitokoto/log/test.txt");
+		File file = new File(Environment.getExternalStorageDirectory().getPath() + "/hitokoto/log/debug.txt");
 		try
 		{
 			PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
-			printWriter.println(time + " " + message);
+			printWriter.println(time + "\n" + message);
 			printWriter.close();
 		} catch (IOException e)
 		{

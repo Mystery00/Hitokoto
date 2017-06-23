@@ -211,6 +211,20 @@ public class WidgetConfigure
 		editor.apply();
 	}
 
+	public static Boolean getDebuggable()
+	{
+		Boolean temp = sharedPreferences.getBoolean(context.getString(R.string.isDebuggable), false);
+		Logs.i(TAG, "Debuggable: " + temp);
+		return temp;
+	}
+
+	public static void setDebuggable(boolean isDebuggable)
+	{
+		editor.putBoolean(context.getString(R.string.isDebuggable), isDebuggable);
+		Logs.i(TAG, "setDebuggable: " + isDebuggable);
+		editor.apply();
+	}
+
 	public static String[] getTemp()
 	{
 		String text = sharedPreferences

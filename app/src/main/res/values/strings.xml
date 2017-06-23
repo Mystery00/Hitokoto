@@ -23,6 +23,7 @@
     <string name="hitokotoConfigRefreshTime" translatable="false">refresh_time</string>
     <string name="hitokotoConfigTextPadding" translatable="false">text_padding</string>
     <string name="hitokotoIdSet" translatable="false">id_set</string>
+    <string name="isDebuggable" translatable="false">isDebuggable</string>
 
     <string name="hitokoto_object" translatable="false">hitokoto_object</string>
 
@@ -35,6 +36,7 @@
     <string name="text_test_source">Test Source</string>
     <string name="text_choose_source">Choose Source</string>
 
+    <string name="title_custom">Custom</string>
     <string name="title_custom_hitokoto">Custom Hitokoto</string>
     <string name="text_custom_single_hitokoto">Add Single Hitokoto</string>
     <string name="text_custom_multiple_hitokoto">Add Multiple Hitokoto</string>
@@ -44,7 +46,6 @@
     <string name="text_custom_hitokoto_import">Import Hitokotos</string>
     <string name="text_custom_hitokoto_upload">Upload Hitokotos</string>
     <string name="text_custom_hitokoto_download">Download Hitokotos</string>
-
     <string name="title_custom_source">Custom Source</string>
     <string name="text_custom_source_new">Add Source</string>
     <string name="text_custom_source_manager">Source Manager</string>
@@ -71,6 +72,9 @@
     <string name="text_show_crash">Show Crash Log</string>
     <string name="text_contact_me">Contact Me</string>
     <string name="summary_contact_me">Please Send E-mail</string>
+    <string name="title_developer_options">Developer Options</string>
+    <string name="text_debug">Debugger</string>
+    <string name="summary_debug">This will produce a lot of log files</string>
 
     <string name="hint_permission">Please grant the permission</string>
     <string name="hint_refresh_time">Please Enter Time(Min)</string>

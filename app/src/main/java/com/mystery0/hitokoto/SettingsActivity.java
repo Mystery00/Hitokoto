@@ -18,6 +18,7 @@ import android.preference.ListPreference;
 import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
@@ -90,6 +91,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 	private ListPreference textAligned;
 	private EditTextPreference textSize;
 	private CheckBoxPreference notShowSource;
+	private SwitchPreference isDebuggable;
 	private Preference showCrashLog;
 	private Preference contactMe;
 	private Preference customSingleHitokoto;
@@ -159,6 +161,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 		textAligned = (ListPreference) findPreference(getString(R.string.key_text_aligned));
 		textSize = (EditTextPreference) findPreference(getString(R.string.key_text_size));
 		notShowSource = (CheckBoxPreference) findPreference(getString(R.string.key_not_show_source));
+		isDebuggable = (SwitchPreference) findPreference(getString(R.string.key_debug));
 		showCrashLog = findPreference(getString(R.string.key_show_crash_log));
 		contactMe = findPreference(getString(R.string.key_contact_me));
 		customSingleHitokoto = findPreference(getString(R.string.key_local_single_hitokoto));
@@ -186,6 +189,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 		setRefreshTime.setDefaultValue(WidgetConfigure.getRefreshTime());
 		textSize.setSummary("" + WidgetConfigure.getTextSize());
 		textSize.setDefaultValue(WidgetConfigure.getTextSize());
+		isDebuggable.setChecked(WidgetConfigure.getDebuggable());
 		PreferenceManager.setDefaultValues(this, R.xml.perferences, false);
 	}
 
@@ -977,6 +981,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 		{
 			WidgetConfigure.setTextPadding(Integer.parseInt("0" + setTextPadding.getEditText().getText().toString()));
 			setTextPadding.setSummary("" + WidgetConfigure.getTextPadding());
+		} else if (key.equals(getString(R.string.key_debug)))
+		{
+			WidgetConfigure.setDebuggable(isDebuggable.isChecked());
 		}
 		if (WidgetConfigure.getEnable())
 		{
