@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.mystery0.hitokoto.widget.WidgetConfigure;
 import com.mystery0.tools.CrashHandler.CrashHandler;
 import com.mystery0.tools.Logs.Logs;
 
@@ -94,11 +93,7 @@ public class App extends Application
 			idsSet.clear();
 			idsSet.addAll(saveList);
 		}
-
-		if (WidgetConfigure.getDebuggable())
-		{
-			FileTest.writeLog(message.toString());
-		}
+		FileTest.writeLog(message.toString());
 		return idsSet;
 	}
 }
