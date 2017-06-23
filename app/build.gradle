@@ -4,8 +4,8 @@ apply plugin: 'com.nillith.autoversion'
 
 autoVersion {
     major 1
-    minor 5
-    patch 1
+    minor 6
+    patch 0
 }
 
 android {
@@ -38,11 +38,15 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:25.3.1'
+    //noinspection GradleCompatible
     compile 'com.android.support:design:25.3.1'
     compile 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0'
-        compile 'com.github.Mystery00:ToolsDemo:1.5.0'
+    compile 'com.github.Mystery00:ToolsDemo:1.5.0'
+    //noinspection GradleCompatible
     compile 'com.android.support:support-v4:25.3.1'
+    //noinspection GradleCompatible
     compile 'com.android.support:support-vector-drawable:25.3.1'
     compile 'org.litepal.android:core:1.5.1'
     compile 'com.google.code.gson:gson:2.8.0'
