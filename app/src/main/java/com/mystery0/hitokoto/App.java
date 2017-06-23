@@ -20,12 +20,14 @@ public class App extends Application
 	private static Context context;
 	private static Set<Integer> idsSet = new HashSet<>();
 	private static RequestQueue requestQueue;
+	private static SharedPreferences sharedPreferences;
 
 	@Override
 	public void onCreate()
 	{
 		super.onCreate();
 		context = getApplicationContext();
+		sharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), MODE_PRIVATE);
 		requestQueue = Volley.newRequestQueue(getApplicationContext());
 		Logs.setLevel(Logs.LogLevel.Release);
 		LitePal.initialize(this);
@@ -49,26 +51,40 @@ public class App extends Application
 	public static void addID(Integer integer)
 	{
 		idsSet.add(integer);
+		Set<String> saveList = new HashSet<>();
+		for (Integer id : idsSet)
+		{
+			saveList.add(String.valueOf(id));
+		}
+		sharedPreferences.edit().remove("ids").putStringSet("ids", saveList).apply();
 	}
 
 	public static void removeID(Integer integer)
 	{
 		idsSet.remove(integer);
+		Set<String> saveList = new HashSet<>();
+		for (Integer id : idsSet)
+		{
+			saveList.add(String.valueOf(id));
+		}
+		sharedPreferences.edit().remove("ids").putStringSet("ids", saveList).apply();
 	}
 
 	public static Set<Integer> getIdsSet()
 	{
-		SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), MODE_PRIVATE);
-		StringBuilder string = new StringBuilder();
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-		Integer id = null;
+		Set<String> saveList=sharedPreferences.getStringSet("ids",new HashSet<String>());
+		Set<Integer> newIdList=new HashSet<>();
 		for (Integer integer : idsSet)
 		{
-			editor.putString("id", String.valueOf(integer));
-			string.append(String.valueOf(integer));
-			id = integer;
+			for (String temp:saveList)
+			{
+				if (temp.equals(String.valueOf(integer)))
+				{
+					newIdList.add(integer);
+					break;
+				}
+			}
 		}
-		editor.apply();
 
 		String message = "\n存储的id：" + sharedPreferences.getString("id", "null") + "\n" + "想要更新的id：" + string.toString();
 		if (!sharedPreferences.getString("id", "null").equals(String.valueOf(id)))
@@ -76,7 +92,7 @@ public class App extends Application
 			message += "\nid不同，尝试修正。";
 			idsSet.clear();
 			idsSet.add(Integer.parseInt(sharedPreferences.getString("id", "0")));
-			message+="\n修复完成！";
+			message += "\n修复完成！";
 		}
 		FileTest.writeLog(message);
 		return idsSet;
