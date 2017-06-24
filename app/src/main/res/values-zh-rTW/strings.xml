@@ -120,4 +120,10 @@
     <string name="text_debug">開啟應用調試</string>
     <string name="summary_debug">這將會產生很多的log文件</string>
     <string name="title_custom">自定義</string>
+    <string name="text_how_to_use">如何使用</string>
+    <string name="hint_how_to_add_widget">長按桌面添加名為Hitokoto的桌面小部件。</string>
+    <string name="hint_how_to_refresh_text">如果你想要刷新當前顯示的句子，請點擊它（必須提前開啟“點擊刷新”功能）！你也可以打開“自動刷新”功能來進行自動刷新。 （“點擊刷新”和“自動刷新”默認開啟）</string>
+    <string name="hint_how_to_download">在“自定義/下載Hitokotos”中，你可以下載其他人上傳到服務器的hitokotos文件，當然，Hitokoto會為你自動導入到數據庫。</string>
+    <string name="hint_how_to_upload">你也可以上傳你自己的文件來提供給別人下載，只需要使用“自定義/上傳Hitokotos”功能。</string>
+    <string name="hint_how_to_resolve_cannot_refresh">如果點擊句子無法進行刷新並且在設置中打開了“點擊刷新”功能，嘗試重新添加小部件。</string>
 </resources>

@@ -14,4 +14,8 @@
         android:summary="@string/summary_contact_me"
         android:title="@string/text_contact_me"/>
 
+    <Preference
+        android:key="@string/key_how_to_use"
+        android:title="@string/text_how_to_use"/>
+
 </PreferenceScreen>

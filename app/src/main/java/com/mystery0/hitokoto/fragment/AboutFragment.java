@@ -10,6 +10,8 @@ import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.widget.Toast;
 
 import com.mystery0.hitokoto.App;
@@ -23,6 +25,7 @@ public class AboutFragment extends PreferenceFragment
 	private static final String TAG = "AboutFragment";
 	private Preference showCrashLog;
 	private Preference contactMe;
+	private Preference howToUse;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -38,6 +41,7 @@ public class AboutFragment extends PreferenceFragment
 
 		showCrashLog = findPreference(getString(R.string.key_show_crash_log));
 		contactMe = findPreference(getString(R.string.key_contact_me));
+		howToUse = findPreference(getString(R.string.key_how_to_use));
 	}
 
 	private void monitor()
@@ -78,6 +82,19 @@ public class AboutFragment extends PreferenceFragment
 				ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 				clipboardManager.setText(getString(R.string.e_mail_address));
 				Toast.makeText(App.getContext(), R.string.hint_copy_address, Toast.LENGTH_SHORT)
+						.show();
+				return false;
+			}
+		});
+		howToUse.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+		{
+			@Override
+			public boolean onPreferenceClick(Preference preference)
+			{
+				new AlertDialog.Builder(getActivity())
+						.setTitle(" ")
+						.setView(LayoutInflater.from(getActivity()).inflate(R.layout.dialog_how_to_use, null))
+						.setPositiveButton(android.R.string.ok, null)
 						.show();
 				return false;
 			}

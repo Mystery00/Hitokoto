@@ -3,7 +3,7 @@
 1.修复OutOfMemoryException的异常
 2.修复时间长之后小部件更新失效
 3.重构部分源码，减少内存占用，进一步降低OutOfMemoryException出现概率（基本不会再出现了）
-4.新增向导界面，使用更人性化
+4.新增如何使用界面
 
 剩余部分：
 重构WidgetConfigure---未测试

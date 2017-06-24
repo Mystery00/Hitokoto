@@ -39,13 +39,23 @@ public class WidgetConfigure
 
 	public WidgetConfigure(Context context)
 	{
-		this.context=context;
+		this.context = context;
 		sharedPreferences = context.getSharedPreferences(context.getString(R.string.sharedPreferencesName), Context.MODE_PRIVATE);
 	}
 
 	public enum SourceType
 	{
 		INT, STRING
+	}
+
+	public boolean isFirstRun()
+	{
+		return sharedPreferences.getBoolean("isFirstRun", true);
+	}
+
+	public void setFirstRun()
+	{
+		sharedPreferences.edit().putBoolean("isFirstRun", false).apply();
 	}
 
 	public boolean getEnable()
@@ -57,7 +67,7 @@ public class WidgetConfigure
 
 	public void setEnable(boolean temp)
 	{
-		SharedPreferences.Editor editor=sharedPreferences.edit();
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putBoolean(context.getString(R.string.hitokotoConfigEnable), temp);
 		Logs.i(TAG, "setEnable: " + temp);
 		editor.apply();
@@ -86,7 +96,7 @@ public class WidgetConfigure
 
 	public void setChooseSource(Set<String> temps)
 	{
-		SharedPreferences.Editor editor=sharedPreferences.edit();
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		Set<String> stringSet = new HashSet<>();
 		String[] strings = context.getResources().getStringArray(R.array.list_source);
 		for (String temp : temps)
@@ -113,7 +123,7 @@ public class WidgetConfigure
 
 	public void setAutoRefresh(boolean temp)
 	{
-		SharedPreferences.Editor editor=sharedPreferences.edit();
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putBoolean(context.getString(R.string.key_auto_refresh), temp);
 		Logs.i(TAG, "setAutoRefresh: " + temp);
 		editor.apply();
@@ -128,7 +138,7 @@ public class WidgetConfigure
 
 	public void setClickToRefresh(boolean temp)
 	{
-		SharedPreferences.Editor editor=sharedPreferences.edit();
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putBoolean(context.getString(R.string.hitokotoConfigClickToRefresh), temp);
 		Logs.i(TAG, "setClickToRefresh: " + temp);
 		editor.apply();
@@ -143,7 +153,7 @@ public class WidgetConfigure
 
 	public void setTextColor(String temp)
 	{
-		SharedPreferences.Editor editor=sharedPreferences.edit();
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putString(context.getString(R.string.hitokotoConfigTextColor), temp);
 		Logs.i(TAG, "setTextColor: " + temp);
 		editor.apply();
@@ -158,7 +168,7 @@ public class WidgetConfigure
 
 	public void setNotShowSource(boolean temp)
 	{
-		SharedPreferences.Editor editor=sharedPreferences.edit();
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putBoolean(context.getString(R.string.hitokotoConfigNotShowSource), temp);
 		Logs.i(TAG, "setNotShowSource: " + temp);
 		editor.apply();
@@ -173,7 +183,7 @@ public class WidgetConfigure
 
 	public void setTextAligned(int temp)
 	{
-		SharedPreferences.Editor editor=sharedPreferences.edit();
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putInt(context.getString(R.string.hitokotoConfigTextAligned), temp);
 		Logs.i(TAG, "setTextAligned: " + temp);
 		editor.apply();
@@ -188,7 +198,7 @@ public class WidgetConfigure
 
 	public void setTextSize(int temp)
 	{
-		SharedPreferences.Editor editor=sharedPreferences.edit();
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putInt(context.getString(R.string.hitokotoConfigTextSize), temp);
 		Logs.i(TAG, "setTextSize: " + temp);
 		editor.apply();
@@ -203,7 +213,7 @@ public class WidgetConfigure
 
 	public void setTextPadding(int temp)
 	{
-		SharedPreferences.Editor editor=sharedPreferences.edit();
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putInt(context.getString(R.string.hitokotoConfigTextPadding), temp);
 		Logs.i(TAG, "setTextPadding: " + temp);
 		editor.apply();
@@ -218,7 +228,7 @@ public class WidgetConfigure
 
 	public void setRefreshTime(int temp)
 	{
-		SharedPreferences.Editor editor=sharedPreferences.edit();
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putLong(context.getString(R.string.hitokotoConfigRefreshTime), temp * 60000);
 		Logs.i(TAG, "setRefreshTime: " + temp);
 		editor.apply();
@@ -233,7 +243,7 @@ public class WidgetConfigure
 
 	public void setDebuggable(boolean isDebuggable)
 	{
-		SharedPreferences.Editor editor=sharedPreferences.edit();
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putBoolean(context.getString(R.string.isDebuggable), isDebuggable);
 		Logs.i(TAG, "setDebuggable: " + isDebuggable);
 		editor.apply();

@@ -1,14 +1,16 @@
 package com.mystery0.hitokoto;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +19,13 @@ import android.widget.Toast;
 
 import com.mystery0.hitokoto.fragment.MainFragment;
 
+@SuppressLint("ExportedPreferenceActivity")
 public class SettingsActivity extends PreferenceActivity
 {
-	private static final String TAG = "SettingsActivity";
 	private static final int REQUEST_PERMISSION = 456;
 	private Toolbar toolbar;
 
+	@SuppressLint("InflateParams")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -35,6 +38,22 @@ public class SettingsActivity extends PreferenceActivity
 					.beginTransaction().add(R.id.content_wrapper, new MainFragment())
 					.commit();
 		}
+		if (App.getWidgetConfigure().isFirstRun())
+		{
+			new AlertDialog.Builder(SettingsActivity.this)
+					.setTitle(" ")
+					.setView(LayoutInflater.from(SettingsActivity.this).inflate(R.layout.dialog_how_to_use, null))
+					.setPositiveButton(android.R.string.ok, null)
+					.setOnDismissListener(new DialogInterface.OnDismissListener()
+					{
+						@Override
+						public void onDismiss(DialogInterface dialogInterface)
+						{
+							App.getWidgetConfigure().setFirstRun();
+						}
+					})
+					.show();
+		}
 	}
 
 	@Override
@@ -42,7 +61,6 @@ public class SettingsActivity extends PreferenceActivity
 	{
 		ViewGroup contentView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.activity_settings, new LinearLayout(this), false);
 		toolbar = contentView.findViewById(R.id.toolbar);
-//		toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
 		toolbar.setNavigationOnClickListener(new View.OnClickListener()
 		{
 			@Override

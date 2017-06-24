@@ -29,4 +29,5 @@
     <string name="key_custom_source_manager" translatable="false">key_custom_source_manager</string>
     <string name="key_custom_source_helper" translatable="false">key_custom_source_helper</string>
     <string name="key_about" translatable="false">key_about</string>
+    <string name="key_how_to_use" translatable="false">key_how_to_use</string>
 </resources>
