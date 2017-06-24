@@ -28,56 +28,13 @@
     <PreferenceCategory
         android:title="@string/title_custom">
 
-        <PreferenceScreen
-            android:title="@string/title_custom_hitokoto">
+        <Preference
+            android:key="@string/key_local_hitokoto"
+            android:title="@string/title_custom_hitokoto"/>
 
-            <Preference
-                android:key="@string/key_local_single_hitokoto"
-                android:title="@string/text_custom_single_hitokoto"/>
-
-            <Preference
-                android:key="@string/key_local_multiple_hitokoto"
-                android:title="@string/text_custom_multiple_hitokoto"/>
-
-            <Preference
-                android:key="@string/key_local_show_hitokoto"
-                android:title="@string/text_custom_show_hitokoto"/>
-
-            <Preference
-                android:key="@string/key_local_export_hitokotos"
-                android:title="@string/text_custom_hitokoto_export"/>
-
-            <Preference
-                android:key="@string/key_local_import_hitokotos"
-                android:title="@string/text_custom_hitokoto_import"/>
-
-            <Preference
-                android:key="@string/key_local_upload_hitokotos"
-                android:title="@string/text_custom_hitokoto_upload"/>
-
-            <Preference
-                android:key="@string/key_local_download_hitokotos"
-                android:title="@string/text_custom_hitokoto_download"/>
-
-        </PreferenceScreen>
-
-        <PreferenceScreen
+        <Preference
             android:key="@string/key_custom_source"
-            android:title="@string/title_custom_source">
-
-            <Preference
-                android:key="@string/key_custom_source_new"
-                android:title="@string/text_custom_source_new"/>
-
-            <Preference
-                android:key="@string/key_custom_source_manager"
-                android:title="@string/text_custom_source_manager"/>
-
-            <Preference
-                android:key="@string/key_custom_source_helper"
-                android:title="@string/text_custom_source_helper"/>
-
-        </PreferenceScreen>
+            android:title="@string/title_custom_source"/>
 
     </PreferenceCategory>
 
@@ -148,32 +105,13 @@
                 android:data="https://github.com/Mystery00/Hitokoto"/>
         </Preference>
 
-        <PreferenceScreen
-            android:title="@string/text_about">
-            <Preference
-                android:summary="@string/summary_developer"
-                android:title="@string/text_developer"/>
+        <Preference
+            android:key="@string/key_about"
+            android:title="@string/text_about"/>
 
-            <Preference
-                android:key="@string/key_show_crash_log"
-                android:title="@string/text_show_crash"/>
-
-            <Preference
-                android:key="@string/key_contact_me"
-                android:summary="@string/summary_contact_me"
-                android:title="@string/text_contact_me"/>
-
-        </PreferenceScreen>
-
-        <PreferenceScreen
-            android:title="@string/title_developer_options">
-
-            <SwitchPreference
-                android:key="@string/key_debug"
-                android:summary="@string/summary_debug"
-                android:title="@string/text_debug"/>
-
-        </PreferenceScreen>
+        <Preference
+            android:key="@string/key_developer_options"
+            android:title="@string/title_developer_options"/>
 
     </PreferenceCategory>
 

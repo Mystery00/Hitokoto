@@ -7,8 +7,8 @@
 
 剩余部分：
 重构WidgetConfigure---未测试
-修改Preference布局
+修改Preference布局--不用修改
 
 可选部分：
 线程相关优化
-界面优化
+界面优化---
