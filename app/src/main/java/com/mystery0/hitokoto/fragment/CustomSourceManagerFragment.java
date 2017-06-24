@@ -1,16 +1,16 @@
-package com.mystery0.hitokoto.custom;
+package com.mystery0.hitokoto.fragment;
 
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,8 +21,10 @@ import android.widget.Toast;
 
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
-import com.mystery0.hitokoto.test_source.TestSource;
-import com.mystery0.hitokoto.test_source.TestSourceListener;
+import com.mystery0.hitokoto.adapter.CustomAdapter;
+import com.mystery0.hitokoto.listener.CustomItemListener;
+import com.mystery0.hitokoto.util.TestSource;
+import com.mystery0.hitokoto.listener.TestSourceListener;
 import com.mystery0.tools.Logs.Logs;
 
 import org.litepal.crud.DataSupport;
@@ -31,33 +33,29 @@ import java.util.List;
 
 import static android.support.v7.widget.helper.ItemTouchHelper.RIGHT;
 
-@SuppressWarnings("ConstantConditions")
-public class CustomSourceActivity extends AppCompatActivity implements CustomItemListener
+public class CustomSourceManagerFragment extends Fragment implements CustomItemListener
 {
-	private static final String TAG = "CustomSourceActivity";
-	private Toolbar toolbar;
+	private static final String TAG = "CustomSourceManagerFragment";
 	private Button button;
 	private RecyclerView recyclerView;
 	private CustomAdapter adapter;
 	private List<HitokotoSource> list;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		initialize();
-		monitor();
+		list = DataSupport.where("source = ?", getResources().getStringArray(R.array.list_source_type)[2]).find(HitokotoSource.class);
 	}
 
-	private void initialize()
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		list = DataSupport.where("source = ?", getResources().getStringArray(R.array.list_source_type)[2]).find(HitokotoSource.class);
-		setContentView(R.layout.activity_custom_source);
-		toolbar = (Toolbar) findViewById(R.id.toolbar);
-		button = (Button) findViewById(R.id.test);
-		recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-		RelativeLayout layout = (RelativeLayout) findViewById(R.id.head);
-		TextView null_data = (TextView) findViewById(R.id.null_data);
+		View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_custom_source, container, false);
+		button = view.findViewById(R.id.test);
+		recyclerView = view.findViewById(R.id.recyclerView);
+		RelativeLayout layout = view.findViewById(R.id.head);
+		TextView null_data = view.findViewById(R.id.null_data);
 		TextView head_name = layout.findViewById(R.id.source_name);
 		TextView head_enable = layout.findViewById(R.id.source_enable);
 		TextView head_content = layout.findViewById(R.id.source_content);
@@ -66,7 +64,7 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
 		head_enable.setText(getString(R.string.Enable));
 		head_content.setText(getString(R.string.hint_custom_source_content));
 		head_from.setText(getString(R.string.hint_custom_source_from));
-		recyclerView.setLayoutManager(new LinearLayoutManager(this));
+		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 		adapter = new CustomAdapter(list, this);
 		recyclerView.setAdapter(adapter);
 		if (list.size() == 0)
@@ -75,23 +73,12 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
 			recyclerView.setVisibility(View.GONE);
 			null_data.setVisibility(View.VISIBLE);
 		}
-
-
-		setSupportActionBar(toolbar);
+		monitor();
+		return view;
 	}
 
 	private void monitor()
 	{
-		//noinspection ConstantConditions
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		toolbar.setNavigationOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				finish();
-			}
-		});
 		ItemTouchHelper.Callback callback = new ItemTouchHelper.SimpleCallback(0, RIGHT)
 		{
 
@@ -143,14 +130,14 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
 	@Override
 	public void onItemClick(final HitokotoSource hitokotoSource, int position)
 	{
-		View view = LayoutInflater.from(CustomSourceActivity.this).inflate(R.layout.dialog_custom_source_new, null);
+		View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_custom_source_new, null);
 		final TextInputLayout source_name = view.findViewById(R.id.custom_source_name);
 		final TextInputLayout source_address = view.findViewById(R.id.custom_source_address);
 		final TextInputLayout source_content = view.findViewById(R.id.custom_source_content);
 		final TextInputLayout source_from = view.findViewById(R.id.custom_source_from);
 		Button button = view.findViewById(R.id.test);
 		Spinner spinner = view.findViewById(R.id.spinner);
-		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.list_request_method));
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.list_request_method));
 		arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(arrayAdapter);
 		source_name.getEditText().setText(hitokotoSource.getName());
@@ -190,7 +177,7 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
 				});
 			}
 		});
-		new AlertDialog.Builder(CustomSourceActivity.this, R.style.AlertDialogStyle)
+		new AlertDialog.Builder(getActivity(), R.style.AlertDialogStyle)
 				.setView(view)
 				.setTitle(R.string.text_custom_source_new)
 				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
@@ -210,7 +197,7 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
 								public void result(boolean result)
 								{
 									source_address.setError(result ? getString(R.string.Enable) : getString(R.string.Disable));
-									Toast.makeText(CustomSourceActivity.this,
+									Toast.makeText(getActivity(),
 											result ?
 													(hitokotoSource.saveOrUpdate("address = ?", hitokotoSource.getAddress()) ?
 															getString(R.string.hint_custom_add_source_done) :
@@ -222,7 +209,7 @@ public class CustomSourceActivity extends AppCompatActivity implements CustomIte
 							});
 						} else
 						{
-							Toast.makeText(CustomSourceActivity.this, getString(R.string.ErrorFormat), Toast.LENGTH_SHORT)
+							Toast.makeText(getActivity(), getString(R.string.ErrorFormat), Toast.LENGTH_SHORT)
 									.show();
 						}
 					}

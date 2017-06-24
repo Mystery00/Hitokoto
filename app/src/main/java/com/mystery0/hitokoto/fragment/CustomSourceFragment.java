@@ -1,7 +1,6 @@
 package com.mystery0.hitokoto.fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -19,9 +18,8 @@ import android.widget.Toast;
 import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
-import com.mystery0.hitokoto.custom.CustomSourceActivity;
-import com.mystery0.hitokoto.test_source.TestSource;
-import com.mystery0.hitokoto.test_source.TestSourceListener;
+import com.mystery0.hitokoto.util.TestSource;
+import com.mystery0.hitokoto.listener.TestSourceListener;
 
 public class CustomSourceFragment extends PreferenceFragment
 {
@@ -62,7 +60,11 @@ public class CustomSourceFragment extends PreferenceFragment
 			@Override
 			public boolean onPreferenceClick(Preference preference)
 			{
-				startActivity(new Intent(App.getContext(), CustomSourceActivity.class));
+				getFragmentManager()
+						.beginTransaction()
+						.replace(R.id.content_wrapper,new CustomSourceManagerFragment(),getString(R.string.app_name))
+						.addToBackStack(getString(R.string.app_name))
+						.commit();
 				return false;
 			}
 		});

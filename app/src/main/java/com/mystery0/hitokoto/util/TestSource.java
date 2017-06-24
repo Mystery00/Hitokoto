@@ -1,11 +1,11 @@
-package com.mystery0.hitokoto.test_source;
+package com.mystery0.hitokoto.util;
 
 import com.google.gson.Gson;
 import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.Hitokoto;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
-import com.mystery0.hitokoto.local.LocalConfigure;
+import com.mystery0.hitokoto.listener.TestSourceListener;
 import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;

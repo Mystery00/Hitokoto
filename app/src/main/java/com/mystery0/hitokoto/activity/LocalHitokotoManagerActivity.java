@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto.local;
+package com.mystery0.hitokoto.activity;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -21,8 +21,10 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.mystery0.hitokoto.R;
+import com.mystery0.hitokoto.adapter.ManagerAdapter;
 import com.mystery0.hitokoto.class_class.HitokotoGroup;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
+import com.mystery0.hitokoto.listener.ManagerItemListener;
 import com.mystery0.tools.Logs.Logs;
 
 import org.litepal.crud.DataSupport;

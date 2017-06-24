@@ -1,9 +1,9 @@
-package com.mystery0.hitokoto.local;
+package com.mystery0.hitokoto.util;
 
 import android.os.Environment;
 
 import com.google.gson.Gson;
-import com.mystery0.hitokoto.FileDo;
+import com.mystery0.hitokoto.listener.LocalListener;
 import com.mystery0.hitokoto.class_class.HitokotoGroup;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.tools.Logs.Logs;

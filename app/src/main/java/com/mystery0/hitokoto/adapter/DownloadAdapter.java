@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto.local;
+package com.mystery0.hitokoto.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,16 +7,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mystery0.hitokoto.R;
-import com.mystery0.hitokoto.class_class.HitokotoLocal;
+import com.mystery0.hitokoto.listener.DownloadItemListener;
+import com.mystery0.hitokoto.class_class.ShareFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>
+public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHolder>
 {
-	private List<HitokotoLocal> list;
-	private ShowItemListener listener;
+	private List<ShareFile> list = new ArrayList<>();
+	private DownloadItemListener listener;
 
-	public ShowAdapter(List<HitokotoLocal> list, ShowItemListener listener)
+	public DownloadAdapter(List<ShareFile> list, DownloadItemListener listener)
 	{
 		this.list = list;
 		this.listener = listener;
@@ -25,9 +27,9 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>
 	@Override
 	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
 	{
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hitokoto, parent, false);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_share_file, parent, false);
 		final ViewHolder holder = new ViewHolder(view);
-		holder.fullView.setOnClickListener(new View.OnClickListener()
+		holder.textView.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
@@ -41,9 +43,11 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position)
 	{
-		HitokotoLocal hitokotoLocal = list.get(position);
-		holder.content.setText(hitokotoLocal.getContent());
-		holder.source.setText(hitokotoLocal.getSource());
+		holder.textView.setText(list.get(position).getGroup());
+		if (position == list.size() - 1)
+		{
+			holder.line.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
@@ -54,16 +58,14 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>
 
 	static class ViewHolder extends RecyclerView.ViewHolder
 	{
-		View fullView;
-		TextView content;
-		TextView source;
+		TextView textView;
+		View line;
 
 		public ViewHolder(View itemView)
 		{
 			super(itemView);
-			fullView = itemView;
-			content = itemView.findViewById(R.id.content);
-			source = itemView.findViewById(R.id.source);
+			textView = itemView.findViewById(R.id.text);
+			line = itemView.findViewById(R.id.divider);
 		}
 	}
 }

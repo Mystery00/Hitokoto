@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto.local;
+package com.mystery0.hitokoto.activity;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -20,7 +20,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mystery0.hitokoto.R;
+import com.mystery0.hitokoto.adapter.ShowAdapter;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
+import com.mystery0.hitokoto.listener.ShowItemListener;
 import com.mystery0.tools.Logs.Logs;
 
 import org.litepal.crud.DataSupport;

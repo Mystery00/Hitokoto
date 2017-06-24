@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.mystery0.hitokoto.local.LocalHitokotoActivity"
+    tools:context="com.mystery0.hitokoto.activity.LocalHitokotoActivity"
     tools:showIn="@layout/activity_custom_hitokoto">
 
     <TextView

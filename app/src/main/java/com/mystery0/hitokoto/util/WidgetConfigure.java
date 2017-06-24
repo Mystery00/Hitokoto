@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto.widget;
+package com.mystery0.hitokoto.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,7 +15,6 @@ import com.mystery0.hitokoto.class_class.Hitokoto;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoLocal;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
-import com.mystery0.hitokoto.local.LocalConfigure;
 import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;
 import com.mystery0.tools.MysteryNetFrameWork.ResponseListener;

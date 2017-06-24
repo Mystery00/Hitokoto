@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto.local;
+package com.mystery0.hitokoto.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,17 +7,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mystery0.hitokoto.R;
-import com.mystery0.hitokoto.class_class.ShareFile;
+import com.mystery0.hitokoto.class_class.HitokotoLocal;
+import com.mystery0.hitokoto.listener.ShowItemListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHolder>
+public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>
 {
-	private List<ShareFile> list = new ArrayList<>();
-	private DownloadItemListener listener;
+	private List<HitokotoLocal> list;
+	private ShowItemListener listener;
 
-	public DownloadAdapter(List<ShareFile> list, DownloadItemListener listener)
+	public ShowAdapter(List<HitokotoLocal> list, ShowItemListener listener)
 	{
 		this.list = list;
 		this.listener = listener;
@@ -26,9 +26,9 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
 	@Override
 	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
 	{
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_share_file, parent, false);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hitokoto, parent, false);
 		final ViewHolder holder = new ViewHolder(view);
-		holder.textView.setOnClickListener(new View.OnClickListener()
+		holder.fullView.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
@@ -42,11 +42,9 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position)
 	{
-		holder.textView.setText(list.get(position).getGroup());
-		if (position == list.size() - 1)
-		{
-			holder.line.setVisibility(View.GONE);
-		}
+		HitokotoLocal hitokotoLocal = list.get(position);
+		holder.content.setText(hitokotoLocal.getContent());
+		holder.source.setText(hitokotoLocal.getSource());
 	}
 
 	@Override
@@ -57,14 +55,16 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
 
 	static class ViewHolder extends RecyclerView.ViewHolder
 	{
-		TextView textView;
-		View line;
+		View fullView;
+		TextView content;
+		TextView source;
 
 		public ViewHolder(View itemView)
 		{
 			super(itemView);
-			textView = itemView.findViewById(R.id.text);
-			line = itemView.findViewById(R.id.divider);
+			fullView = itemView;
+			content = itemView.findViewById(R.id.content);
+			source = itemView.findViewById(R.id.source);
 		}
 	}
 }

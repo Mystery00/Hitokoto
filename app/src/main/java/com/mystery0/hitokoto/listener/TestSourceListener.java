@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto.test_source;
+package com.mystery0.hitokoto.listener;
 
 public interface TestSourceListener
 {

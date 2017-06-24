@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto.local;
+package com.mystery0.hitokoto.activity;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -18,8 +18,12 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.R;
+import com.mystery0.hitokoto.adapter.DownloadAdapter;
 import com.mystery0.hitokoto.class_class.DownloadList;
 import com.mystery0.hitokoto.class_class.ShareFile;
+import com.mystery0.hitokoto.listener.DownloadItemListener;
+import com.mystery0.hitokoto.listener.LocalListener;
+import com.mystery0.hitokoto.util.LocalConfigure;
 import com.mystery0.tools.Logs.Logs;
 import com.mystery0.tools.MysteryNetFrameWork.FileResponseListener;
 import com.mystery0.tools.MysteryNetFrameWork.HttpUtil;

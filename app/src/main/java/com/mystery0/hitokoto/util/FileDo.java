@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto;
+package com.mystery0.hitokoto.util;
 
 import android.content.ContentUris;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+
+import com.mystery0.hitokoto.App;
 
 public class FileDo
 {

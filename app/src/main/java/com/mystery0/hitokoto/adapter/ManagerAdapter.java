@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto.local;
+package com.mystery0.hitokoto.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.mystery0.hitokoto.App;
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoGroup;
+import com.mystery0.hitokoto.listener.ManagerItemListener;
 
 import java.util.ArrayList;
 import java.util.List;

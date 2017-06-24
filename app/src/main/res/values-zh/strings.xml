@@ -19,7 +19,7 @@
     <string name="text_not_show_source">不显示来源</string>
     <string name="text_open_resource">Github地址</string>
     <string name="text_refresh_now">立即刷新</string>
-    <string name="text_refresh_time">设置刷新时间</string>
+    <string name="text_refresh_time">设置刷新时间（分）</string>
     <string name="text_show_crash">显示崩溃日志</string>
     <string name="text_show_current">显示当前</string>
     <string name="text_test_source">测试源</string>
@@ -116,4 +116,8 @@
     <string name="text_custom_hitokoto_upload">上传云端数据</string>
     <string name="title_activity_download">下载云端数据</string>
     <string name="hint_download_sure">你确定要下载这个文件吗？</string>
+    <string name="title_developer_options">开发者选项</string>
+    <string name="text_debug">开启应用调试</string>
+    <string name="summary_debug">这将会产生很多的log文件</string>
+    <string name="title_custom">自定义</string>
 </resources>

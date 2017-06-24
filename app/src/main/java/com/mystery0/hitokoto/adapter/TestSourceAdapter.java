@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto.test_source;
+package com.mystery0.hitokoto.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

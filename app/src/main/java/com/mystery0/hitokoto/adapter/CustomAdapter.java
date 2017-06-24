@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto.custom;
+package com.mystery0.hitokoto.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.mystery0.hitokoto.R;
 import com.mystery0.hitokoto.class_class.HitokotoSource;
+import com.mystery0.hitokoto.listener.CustomItemListener;
 import com.mystery0.tools.Logs.Logs;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 	private List<HitokotoSource> list;
 	private CustomItemListener listener;
 
-	CustomAdapter(List<HitokotoSource> list, CustomItemListener listener)
+	public CustomAdapter(List<HitokotoSource> list, CustomItemListener listener)
 	{
 		this.list = list;
 		this.listener = listener;

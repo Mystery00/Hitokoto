@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.mystery0.hitokoto.widget.OnClickService;
-import com.mystery0.hitokoto.widget.WidgetConfigure;
 
 public class ShortCutsActivity extends AppCompatActivity
 {

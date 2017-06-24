@@ -54,7 +54,7 @@
     <string name="title_widget_settings">Widget Settings</string>
     <string name="text_auto_refresh">Auto Refresh</string>
     <string name="text_click_to_refresh">Click To Refresh</string>
-    <string name="text_refresh_time">Set Refresh Time</string>
+    <string name="text_refresh_time">Set Refresh Time (Min)</string>
     <string name="text_text_padding">Text Padding</string>
     <string name="text_text_color">Text Color</string>
     <string name="text_text_aligned">Text Aligned</string>
@@ -74,10 +74,10 @@
     <string name="summary_contact_me">Please Send E-mail</string>
     <string name="title_developer_options">Developer Options</string>
     <string name="text_debug">Debugger</string>
-    <string name="summary_debug">This will produce a lot of log files</string>
+    <string name="summary_debug">This will produce a lot of log files!</string>
 
     <string name="hint_permission">Please grant the permission</string>
-    <string name="hint_refresh_time">Please Enter Time(Min)</string>
+    <string name="hint_refresh_time">Please Enter Time (Min)</string>
     <string name="hint_text_size">Please Enter Number</string>
     <string name="hint_broadcast">The Broadcast Send! </string>
     <string name="hint_add_widget">Please Add Widget First! </string>

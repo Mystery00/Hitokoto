@@ -6,7 +6,8 @@ import android.content.SharedPreferences;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.mystery0.hitokoto.widget.WidgetConfigure;
+import com.mystery0.hitokoto.util.FileTest;
+import com.mystery0.hitokoto.util.WidgetConfigure;
 import com.mystery0.tools.CrashHandler.CrashHandler;
 import com.mystery0.tools.Logs.Logs;
 

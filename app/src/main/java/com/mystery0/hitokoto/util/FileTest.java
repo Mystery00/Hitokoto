@@ -1,4 +1,4 @@
-package com.mystery0.hitokoto;
+package com.mystery0.hitokoto.util;
 
 import android.os.Environment;
 
