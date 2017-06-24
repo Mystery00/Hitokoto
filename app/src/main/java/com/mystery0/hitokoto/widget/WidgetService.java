@@ -15,10 +15,10 @@ public class WidgetService extends Service
         @Override
         public void run()
         {
-            WidgetConfigure.refreshText();
-            if (WidgetConfigure.getAutoRefresh())
+            App.getWidgetConfigure().refreshText();
+            if (App.getWidgetConfigure().getAutoRefresh())
             {
-                handler.postDelayed(runnable, WidgetConfigure.getRefreshTime() * 60000);
+                handler.postDelayed(runnable, App.getWidgetConfigure().getRefreshTime() * 60000);
             } else
             {
                 stopService(new Intent(App.getContext(), WidgetService.class));

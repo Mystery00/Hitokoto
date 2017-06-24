@@ -23,6 +23,7 @@
     <string name="hitokotoConfigRefreshTime" translatable="false">refresh_time</string>
     <string name="hitokotoConfigTextPadding" translatable="false">text_padding</string>
     <string name="hitokotoIdSet" translatable="false">id_set</string>
+    <string name="isDebuggable" translatable="false">isDebuggable</string>
 
     <string name="hitokoto_object" translatable="false">hitokoto_object</string>
 
@@ -35,6 +36,7 @@
     <string name="text_test_source">Test Source</string>
     <string name="text_choose_source">Choose Source</string>
 
+    <string name="title_custom">Custom</string>
     <string name="title_custom_hitokoto">Custom Hitokoto</string>
     <string name="text_custom_single_hitokoto">Add Single Hitokoto</string>
     <string name="text_custom_multiple_hitokoto">Add Multiple Hitokoto</string>
@@ -44,7 +46,6 @@
     <string name="text_custom_hitokoto_import">Import Hitokotos</string>
     <string name="text_custom_hitokoto_upload">Upload Hitokotos</string>
     <string name="text_custom_hitokoto_download">Download Hitokotos</string>
-
     <string name="title_custom_source">Custom Source</string>
     <string name="text_custom_source_new">Add Source</string>
     <string name="text_custom_source_manager">Source Manager</string>
@@ -53,7 +54,7 @@
     <string name="title_widget_settings">Widget Settings</string>
     <string name="text_auto_refresh">Auto Refresh</string>
     <string name="text_click_to_refresh">Click To Refresh</string>
-    <string name="text_refresh_time">Set Refresh Time</string>
+    <string name="text_refresh_time">Set Refresh Time (Min)</string>
     <string name="text_text_padding">Text Padding</string>
     <string name="text_text_color">Text Color</string>
     <string name="text_text_aligned">Text Aligned</string>
@@ -71,9 +72,14 @@
     <string name="text_show_crash">Show Crash Log</string>
     <string name="text_contact_me">Contact Me</string>
     <string name="summary_contact_me">Please Send E-mail</string>
+    <string name="text_how_to_use">How to use</string>
+
+    <string name="title_developer_options">Developer Options</string>
+    <string name="text_debug">Debugger</string>
+    <string name="summary_debug">This will produce a lot of log files!</string>
 
     <string name="hint_permission">Please grant the permission</string>
-    <string name="hint_refresh_time">Please Enter Time(Min)</string>
+    <string name="hint_refresh_time">Please Enter Time (Min)</string>
     <string name="hint_text_size">Please Enter Number</string>
     <string name="hint_broadcast">The Broadcast Send! </string>
     <string name="hint_add_widget">Please Add Widget First! </string>
@@ -115,6 +121,10 @@
     <string name="hint_download_done">Download Success! </string>
     <string name="hint_error_network">NetWork error! </string>
     <string name="hint_download_sure">Are you sure you want to download this file?</string>
+    <string name="hint_how_to_add_widget">Long press the desktop and add the widget named Hitokoto to use widget.</string>
+    <string name="hint_how_to_refresh_text">If you want to refresh the current sentence, please click the sentence ( you must open the \"Click To Refresh\" first )! You can also open the \"Auto Refresh\" to do this! (Both \"Click To Refresh\" and \"Auto Refresh\" are opened by default)</string>
+    <string name="hint_how_to_download">In \"Custom Hitokoto/Download Hitokotos\", you can download the hitokoto files which someone upload to the cloud. Well, I\'ll do all things for you!</string>
+    <string name="hint_how_to_upload">You can also upload your own files to download! Just use Custom Hitokoto/Upload Hitokotos!</string>
 
     <string name="ErrorRefreshTime">Please ensure the time is more than 0 </string>
     <string name="ErrorNull">Text Can\'t be Null! </string>
@@ -165,4 +175,5 @@
     <string name="Delete">Delete</string>
     <string name="SelectAll">Select All</string>
     <string name="Edit">Edit</string>
+    <string name="hint_how_to_resolve_cannot_refresh">If you can\'t refresh text by click the sentence and opened the \"Click To Refresh\", try to remove the widget from your desktop and add the new one.</string>
 </resources>

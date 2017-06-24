@@ -1,0 +1,54 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mystery0.hitokoto.fragment.CustomSourceManagerFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <Button
+            android:id="@+id/test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Test"/>
+
+        <TextView
+            android:id="@+id/hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/test"
+            android:layout_marginTop="@dimen/item_show_margin"
+            android:gravity="center"
+            android:text="@string/hint_show_hitokoto"/>
+
+        <include
+            android:id="@+id/head"
+            layout="@layout/item_source"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_test_source_height"
+            android:layout_below="@id/hint"
+            android:layout_marginTop="@dimen/item_show_margin"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/head"/>
+
+        <TextView
+            android:id="@+id/null_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recyclerView"
+            android:gravity="center"
+            android:text="@string/hint_null_data"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

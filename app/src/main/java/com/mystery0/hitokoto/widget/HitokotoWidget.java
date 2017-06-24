@@ -31,7 +31,7 @@ public class HitokotoWidget extends AppWidgetProvider
 		for (int id : App.getIdsSet())
 		{
 			RemoteViews remoteViews;
-			switch (WidgetConfigure.getTextAligned())
+			switch (App.getWidgetConfigure().getTextAligned())
 			{
 				case 0:
 					remoteViews = new RemoteViews(context.getPackageName(), R.layout.hitokoto_widget_left);
@@ -43,21 +43,21 @@ public class HitokotoWidget extends AppWidgetProvider
 					remoteViews = new RemoteViews(context.getPackageName(), R.layout.hitokoto_widget_center);
 					break;
 			}
-			remoteViews.setViewPadding(R.id.appwidget_source, 0, WidgetConfigure.getTextPadding(), 0, 0);
+			remoteViews.setViewPadding(R.id.appwidget_source, 0, App.getWidgetConfigure().getTextPadding(), 0, 0);
 			remoteViews.setTextViewText(R.id.appwidget_text, text);
 			remoteViews.setTextViewText(R.id.appwidget_source, source);
-			remoteViews.setTextColor(R.id.appwidget_text, Color.parseColor(WidgetConfigure.getTextColor()));
-			remoteViews.setTextColor(R.id.appwidget_source, Color.parseColor(WidgetConfigure.getTextColor()));
-			if (WidgetConfigure.getNotShowSource())
+			remoteViews.setTextColor(R.id.appwidget_text, Color.parseColor(App.getWidgetConfigure().getTextColor()));
+			remoteViews.setTextColor(R.id.appwidget_source, Color.parseColor(App.getWidgetConfigure().getTextColor()));
+			if (App.getWidgetConfigure().getNotShowSource())
 			{
 				remoteViews.setViewVisibility(R.id.appwidget_source, View.GONE);
 			} else
 			{
 				remoteViews.setViewVisibility(R.id.appwidget_source, View.VISIBLE);
 			}
-			remoteViews.setTextViewTextSize(R.id.appwidget_text, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
-			remoteViews.setTextViewTextSize(R.id.appwidget_source, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
-			if (WidgetConfigure.getClickToRefresh())
+			remoteViews.setTextViewTextSize(R.id.appwidget_text, TypedValue.COMPLEX_UNIT_SP, App.getWidgetConfigure().getTextSize());
+			remoteViews.setTextViewTextSize(R.id.appwidget_source, TypedValue.COMPLEX_UNIT_SP, App.getWidgetConfigure().getTextSize());
+			if (App.getWidgetConfigure().getClickToRefresh())
 			{
 				Intent topIntent = new Intent(context, OnClickService.class);
 				PendingIntent topPendingIntent = PendingIntent.getService(context, 0, topIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -71,8 +71,8 @@ public class HitokotoWidget extends AppWidgetProvider
 	private void initWidget(Context context, int appId, AppWidgetManager appWidgetManager)
 	{
 		RemoteViews remoteViews;
-		String[] strings = WidgetConfigure.getTemp();
-		switch (WidgetConfigure.getTextAligned())
+		String[] strings = App.getWidgetConfigure().getTemp();
+		switch (App.getWidgetConfigure().getTextAligned())
 		{
 			case 0:
 				remoteViews = new RemoteViews(context.getPackageName(), R.layout.hitokoto_widget_left);
@@ -84,32 +84,32 @@ public class HitokotoWidget extends AppWidgetProvider
 				remoteViews = new RemoteViews(context.getPackageName(), R.layout.hitokoto_widget_center);
 				break;
 		}
-		String[] texts = WidgetConfigure.getTemp();
-		remoteViews.setViewPadding(R.id.appwidget_source, 0, WidgetConfigure.getTextPadding(), 0, 0);
+		String[] texts = App.getWidgetConfigure().getTemp();
+		remoteViews.setViewPadding(R.id.appwidget_source, 0, App.getWidgetConfigure().getTextPadding(), 0, 0);
 		remoteViews.setTextViewText(R.id.appwidget_text, texts[0]);
 		remoteViews.setTextViewText(R.id.appwidget_source, texts[1]);
-		remoteViews.setTextColor(R.id.appwidget_text, Color.parseColor(WidgetConfigure.getTextColor()));
-		remoteViews.setTextColor(R.id.appwidget_source, Color.parseColor(WidgetConfigure.getTextColor()));
-		if (WidgetConfigure.getNotShowSource())
+		remoteViews.setTextColor(R.id.appwidget_text, Color.parseColor(App.getWidgetConfigure().getTextColor()));
+		remoteViews.setTextColor(R.id.appwidget_source, Color.parseColor(App.getWidgetConfigure().getTextColor()));
+		if (App.getWidgetConfigure().getNotShowSource())
 		{
 			remoteViews.setViewVisibility(R.id.appwidget_source, View.GONE);
 		} else
 		{
 			remoteViews.setViewVisibility(R.id.appwidget_source, View.VISIBLE);
 		}
-		if (WidgetConfigure.getClickToRefresh())
+		if (App.getWidgetConfigure().getClickToRefresh())
 		{
 			Intent topIntent = new Intent(context, OnClickService.class);
 			PendingIntent topPendingIntent = PendingIntent.getService(context, 0, topIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			remoteViews.setOnClickPendingIntent(R.id.appwidget_text, topPendingIntent);
 			remoteViews.setOnClickPendingIntent(R.id.appwidget_source, topPendingIntent);
 		}
-		remoteViews.setTextViewTextSize(R.id.appwidget_text, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
-		remoteViews.setTextViewTextSize(R.id.appwidget_source, TypedValue.COMPLEX_UNIT_SP, WidgetConfigure.getTextSize());
+		remoteViews.setTextViewTextSize(R.id.appwidget_text, TypedValue.COMPLEX_UNIT_SP, App.getWidgetConfigure().getTextSize());
+		remoteViews.setTextViewTextSize(R.id.appwidget_source, TypedValue.COMPLEX_UNIT_SP, App.getWidgetConfigure().getTextSize());
 		appWidgetManager.updateAppWidget(appId, remoteViews);
 		if (strings[1].equals("开发者"))
 		{
-			WidgetConfigure.refreshText();
+			App.getWidgetConfigure().refreshText();
 		}
 	}
 
@@ -138,7 +138,7 @@ public class HitokotoWidget extends AppWidgetProvider
 	public void onEnabled(Context context)
 	{
 		Logs.i(TAG, "onEnabled: ");
-		WidgetConfigure.setEnable(true);
+		App.getWidgetConfigure().setEnable(true);
 		if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 				!= PackageManager.PERMISSION_GRANTED)
 		{
@@ -153,7 +153,7 @@ public class HitokotoWidget extends AppWidgetProvider
 	@Override
 	public void onDisabled(Context context)
 	{
-		WidgetConfigure.setEnable(false);
+		App.getWidgetConfigure().setEnable(false);
 		Logs.i(TAG, "onDisabled: ");
 		Intent intent = new Intent(context, WidgetService.class);
 		context.stopService(intent);

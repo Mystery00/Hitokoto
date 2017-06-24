@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.mystery0.hitokoto.widget.OnClickService;
-import com.mystery0.hitokoto.widget.WidgetConfigure;
 
 public class ShortCutsActivity extends AppCompatActivity
 {
@@ -14,14 +13,14 @@ public class ShortCutsActivity extends AppCompatActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		if (WidgetConfigure.getEnable())
+		if (App.getWidgetConfigure().getEnable())
 		{
-			startService(new Intent(App.getContext(), OnClickService.class));
-			Toast.makeText(App.getContext(), R.string.hint_broadcast, Toast.LENGTH_SHORT)
+			startService(new Intent(ShortCutsActivity.this, OnClickService.class));
+			Toast.makeText(ShortCutsActivity.this, R.string.hint_broadcast, Toast.LENGTH_SHORT)
 					.show();
 		} else
 		{
-			Toast.makeText(App.getContext(), R.string.hint_add_widget, Toast.LENGTH_SHORT)
+			Toast.makeText(ShortCutsActivity.this, R.string.hint_add_widget, Toast.LENGTH_SHORT)
 					.show();
 		}
 		finish();

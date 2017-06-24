@@ -24,13 +24,12 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoActionBar.Toolbar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts"/>
@@ -39,7 +38,7 @@
             android:name=".ShortCutsActivity"
             android:theme="@android:style/Theme.NoDisplay"/>
         <activity
-            android:name=".local.LocalHitokotoActivity"
+            android:name=".activity.LocalHitokotoActivity"
             android:label="@string/title_activity_custom_hitokoto"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -51,7 +50,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".local.LocalHitokotoManagerActivity"
+            android:name=".activity.LocalHitokotoManagerActivity"
             android:label="@string/title_activity_manager_hitokoto"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -106,15 +105,9 @@
         </provider>
 
         <activity
-            android:name=".custom.CustomSourceActivity"
-            android:label="@string/title_activity_custom_source"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
-            android:name=".local.DownloadActivity"
+            android:name=".activity.DownloadActivity"
             android:label="@string/title_activity_download"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

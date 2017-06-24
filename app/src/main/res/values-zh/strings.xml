@@ -19,7 +19,7 @@
     <string name="text_not_show_source">不显示来源</string>
     <string name="text_open_resource">Github地址</string>
     <string name="text_refresh_now">立即刷新</string>
-    <string name="text_refresh_time">设置刷新时间</string>
+    <string name="text_refresh_time">设置刷新时间（分）</string>
     <string name="text_show_crash">显示崩溃日志</string>
     <string name="text_show_current">显示当前</string>
     <string name="text_test_source">测试源</string>
@@ -116,4 +116,14 @@
     <string name="text_custom_hitokoto_upload">上传云端数据</string>
     <string name="title_activity_download">下载云端数据</string>
     <string name="hint_download_sure">你确定要下载这个文件吗？</string>
+    <string name="title_developer_options">开发者选项</string>
+    <string name="text_debug">开启应用调试</string>
+    <string name="summary_debug">这将会产生很多的log文件</string>
+    <string name="title_custom">自定义</string>
+    <string name="text_how_to_use">如何使用</string>
+    <string name="hint_how_to_add_widget">长按桌面添加名为Hitokoto的桌面小部件。</string>
+    <string name="hint_how_to_refresh_text">如果你想要刷新当前显示的句子，请点击它（必须提前开启“点击刷新”功能）！你也可以打开“自动刷新”功能来进行自动刷新。（“点击刷新”和“自动刷新”默认开启）</string>
+    <string name="hint_how_to_download">在“自定义/下载Hitokotos”中，你可以下载其他人上传到服务器的hitokotos文件，当然，Hitokoto会为你自动导入到数据库。</string>
+    <string name="hint_how_to_upload">你也可以上传你自己的文件来提供给别人下载，只需要使用“自定义/上传Hitokotos”功能。</string>
+    <string name="hint_how_to_resolve_cannot_refresh">如果点击句子无法进行刷新并且在设置中打开了“点击刷新”功能，尝试重新添加小部件。</string>
 </resources>

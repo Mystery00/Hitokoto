@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="@string/key_local_single_hitokoto"
+        android:title="@string/text_custom_single_hitokoto"/>
+
+    <Preference
+        android:key="@string/key_local_multiple_hitokoto"
+        android:title="@string/text_custom_multiple_hitokoto"/>
+
+    <Preference
+        android:key="@string/key_local_show_hitokoto"
+        android:title="@string/text_custom_show_hitokoto"/>
+
+    <Preference
+        android:key="@string/key_local_export_hitokotos"
+        android:title="@string/text_custom_hitokoto_export"/>
+
+    <Preference
+        android:key="@string/key_local_import_hitokotos"
+        android:title="@string/text_custom_hitokoto_import"/>
+
+    <Preference
+        android:key="@string/key_local_upload_hitokotos"
+        android:title="@string/text_custom_hitokoto_upload"/>
+
+    <Preference
+        android:key="@string/key_local_download_hitokotos"
+        android:title="@string/text_custom_hitokoto_download"/>
+
+</PreferenceScreen>

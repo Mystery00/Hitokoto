@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mystery0.hitokoto.local.LocalHitokotoActivity">
+    tools:context="com.mystery0.hitokoto.activity.LocalHitokotoActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -31,6 +31,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/item_show_margin"
         android:clickable="true"
+        android:focusable="true"
         app:fabSize="mini"
         app:srcCompat="@drawable/ic_add"/>
 

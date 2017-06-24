@@ -14,6 +14,9 @@
     <string name="key_not_show_source" translatable="false">key_not_show_source</string>
     <string name="key_show_crash_log" translatable="false">key_show_crash_log</string>
     <string name="key_contact_me" translatable="false">key_contact_me</string>
+    <string name="key_developer_options" translatable="false">key_developer_options</string>
+    <string name="key_debug" translatable="false">key_debug</string>
+    <string name="key_local_hitokoto" translatable="false">key_local_hitokoto</string>
     <string name="key_local_single_hitokoto" translatable="false">key_local_single_hitokoto</string>
     <string name="key_local_multiple_hitokoto" translatable="false">key_local_multiple_hitokoto</string>
     <string name="key_local_export_hitokotos" translatable="false">key_local_export_hitokotos</string>
@@ -25,4 +28,6 @@
     <string name="key_custom_source_new" translatable="false">key_custom_source_new</string>
     <string name="key_custom_source_manager" translatable="false">key_custom_source_manager</string>
     <string name="key_custom_source_helper" translatable="false">key_custom_source_helper</string>
+    <string name="key_about" translatable="false">key_about</string>
+    <string name="key_how_to_use" translatable="false">key_how_to_use</string>
 </resources>

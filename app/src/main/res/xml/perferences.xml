@@ -7,69 +7,34 @@
         <!--数据源设置-->
         <Preference
             android:key="@string/key_refresh_now"
-            android:title="@string/text_refresh_now">
-        </Preference>
+            android:title="@string/text_refresh_now"/>
+
         <Preference
             android:key="@string/key_show_current"
             android:title="@string/text_show_current"/>
+
         <Preference
             android:key="@string/key_test_source"
             android:title="@string/text_test_source"/>
+
         <MultiSelectListPreference
             android:entries="@array/list_source"
             android:entryValues="@array/list_source"
             android:key="@string/key_choose_source"
             android:title="@string/text_choose_source"/>
-        <PreferenceScreen
-            android:title="@string/title_custom_hitokoto">
 
-            <Preference
-                android:key="@string/key_local_single_hitokoto"
-                android:title="@string/text_custom_single_hitokoto"/>
+    </PreferenceCategory>
 
-            <Preference
-                android:key="@string/key_local_multiple_hitokoto"
-                android:title="@string/text_custom_multiple_hitokoto"/>
+    <PreferenceCategory
+        android:title="@string/title_custom">
 
-            <Preference
-                android:key="@string/key_local_show_hitokoto"
-                android:title="@string/text_custom_show_hitokoto"/>
+        <Preference
+            android:key="@string/key_local_hitokoto"
+            android:title="@string/title_custom_hitokoto"/>
 
-            <Preference
-                android:key="@string/key_local_export_hitokotos"
-                android:title="@string/text_custom_hitokoto_export"/>
-
-            <Preference
-                android:key="@string/key_local_import_hitokotos"
-                android:title="@string/text_custom_hitokoto_import"/>
-
-            <Preference
-                android:key="@string/key_local_upload_hitokotos"
-                android:title="@string/text_custom_hitokoto_upload"/>
-
-            <Preference
-                android:key="@string/key_local_download_hitokotos"
-                android:title="@string/text_custom_hitokoto_download"/>
-
-        </PreferenceScreen>
-
-        <PreferenceScreen
+        <Preference
             android:key="@string/key_custom_source"
-            android:title="@string/title_custom_source">
-
-            <Preference
-                android:key="@string/key_custom_source_new"
-                android:title="@string/text_custom_source_new"/>
-
-            <Preference
-                android:key="@string/key_custom_source_manager"
-                android:title="@string/text_custom_source_manager"/>
-
-            <Preference
-                android:key="@string/key_custom_source_helper"
-                android:title="@string/text_custom_source_helper"/>
-
-        </PreferenceScreen>
+            android:title="@string/title_custom_source"/>
 
     </PreferenceCategory>
 
@@ -79,9 +44,11 @@
         <CheckBoxPreference
             android:key="@string/key_auto_refresh"
             android:title="@string/text_auto_refresh"/>
+
         <CheckBoxPreference
             android:key="@string/key_click_to_refresh"
             android:title="@string/text_click_to_refresh"/>
+
         <EditTextPreference
             android:defaultValue="20"
             android:hint="@string/text_text_size"
@@ -89,6 +56,7 @@
             android:key="@string/key_set_text_padding"
             android:maxLines="1"
             android:title="@string/text_text_padding"/>
+
         <EditTextPreference
             android:defaultValue="5"
             android:hint="@string/hint_refresh_time"
@@ -96,15 +64,18 @@
             android:key="@string/key_set_refresh_time"
             android:maxLines="1"
             android:title="@string/text_refresh_time"/>
+
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:defaultValue="-1"
             android:key="@string/key_set_text_color"
             android:title="@string/text_text_color"/>
+
         <ListPreference
             android:entries="@array/list_aligned"
             android:entryValues="@array/list_aligned"
             android:key="@string/key_text_aligned"
             android:title="@string/text_text_aligned"/>
+
         <EditTextPreference
             android:defaultValue="16"
             android:hint="@string/hint_text_size"
@@ -134,22 +105,13 @@
                 android:data="https://github.com/Mystery00/Hitokoto"/>
         </Preference>
 
-        <PreferenceScreen
-            android:title="@string/text_about">
-            <Preference
-                android:summary="@string/summary_developer"
-                android:title="@string/text_developer"/>
+        <Preference
+            android:key="@string/key_about"
+            android:title="@string/text_about"/>
 
-            <Preference
-                android:key="@string/key_show_crash_log"
-                android:title="@string/text_show_crash"/>
-
-            <Preference
-                android:key="@string/key_contact_me"
-                android:summary="@string/summary_contact_me"
-                android:title="@string/text_contact_me"/>
-
-        </PreferenceScreen>
+        <Preference
+            android:key="@string/key_developer_options"
+            android:title="@string/title_developer_options"/>
 
     </PreferenceCategory>
 
