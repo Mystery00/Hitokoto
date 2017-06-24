@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.mystery0.hitokoto.widget.WidgetConfigure;
 import com.mystery0.tools.CrashHandler.CrashHandler;
 import com.mystery0.tools.Logs.Logs;
 
@@ -21,6 +22,7 @@ public class App extends Application
 	private static Set<Integer> idsSet = new HashSet<>();
 	private static RequestQueue requestQueue;
 	private static SharedPreferences sharedPreferences;
+	private static WidgetConfigure widgetConfigure;
 
 	@Override
 	public void onCreate()
@@ -28,6 +30,7 @@ public class App extends Application
 		super.onCreate();
 		context = getApplicationContext();
 		sharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), MODE_PRIVATE);
+		widgetConfigure=new WidgetConfigure(getApplicationContext());
 		requestQueue = Volley.newRequestQueue(getApplicationContext());
 		Logs.setLevel(Logs.LogLevel.Release);
 		LitePal.initialize(this);
@@ -41,6 +44,11 @@ public class App extends Application
 	public static Context getContext()
 	{
 		return context;
+	}
+
+	public static WidgetConfigure getWidgetConfigure()
+	{
+		return widgetConfigure;
 	}
 
 	public static RequestQueue getRequestQueue()
@@ -93,7 +101,10 @@ public class App extends Application
 			idsSet.clear();
 			idsSet.addAll(saveList);
 		}
-		FileTest.writeLog(message.toString());
+		if (widgetConfigure.getDebuggable())
+		{
+			FileTest.writeLog(message.toString());
+		}
 		return idsSet;
 	}
 }

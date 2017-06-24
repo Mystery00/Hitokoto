@@ -6,7 +6,6 @@ import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
-import com.mystery0.hitokoto.widget.WidgetConfigure;
 import com.mystery0.hitokoto.widget.WidgetService;
 import com.mystery0.tools.Logs.Logs;
 
@@ -20,11 +19,11 @@ public class HitokotoTileService extends TileService
 	{
 		Logs.i(TAG, "onTileAdded: ");
 		Tile tile = getQsTile();
-		if (!WidgetConfigure.getEnable())
+		if (!App.getWidgetConfigure().getEnable())
 		{
 			tile.setState(Tile.STATE_UNAVAILABLE);
 		}
-		if (WidgetConfigure.getAutoRefresh())
+		if (App.getWidgetConfigure().getAutoRefresh())
 		{
 			tile.setState(Tile.STATE_ACTIVE);
 		} else
@@ -39,11 +38,11 @@ public class HitokotoTileService extends TileService
 	{
 		Logs.i(TAG, "onStartListening: ");
 		Tile tile = getQsTile();
-		if (!WidgetConfigure.getEnable())
+		if (!App.getWidgetConfigure().getEnable())
 		{
 			tile.setState(Tile.STATE_UNAVAILABLE);
 		}
-		if (WidgetConfigure.getAutoRefresh())
+		if (App.getWidgetConfigure().getAutoRefresh())
 		{
 			tile.setState(Tile.STATE_ACTIVE);
 		} else
@@ -62,12 +61,12 @@ public class HitokotoTileService extends TileService
 		if (tile.getState() == Tile.STATE_ACTIVE)
 		{
 			tile.setState(Tile.STATE_INACTIVE);
-			WidgetConfigure.setAutoRefresh(false);
+			App.getWidgetConfigure().setAutoRefresh(false);
 			stopService(new Intent(App.getContext(), WidgetService.class));
 		} else
 		{
 			tile.setState(Tile.STATE_ACTIVE);
-			WidgetConfigure.setAutoRefresh(true);
+			App.getWidgetConfigure().setAutoRefresh(true);
 			startService(new Intent(App.getContext(), WidgetService.class));
 		}
 

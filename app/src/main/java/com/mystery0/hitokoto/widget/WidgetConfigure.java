@@ -33,33 +33,38 @@ import java.util.Set;
 @SuppressLint("StaticFieldLeak")
 public class WidgetConfigure
 {
-	private static final String TAG = "WidgetConfigure";
-	private static Context context = App.getContext();
-	private static Gson gson = new Gson();
-	private static SharedPreferences sharedPreferences = context.getSharedPreferences(context
-			.getString(R.string.sharedPreferencesName), Context.MODE_PRIVATE);
-	private static SharedPreferences.Editor editor = sharedPreferences.edit();
+	private final String TAG = "WidgetConfigure";
+	private Context context;
+	private Gson gson = new Gson();
+	private SharedPreferences sharedPreferences;
+
+	public WidgetConfigure(Context context)
+	{
+		this.context=context;
+		sharedPreferences = context.getSharedPreferences(context.getString(R.string.sharedPreferencesName), Context.MODE_PRIVATE);
+	}
 
 	public enum SourceType
 	{
 		INT, STRING
 	}
 
-	public static boolean getEnable()
+	public boolean getEnable()
 	{
 		boolean temp = sharedPreferences.getBoolean(context.getString(R.string.hitokotoConfigEnable), false);
 		Logs.i(TAG, "Enable: " + temp);
 		return temp;
 	}
 
-	public static void setEnable(boolean temp)
+	public void setEnable(boolean temp)
 	{
+		SharedPreferences.Editor editor=sharedPreferences.edit();
 		editor.putBoolean(context.getString(R.string.hitokotoConfigEnable), temp);
 		Logs.i(TAG, "setEnable: " + temp);
 		editor.apply();
 	}
 
-	public static Set<String> getChooseSource(SourceType type)
+	public Set<String> getChooseSource(SourceType type)
 	{
 		Set<String> defaults = new HashSet<>();
 		Set<String> stringSet = new HashSet<>();
@@ -80,8 +85,9 @@ public class WidgetConfigure
 		return stringSet;
 	}
 
-	public static void setChooseSource(Set<String> temps)
+	public void setChooseSource(Set<String> temps)
 	{
+		SharedPreferences.Editor editor=sharedPreferences.edit();
 		Set<String> stringSet = new HashSet<>();
 		String[] strings = context.getResources().getStringArray(R.array.list_source);
 		for (String temp : temps)
@@ -99,133 +105,142 @@ public class WidgetConfigure
 		editor.apply();
 	}
 
-	public static boolean getAutoRefresh()
+	public boolean getAutoRefresh()
 	{
 		boolean temp = sharedPreferences.getBoolean(context.getString(R.string.key_auto_refresh), true);
 		Logs.i(TAG, "AutoRefresh: " + temp);
 		return temp;
 	}
 
-	public static void setAutoRefresh(boolean temp)
+	public void setAutoRefresh(boolean temp)
 	{
+		SharedPreferences.Editor editor=sharedPreferences.edit();
 		editor.putBoolean(context.getString(R.string.key_auto_refresh), temp);
 		Logs.i(TAG, "setAutoRefresh: " + temp);
 		editor.apply();
 	}
 
-	public static boolean getClickToRefresh()
+	public boolean getClickToRefresh()
 	{
 		boolean temp = sharedPreferences.getBoolean(context.getString(R.string.hitokotoConfigClickToRefresh), true);
 		Logs.i(TAG, "ClickToRefresh: " + temp);
 		return temp;
 	}
 
-	public static void setClickToRefresh(boolean temp)
+	public void setClickToRefresh(boolean temp)
 	{
+		SharedPreferences.Editor editor=sharedPreferences.edit();
 		editor.putBoolean(context.getString(R.string.hitokotoConfigClickToRefresh), temp);
 		Logs.i(TAG, "setClickToRefresh: " + temp);
 		editor.apply();
 	}
 
-	public static String getTextColor()
+	public String getTextColor()
 	{
 		String temp = sharedPreferences.getString(context.getString(R.string.hitokotoConfigTextColor), "#FFFFFF");
 		Logs.i(TAG, "TextColor: " + temp);
 		return temp;
 	}
 
-	public static void setTextColor(String temp)
+	public void setTextColor(String temp)
 	{
+		SharedPreferences.Editor editor=sharedPreferences.edit();
 		editor.putString(context.getString(R.string.hitokotoConfigTextColor), temp);
 		Logs.i(TAG, "setTextColor: " + temp);
 		editor.apply();
 	}
 
-	public static boolean getNotShowSource()
+	public boolean getNotShowSource()
 	{
 		boolean temp = sharedPreferences.getBoolean(context.getString(R.string.hitokotoConfigNotShowSource), false);
 		Logs.i(TAG, "NotShowSource: " + temp);
 		return temp;
 	}
 
-	public static void setNotShowSource(boolean temp)
+	public void setNotShowSource(boolean temp)
 	{
+		SharedPreferences.Editor editor=sharedPreferences.edit();
 		editor.putBoolean(context.getString(R.string.hitokotoConfigNotShowSource), temp);
 		Logs.i(TAG, "setNotShowSource: " + temp);
 		editor.apply();
 	}
 
-	public static int getTextAligned()
+	public int getTextAligned()
 	{
 		int temp = sharedPreferences.getInt(context.getString(R.string.hitokotoConfigTextAligned), 1);
 		Logs.i(TAG, "TextAligned: " + temp);
 		return temp;
 	}
 
-	public static void setTextAligned(int temp)
+	public void setTextAligned(int temp)
 	{
+		SharedPreferences.Editor editor=sharedPreferences.edit();
 		editor.putInt(context.getString(R.string.hitokotoConfigTextAligned), temp);
 		Logs.i(TAG, "setTextAligned: " + temp);
 		editor.apply();
 	}
 
-	public static int getTextSize()
+	public int getTextSize()
 	{
 		int temp = sharedPreferences.getInt(context.getString(R.string.hitokotoConfigTextSize), 16);
 		Logs.i(TAG, "TextSize: " + temp);
 		return temp;
 	}
 
-	public static void setTextSize(int temp)
+	public void setTextSize(int temp)
 	{
+		SharedPreferences.Editor editor=sharedPreferences.edit();
 		editor.putInt(context.getString(R.string.hitokotoConfigTextSize), temp);
 		Logs.i(TAG, "setTextSize: " + temp);
 		editor.apply();
 	}
 
-	public static int getTextPadding()
+	public int getTextPadding()
 	{
 		int temp = sharedPreferences.getInt(context.getString(R.string.hitokotoConfigTextPadding), 20);
 		Logs.i(TAG, "TextPadding: " + temp);
 		return temp;
 	}
 
-	public static void setTextPadding(int temp)
+	public void setTextPadding(int temp)
 	{
+		SharedPreferences.Editor editor=sharedPreferences.edit();
 		editor.putInt(context.getString(R.string.hitokotoConfigTextPadding), temp);
 		Logs.i(TAG, "setTextPadding: " + temp);
 		editor.apply();
 	}
 
-	public static int getRefreshTime()
+	public int getRefreshTime()
 	{
 		long temp = sharedPreferences.getLong(context.getString(R.string.hitokotoConfigRefreshTime), 300000);
 		Logs.i(TAG, "RefreshTime: " + temp);
 		return (int) (temp / 60000);
 	}
 
-	public static void setRefreshTime(int temp)
+	public void setRefreshTime(int temp)
 	{
+		SharedPreferences.Editor editor=sharedPreferences.edit();
 		editor.putLong(context.getString(R.string.hitokotoConfigRefreshTime), temp * 60000);
 		Logs.i(TAG, "setRefreshTime: " + temp);
 		editor.apply();
 	}
 
-	public static Boolean getDebuggable()
+	public Boolean getDebuggable()
 	{
 		Boolean temp = sharedPreferences.getBoolean(context.getString(R.string.isDebuggable), false);
 		Logs.i(TAG, "Debuggable: " + temp);
 		return temp;
 	}
 
-	public static void setDebuggable(boolean isDebuggable)
+	public void setDebuggable(boolean isDebuggable)
 	{
+		SharedPreferences.Editor editor=sharedPreferences.edit();
 		editor.putBoolean(context.getString(R.string.isDebuggable), isDebuggable);
 		Logs.i(TAG, "setDebuggable: " + isDebuggable);
 		editor.apply();
 	}
 
-	public static String[] getTemp()
+	public String[] getTemp()
 	{
 		String text = sharedPreferences
 				.getString(context.getString(R.string.hitokotoTemp), context.getString(R.string.default_temp));
@@ -241,7 +256,7 @@ public class WidgetConfigure
 		return new String[]{hitokoto.getHitokoto(), hitokoto.getFrom()};
 	}
 
-	public static void refreshText()
+	public void refreshText()
 	{
 		Logs.i(TAG, "refreshText: 刷新文本");
 		Map<String, String> map = new HashMap<>();
@@ -332,8 +347,7 @@ public class WidgetConfigure
 									Toast.makeText(App.getContext(), context.getString(R.string.hint_network_error), Toast.LENGTH_SHORT)
 											.show();
 								}
-								editor.putString(context.getString(R.string.hitokotoTemp), gson.toJson(hitokoto));
-								editor.apply();
+								sharedPreferences.edit().putString(context.getString(R.string.hitokotoTemp), gson.toJson(hitokoto)).apply();
 								Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
 								intent.putExtra(context.getString(R.string.hitokoto_object), hitokoto);
 								context.sendBroadcast(intent);
@@ -374,8 +388,7 @@ public class WidgetConfigure
 							Toast.makeText(App.getContext(), context.getString(R.string.hint_network_error), Toast.LENGTH_SHORT)
 									.show();
 						}
-						editor.putString(context.getString(R.string.hitokotoTemp), message);
-						editor.apply();
+						sharedPreferences.edit().putString(context.getString(R.string.hitokotoTemp), message).apply();
 						Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
 						intent.putExtra(context.getString(R.string.hitokoto_object), hitokoto);
 						context.sendBroadcast(intent);

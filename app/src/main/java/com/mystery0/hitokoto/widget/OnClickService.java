@@ -18,7 +18,7 @@ public class OnClickService extends Service
     public void onCreate()
     {
         super.onCreate();
-        WidgetConfigure.refreshText();
+        App.getWidgetConfigure().refreshText();
         stopService(new Intent(App.getContext(), OnClickService.class));
     }
 }

@@ -14,7 +14,7 @@ public class ShortCutsActivity extends AppCompatActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		if (WidgetConfigure.getEnable())
+		if (App.getWidgetConfigure().getEnable())
 		{
 			startService(new Intent(ShortCutsActivity.this, OnClickService.class));
 			Toast.makeText(ShortCutsActivity.this, R.string.hint_broadcast, Toast.LENGTH_SHORT)

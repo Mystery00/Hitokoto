@@ -175,21 +175,21 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 		customSourceManager = findPreference(getString(R.string.key_custom_source_manager));
 		customSourceHelper = findPreference(getString(R.string.key_custom_source_helper));
 
-		autoRefresh.setChecked(WidgetConfigure.getAutoRefresh());
-		clickToRefresh.setChecked(WidgetConfigure.getClickToRefresh());
-		notShowSource.setChecked(WidgetConfigure.getNotShowSource());
-		textAligned.setSummary(getResources().getStringArray(R.array.list_aligned)[WidgetConfigure.getTextAligned()]);
-		textAligned.setValueIndex(WidgetConfigure.getTextAligned());
-		setTextColor.setSummary(WidgetConfigure.getTextColor());
-		setTextColor.setDefaultValue(Color.parseColor(WidgetConfigure.getTextColor()));
-		chooseSource.setValues(WidgetConfigure.getChooseSource(WidgetConfigure.SourceType.STRING));
-		setTextPadding.setSummary("" + WidgetConfigure.getTextPadding());
-		setTextPadding.setDefaultValue(WidgetConfigure.getTextPadding());
-		setRefreshTime.setSummary("" + WidgetConfigure.getRefreshTime());
-		setRefreshTime.setDefaultValue(WidgetConfigure.getRefreshTime());
-		textSize.setSummary("" + WidgetConfigure.getTextSize());
-		textSize.setDefaultValue(WidgetConfigure.getTextSize());
-		isDebuggable.setChecked(WidgetConfigure.getDebuggable());
+		autoRefresh.setChecked(App.getWidgetConfigure().getAutoRefresh());
+		clickToRefresh.setChecked(App.getWidgetConfigure().getClickToRefresh());
+		notShowSource.setChecked(App.getWidgetConfigure().getNotShowSource());
+		textAligned.setSummary(getResources().getStringArray(R.array.list_aligned)[App.getWidgetConfigure().getTextAligned()]);
+		textAligned.setValueIndex(App.getWidgetConfigure().getTextAligned());
+		setTextColor.setSummary(App.getWidgetConfigure().getTextColor());
+		setTextColor.setDefaultValue(Color.parseColor(App.getWidgetConfigure().getTextColor()));
+		chooseSource.setValues(App.getWidgetConfigure().getChooseSource(WidgetConfigure.SourceType.STRING));
+		setTextPadding.setSummary("" + App.getWidgetConfigure().getTextPadding());
+		setTextPadding.setDefaultValue(App.getWidgetConfigure().getTextPadding());
+		setRefreshTime.setSummary("" + App.getWidgetConfigure().getRefreshTime());
+		setRefreshTime.setDefaultValue(App.getWidgetConfigure().getRefreshTime());
+		textSize.setSummary("" + App.getWidgetConfigure().getTextSize());
+		textSize.setDefaultValue(App.getWidgetConfigure().getTextSize());
+		isDebuggable.setChecked(App.getWidgetConfigure().getDebuggable());
 		PreferenceManager.setDefaultValues(this, R.xml.perferences, false);
 	}
 
@@ -203,10 +203,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 				Logs.i(TAG, "onPreferenceChange: " + newValue.toString());
 				String temp = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
 				preference.setSummary(temp);
-				WidgetConfigure.setTextColor(temp);
-				if (WidgetConfigure.getEnable())
+				App.getWidgetConfigure().setTextColor(temp);
+				if (App.getWidgetConfigure().getEnable())
 				{
-					WidgetConfigure.refreshText();
+					App.getWidgetConfigure().refreshText();
 				}
 				return true;
 			}
@@ -216,9 +216,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 			@Override
 			public boolean onPreferenceClick(Preference preference)
 			{
-				if (WidgetConfigure.getEnable())
+				if (App.getWidgetConfigure().getEnable())
 				{
-					WidgetConfigure.refreshText();
+					App.getWidgetConfigure().refreshText();
 					Toast.makeText(App.getContext(), R.string.hint_broadcast, Toast.LENGTH_SHORT)
 							.show();
 				} else
@@ -241,7 +241,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 				TextView source = view.findViewById(R.id.source);
 				setOnClick(content);
 				setOnClick(source);
-				String[] temp = WidgetConfigure.getTemp();
+				String[] temp = App.getWidgetConfigure().getTemp();
 				content.setText(temp[0]);
 				source.setText(temp[1]);
 				new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle)
@@ -955,39 +955,39 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Sha
 		Logs.i(TAG, "onSharedPreferenceChanged: " + key);
 		if (key.equals(getString(R.string.key_choose_source)))
 		{
-			WidgetConfigure.setChooseSource(chooseSource.getValues());
+			App.getWidgetConfigure().setChooseSource(chooseSource.getValues());
 		} else if (key.equals(getString(R.string.key_auto_refresh)))
 		{
-			WidgetConfigure.setAutoRefresh(autoRefresh.isChecked());
+			App.getWidgetConfigure().setAutoRefresh(autoRefresh.isChecked());
 		} else if (key.equals(getString(R.string.key_click_to_refresh)))
 		{
-			WidgetConfigure.setClickToRefresh(clickToRefresh.isChecked());
+			App.getWidgetConfigure().setClickToRefresh(clickToRefresh.isChecked());
 		} else if (key.equals(getString(R.string.key_text_aligned)))
 		{
-			WidgetConfigure.setTextAligned(textAligned.findIndexOfValue(textAligned.getValue()));
-			textAligned.setSummary(getResources().getStringArray(R.array.list_aligned)[WidgetConfigure.getTextAligned()]);
+			App.getWidgetConfigure().setTextAligned(textAligned.findIndexOfValue(textAligned.getValue()));
+			textAligned.setSummary(getResources().getStringArray(R.array.list_aligned)[App.getWidgetConfigure().getTextAligned()]);
 		} else if (key.equals(getString(R.string.key_text_size)))
 		{
-			WidgetConfigure.setTextSize(Integer.parseInt("0" + textSize.getEditText().getText().toString()));
-			textSize.setSummary("" + WidgetConfigure.getTextSize());
+			App.getWidgetConfigure().setTextSize(Integer.parseInt("0" + textSize.getEditText().getText().toString()));
+			textSize.setSummary("" + App.getWidgetConfigure().getTextSize());
 		} else if (key.equals(getString(R.string.key_not_show_source)))
 		{
-			WidgetConfigure.setNotShowSource(notShowSource.isChecked());
+			App.getWidgetConfigure().setNotShowSource(notShowSource.isChecked());
 		} else if (key.equals(getString(R.string.key_set_refresh_time)))
 		{
-			WidgetConfigure.setRefreshTime(Integer.parseInt("0" + setRefreshTime.getEditText().getText().toString()));
-			setRefreshTime.setSummary("" + WidgetConfigure.getRefreshTime());
+			App.getWidgetConfigure().setRefreshTime(Integer.parseInt("0" + setRefreshTime.getEditText().getText().toString()));
+			setRefreshTime.setSummary("" + App.getWidgetConfigure().getRefreshTime());
 		} else if (key.equals(getString(R.string.key_set_text_padding)))
 		{
-			WidgetConfigure.setTextPadding(Integer.parseInt("0" + setTextPadding.getEditText().getText().toString()));
-			setTextPadding.setSummary("" + WidgetConfigure.getTextPadding());
+			App.getWidgetConfigure().setTextPadding(Integer.parseInt("0" + setTextPadding.getEditText().getText().toString()));
+			setTextPadding.setSummary("" + App.getWidgetConfigure().getTextPadding());
 		} else if (key.equals(getString(R.string.key_debug)))
 		{
-			WidgetConfigure.setDebuggable(isDebuggable.isChecked());
+			App.getWidgetConfigure().setDebuggable(isDebuggable.isChecked());
 		}
-		if (WidgetConfigure.getEnable())
+		if (App.getWidgetConfigure().getEnable())
 		{
-			WidgetConfigure.refreshText();
+			App.getWidgetConfigure().refreshText();
 		}
 	}
 
