@@ -35,6 +35,9 @@
 
 		<service
 			android:name=".service.ClickIntentService"
+			android:exported="false" />
+		<service
+			android:name=".service.HitokotoIntentService"
 			android:exported="false"/>
 	</application>
 

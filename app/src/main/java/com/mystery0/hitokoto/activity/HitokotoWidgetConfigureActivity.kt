@@ -23,7 +23,7 @@ class HitokotoWidgetConfigureActivity : Activity() {
 		val widgetText = mAppWidgetText.text.toString()
 		saveTitlePref(context, mAppWidgetId, widgetText)
 
-		HitokotoWidget.updateAppWidget(context)
+//		HitokotoWidget.updateAppWidget(context)
 
 		val resultValue = Intent()
 		resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId)
